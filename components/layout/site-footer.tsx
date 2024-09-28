@@ -50,7 +50,7 @@ export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
           <p className="text-left text-sm text-muted-foreground">
             Powered by{" "}
             <Link
-              href="https://headshots.fun"
+              href="https://dreambez.com"
               target="_blank"
               className="font-medium underline underline-offset-4"
             >
