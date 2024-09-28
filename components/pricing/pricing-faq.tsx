@@ -10,7 +10,7 @@ import { HeaderSection } from "../shared/header-section";
 const pricingFaqData = [
   {
     id: "item-1",
-    question: "What is HeadShots.fun?",
+    question: "What is DreamBez.com?",
     answer: "HeadShots.fun is an AI-powered platform that allows you to create unique and stunning headshots quickly and easily, personalized for every occasion.",
   },
   {
