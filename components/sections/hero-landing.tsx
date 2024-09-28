@@ -21,7 +21,7 @@ export default async function HeroLanding() {
           <span className="mr-2">
             🚀
           </span>
-          HeadShots.fun is now open source on
+          DreamBez.com es un proyecto de código abierto inspirado en HeadShots.fun
           <Icons.github className="mx-1 size-3" />
           GitHub!
         </Link>
