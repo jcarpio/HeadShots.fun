@@ -11,7 +11,7 @@ export default async function HeroLanding() {
     <section className="space-y-6 py-12 sm:py-20 lg:py-20">
       <div className="container flex max-w-5xl flex-col items-center gap-5 text-center">
         <Link
-          href="https://github.com/UllrAI/HeadShots.fun"
+          href="https://github.com/jcarpio/DreamBez"
           className={cn(
             buttonVariants({ variant: "outline", size: "sm", rounded: "full" }),
             "px-4",
@@ -27,9 +27,9 @@ export default async function HeroLanding() {
         </Link>
 
         <h1 className="text-balance font-urban text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-[66px]">
-          Fun & Pro for Every Occasion, Just Shoot at{" "}
+          DreamBez{" "}
           <span className="text-gradient_indigo-purple font-extrabold">
-            HeadShots.fun
+            DreamBez.com
           </span>
         </h1>
 
@@ -37,7 +37,7 @@ export default async function HeroLanding() {
           className="max-w-3xl text-balance leading-normal text-muted-foreground sm:text-xl sm:leading-8"
           style={{ animationDelay: "0.35s", animationFillMode: "forwards" }}
         >
-          Get unique and stunning headshots using the fastest AI technology at HeadShots.fun. Quick, easy, and personalized for you.
+          Si puedes verlo, puedes crearlo.
         </p>
 
         <div
@@ -52,7 +52,7 @@ export default async function HeroLanding() {
               "gap-2",
             )}
           >
-            <span>Get Your AI HeadShots Now</span>
+            <span>Consigue ahora tu Álbum de Sueños</span>
             <Icons.arrowRight className="size-4" />
           </Link>
         </div>
