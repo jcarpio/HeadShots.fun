@@ -54,15 +54,15 @@ export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
               target="_blank"
               className="font-medium underline underline-offset-4"
             >
-              HeadShots.fun
+              DreamBez.com
             </Link>
             . Open source by {" "}
             <Link
-              href="https://ullrai.com"
+              href="https://enkire.com"
               target="_blank"
               className="font-medium underline underline-offset-4"
             >
-              UllrAI Lab
+              Enkire
             </Link>
             .
           </p>
