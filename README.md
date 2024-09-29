@@ -73,8 +73,7 @@ This release empowers developers to contribute, customize, and extend the platfo
 - 🌟 Star this repo to show your support
 - 👀 Explore the code and documentation
 - 🛠️ Submit issues and pull requests
-- 💬 Join our [Discord community](https://discord.gg/vdqwAcp7mf) to connect with other developers
-- 🐦 Follow us on [Twitter/X](https://twitter.com/ullr_ai) for the latest news
+- 🐦 Follow us on [Twitter/X](https://twitter.com/jcarpio) for the latest news
 
 ## License
 This project is released under the [AGPL 3.0](./LICENSE.md). 
