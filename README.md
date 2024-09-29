@@ -45,7 +45,7 @@ DreamBez.com is an AI-powered SaaS platform that generates hyper realistic image
 
 ## Tech Stack
 
-This project is built upon [next-saas-stripe-starter](https://github.com/mickasmt/next-saas-stripe-starter) and [HeaShots.fun]([https://github.com/UllrAI/HeadShots.fun)), two open-source projects. Next-saas-stripe-starter provides an excellent SaaS boilerplate for Next.js and Stripe integration. We extend our sincere gratitude to the original authors for their valuable contribution. HeadShots.fun provides an open-source SaaS platform that uses Replicate AI models and Stripe for payment processing. 
+This project is built upon [next-saas-stripe-starter](https://github.com/mickasmt/next-saas-stripe-starter) and [HeaShots.fun]([https://github.com/UllrAI/HeadShots.fun) , two open-source projects. Next-saas-stripe-starter provides an excellent SaaS boilerplate for Next.js and Stripe integration. We extend our sincere gratitude to the original authors for their valuable contribution. HeadShots.fun provides an open-source SaaS platform that uses Replicate AI models and Stripe for payment processing. 
 
 ### Frameworks & Libraries
 - [Next.js](https://nextjs.org/?from=headshots.fun) – React framework for building performant apps
