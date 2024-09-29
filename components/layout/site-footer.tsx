@@ -53,8 +53,13 @@ export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
               href="https://dreambez.com"
               target="_blank"
               className="font-medium underline underline-offset-4"
+            > DreamBez.com </Link> and inspired by {" "}
+            <Link
+              href="https://headshots.fun"
+              target="_blank"
+              className="font-medium underline underline-offset-4"
             >
-              DreamBez.com
+              HeadShots.fun
             </Link>
             . Open source by {" "}
             <Link
