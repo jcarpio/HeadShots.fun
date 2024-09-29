@@ -75,28 +75,28 @@ export const testimonials: TestimonialType[] = [
   {
     name: "Jesus Ortiz",
     job: "CEO de Pinturas Ortiz",
-    image: "/_static/testimonial/jesus_ortiz.jpg",
+    image: "/_static/index/jesus_ortiz.jpg",
     review:
       "Verme en esas situaciones me han hecho replantearme muchas cosas sobre mi vida",
   },
   {
     name: "Jesus Toscano",
     job: "Emprendedor",
-    image: "/_static/testimonial/jesus_toscano.jpg",
+    image: "/_static/index/jesus_toscano.jpg",
     review:
       "Me vengo arriba cuándo veo la foto si estoy de bajón después de la quimio",
   },
   {
     name: "Alejandro Ortiz",
     job: "CEO de New Concept Tarifa",
-    image: "/_static/testimonial/alejandro_ortiz.jpg",
+    image: "/_static/index/alejandro_ortiz.jpg",
     review:
       "Me ha gustado mucho verme como millonario, con todo lo que eso puede suponer como persona",
   },
     {
     name: "Jose Carpio",
     job: "Profesor y CEO de Enkire",
-    image: "/_static/testimonial/jose_carpio.jpg",
+    image: "/_static/index/jose_carpio.jpg",
     review:
       "Me puse a llorar cuándo vi mi foto. Siempre pensé: como hubiese sido sin esta enfermedad y ahí estaba era yo, fuerte, con pelo, feliz. Esa es mi verdadera esencia.",
   },
