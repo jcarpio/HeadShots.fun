@@ -92,6 +92,7 @@ export const testimonials: TestimonialType[] = [
     image: "/_static/testimonial/alejandro_ortiz.jpg",
     review:
       "Me ha gustado mucho verme como millonario, con todo lo que eso puede suponer como persona",
+  },
     {
     name: "Jose Carpio",
     job: "Profesor y CEO de Enkire",
