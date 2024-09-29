@@ -82,4 +82,4 @@ If the main contributors agree, we may switch to a more permissive license in fu
 Please ensure that the Powered link remains in the footer.
 
 ---
-[HeadShots.fun](https://headshots.fun/?from=GitHub) - Fun & Pro for Every Occasion, Just Shoot!
+[DreamBez.com](https://dreambez.com/?from=GitHub) - Bezualize your Dreams!
