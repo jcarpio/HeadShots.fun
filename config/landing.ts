@@ -4,7 +4,7 @@ export const infos: InfoLdg[] = [
   {
     title: "Empower Your Creativity",
     description:
-      "Unlock the fun and potential of your headshots with HeadShots.fun. Transform simple snapshots into captivating AI-enhanced images that reflect your true self.",
+      "Unlock the fun and potential of your headshots with DreamBez.com. Transform simple snapshots into captivating AI-enhanced images that reflect your true self.",
     image: "/_static/illustrations/work-from-home.jpg",
     list: [
       {
@@ -73,59 +73,30 @@ export const features: FeatureLdg[] = [
 
 export const testimonials: TestimonialType[] = [
   {
-    name: "Sarah Green",
-    job: "Portrait Photographer",
-    image: "https://randomuser.me/api/portraits/women/10.jpg",
+    name: "Jesus Ortiz",
+    job: "CEO de Pinturas Ortiz",
+    image: "/_static/testimonial/jesus_ortiz.jpg",
     review:
-    "HeadShots.fun has completely transformed my workflow. The AI tools are not only efficient but also fun to use, making the headshot creation process both professional and enjoyable.",
+      "Verme en esas situaciones me han hecho replantearme muchas cosas sobre mi vida",
   },
   {
-    name: "Laura Bennett",
-    job: "Digital Marketing Specialist",
-    image: "https://randomuser.me/api/portraits/women/14.jpg",
+    name: "Jesus Toscano",
+    job: "Emprendedor",
+    image: "/_static/testimonial/jesus_toscano.jpg",
     review:
-      "HeadShots.fun made it super easy to create professional headshots for all my social media campaigns. ",
+      "Me vengo arriba cuándo veo la foto si estoy de bajón después de la quimio",
   },
   {
-    name: "Michael Carter",
-    job: "Brand Strategist",
-    image: "https://randomuser.me/api/portraits/men/11.jpg",
+    name: "Alejandro Ortiz",
+    job: "CEO de New Concept Tarifa",
+    image: "/_static/testimonial/alejandro_ortiz.jpg",
     review:
-      "HeadShots.fun has significantly enhanced my brand work by providing professional-quality images that perfectly align with my brand's style.",
-  },
-  {
-    name: "Olivia Turner",
-    job: "Startup Founder",
-    image: "https://randomuser.me/api/portraits/women/12.jpg",
+      "Me ha gustado mucho verme como millonario, con todo lo que eso puede suponer como persona",
+    {
+    name: "Jose Carpio",
+    job: "Profesor y CEO de Enkire",
+    image: "/_static/testimonial/jose_carpio.jpg",
     review:
-      "Creating headshots for my startup has never been this easy and enjoyable. HeadShots.fun delivers fantastic results while keeping the process light and fun.",
-  },
-  {
-    name: "David Harris",
-    job: "Creative Director",
-    image: "https://randomuser.me/api/portraits/men/13.jpg",
-    review:
-      "I love how HeadShots.fun balances creativity and professionalism. The flexibility of the AI tools allows me to design headshots that are both fun and perfectly suited to my creative projects.",
-  },
-  {
-    name: "Chris Wilson",
-    job: "Full-Stack Developer",
-    image: "https://randomuser.me/api/portraits/men/15.jpg",
-    review:
-      "The efficiency and quality of HeadShots.fun are outstanding. I was able to create studio-quality headshots in minutes, and the process was surprisingly enjoyable.",
-  },
-  {
-    name: "Emma Collins",
-    job: "Marketing Coordinator",
-    image: "https://randomuser.me/api/portraits/women/16.jpg",
-    review:
-      "HeadShots.fun has been a valuable tool for our marketing campaigns. The AI-generated headshots are not only professional but also have a unique, fun element that makes our profiles stand out.",
-  },
-  {
-    name: "John Doe",
-    job: "CEO",
-    image: "https://randomuser.me/api/portraits/men/17.jpg",
-    review:
-      "The quality and speed of HeadShots.fun are impressive. I was able to create a professional headshot that looks like it was done in a studio, all within minutes.",
+      "Me puse a llorar cuándo vi mi foto. Siempre pensé: como hubiese sido sin esta enfermedad y ahí estaba era yo, fuerte, con pelo, feliz. Esa es mi verdadera esencia.",
   },
 ];
