@@ -11,7 +11,7 @@ export default function PreviewLanding() {
             <a href="/generator-styles">
               <Image
                 className="object-cen size-full object-cover dark:opacity-75"
-                src="/_static/index/preview-landing-dreambez2.png"
+                src="/_static/index/preview-landing-dreambez2.jpg"
                 alt="preview landing"
                 width={1260}
                 height={840}
