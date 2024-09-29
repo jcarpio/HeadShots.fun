@@ -1,18 +1,18 @@
-# HeadShots.fun
+# DreamBez.com
 
-🎉 **Exciting news: HeadShots.fun is now open source!**
+🎉 **Exciting news: DreamBez.com is now open source!**
 
 ## About
 
-HeadShots.fun is an AI-powered SaaS platform that generates fun or professional headshots in just 10 seconds. Our goal is to provide high-quality, personalized headshots for everyone through advanced AI technology and user-friendly design.
+DreamBez.com is an AI-powered SaaS platform that generates hyper realistic images. Our goal is to provide high-quality, personalized headshots for everyone through advanced AI technology and user-friendly design.
 
-## Why HeadShots.fun?
+## Why DreamBez.com?
 
 - 🎨 **Instant Creativity**: Generate unique headshots in seconds
 - 🌈 **Endless Customization**: Tailor your image with AI-powered tools
 - 📸 **Stand with Fastest AI Model**: Generate your headshots within seconds
 - 📱 **Responsive Design**: Seamless cross-device experience
-- 💼 **SaaS Ready**: Stripe ready, ready for your HeadShots SaaS idea
+- 💼 **SaaS Ready**: Stripe ready, ready for your Photo Dreams SaaS idea
 
 ## Key Features
 
@@ -23,7 +23,7 @@ HeadShots.fun is an AI-powered SaaS platform that generates fun or professional 
 
 ## Deploy with Vercel
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FUllrAI%2FHeadShots.fun)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2jcarpio%2FDreamBez)
 
 
 ## Dev Steps
@@ -45,7 +45,7 @@ HeadShots.fun is an AI-powered SaaS platform that generates fun or professional 
 
 ## Tech Stack
 
-This project is built upon [next-saas-stripe-starter](https://github.com/mickasmt/next-saas-stripe-starter), an open-source project licensed under the MIT License. It provides an excellent SaaS boilerplate for Next.js and Stripe integration. We extend our sincere gratitude to the original authors for their valuable contribution.
+This project is built upon [next-saas-stripe-starter](https://github.com/mickasmt/next-saas-stripe-starter) and [HeaShots.fun]([https://github.com/UllrAI/HeadShots.fun)), two open-source projects. Next-saas-stripe-starter provides an excellent SaaS boilerplate for Next.js and Stripe integration. We extend our sincere gratitude to the original authors for their valuable contribution. HeadShots.fun provides an open-source SaaS platform that uses Replicate AI models and Stripe for payment processing. 
 
 ### Frameworks & Libraries
 - [Next.js](https://nextjs.org/?from=headshots.fun) – React framework for building performant apps
@@ -66,7 +66,7 @@ This project is built upon [next-saas-stripe-starter](https://github.com/mickasm
 
 ## Open Source Release
 
-We're thrilled to announce that HeadShots.fun is now open source! 
+We're thrilled to announce that DreamBez.com is now open source! 
 This release empowers developers to contribute, customize, and extend the platform. 
 
 ## Get Involved
