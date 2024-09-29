@@ -18,10 +18,10 @@ const s3Client = new S3Client({
     },
 });
 
-// 定义一个新的接口来扩展 NextRequest
+// Define a new interface to extend NextRequest
 interface AuthenticatedRequest extends NextRequest {
     auth: {
-        user: any; // 你可能想要使用更具体的用户类型
+        user: any; // You may want to use a more specific user type
     } | null;
 }
 
