@@ -9,7 +9,7 @@ export const POST = auth(async (req) => {
   try {
     const { name, type, modelVersion, hf_lora, images } = await req.json();
 
-    if (!name || !type || !images || images.length === 0) {
+    if (!name || !type || !modelVersion || !hf_lora || !images || images.length === 0) {
       return new Response("Missing required fields", { status: 400 });
     }
 
