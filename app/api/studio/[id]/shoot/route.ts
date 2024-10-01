@@ -22,13 +22,13 @@ export async function POST(request: Request, { params }: { params: { id: string 
           return NextResponse.json({ error: "Studio not found" }, { status: 404 });
         }
 
-        const aspect_ratio =  "9:16";
+        let aspect_ratio =  "9:16";
         const default_negative_prompt = "flaws in the eyes, flaws in the face, flaws, lowres, non-HDRi, low quality, worst quality,artifacts noise, text, watermark, glitch, deformed, mutated, ugly, disfigured, hands, low resolution, partially rendered objects,  deformed or partially rendered eyes, deformed, deformed eyeballs, cross-eyed,blurry,border, picture frame";
         const final_prompt = prompt.replace(`{prompt}`, `joselapasion a ${studio.type} with shaved head and 168cm tall `) + `,headshot of joselapasion a ${studio.type} `;
         console.log("final_prompt", final_prompt);
 
         // Set width and height based on aspectRatio
-        let width, height;
+        // let width, height;
         /* switch (aspectRatio) {
             case "Portrait":
                 width = 768;
@@ -54,6 +54,7 @@ export async function POST(request: Request, { params }: { params: { id: string 
             case "Square":
                 aspect_ratio = "1:1";
                 break;
+                
             default:
                 return NextResponse.json({ error: "Invalid aspect ratio" }, { status: 400 });
         }
