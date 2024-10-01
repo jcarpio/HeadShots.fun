@@ -17,7 +17,6 @@ export const POST = auth(async (req) => {
       data: {
         name,
         type,
-        modelVersion,
         images,
         userId: req.auth.user.id,
       },
