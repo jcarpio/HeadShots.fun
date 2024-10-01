@@ -85,6 +85,7 @@ model Studio {
   modelUser   String?
   modelVersion String?
   hf_lora     String?
+  status      String   @default("pending") // "pending", "processing", "completed", "failed"
   images      String[]
   userId      String
   user        User         @relation(fields: [userId], references: [id])
