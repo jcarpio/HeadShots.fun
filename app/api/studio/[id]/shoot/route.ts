@@ -23,7 +23,7 @@ export async function POST(request: Request, { params }: { params: { id: string 
         }
         
         const default_negative_prompt = "flaws in the eyes, flaws in the face, flaws, lowres, non-HDRi, low quality, worst quality,artifacts noise, text, watermark, glitch, deformed, mutated, ugly, disfigured, hands, low resolution, partially rendered objects,  deformed or partially rendered eyes, deformed, deformed eyeballs, cross-eyed,blurry,border, picture frame";
-        const final_prompt = prompt.replace(`{prompt}`, `joselapasion a ${studio.type} `) + `,headshot of joselapasion a ${studio.type} `;
+        const final_prompt = prompt.replace(`{prompt}`, `joselapasion a ${studio.type} with shaved head and 168cm tall `) + `,headshot of joselapasion a ${studio.type} `;
         console.log("final_prompt", final_prompt);
 
         // Set width and height based on aspectRatio
