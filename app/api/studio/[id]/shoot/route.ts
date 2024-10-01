@@ -49,7 +49,7 @@ export async function POST(request: Request, { params }: { params: { id: string 
                 aspect_ratio = "9:16";
                 break;
             case "Landscape":
-                aspect_ratio = "9:16";
+                aspect_ratio = "16:9";
                 break;
             case "Square":
                 aspect_ratio = "1:1";
