@@ -95,6 +95,7 @@ export default function CreateStudioPage() {
       let modelUser = "joselapasion";
       let modelVersion = "613a21a57e8545532d2f4016a7c3cfa3c7c63fded03001c2e69183d557a929db";
       let hf_lora = "enkire/replicate-joselapasion-lora-face";
+      let defaultHairStyle = "short";
       
       const response = await fetch('/api/studio/create', {
         method: 'POST',
@@ -107,6 +108,7 @@ export default function CreateStudioPage() {
           modelUser,
           modelVersion,
           hf_lora,
+          defaultHairStyle,
           images: uploadedImages,
         }),
       });
