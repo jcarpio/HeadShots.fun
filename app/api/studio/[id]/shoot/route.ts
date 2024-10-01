@@ -74,7 +74,9 @@ export async function POST(request: Request, { params }: { params: { id: string 
 
         try {
             const output = await replicate.predictions.create({
-                version: "43d309c37ab4e62361e5e29b8e9e867fb2dcbcec77ae91206a8d95ac5dd451a0",
+                // version: "43d309c37ab4e62361e5e29b8e9e867fb2dcbcec77ae91206a8d95ac5dd451a0",
+                // For test only joselapasion Repicate model
+                version: "613a21a57e8545532d2f4016a7c3cfa3c7c63fded03001c2e69183d557a929db",
                 input: input,
                 webhook: `${webhookUrl}?predictionId=${prediction.id}`,
                 webhook_events_filter: ["completed"]
