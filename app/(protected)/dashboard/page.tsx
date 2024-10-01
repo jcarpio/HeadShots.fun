@@ -91,6 +91,7 @@ export default function DashboardPage() {
               <TableHeader>
                 <TableRow>
                   <TableHead>Name</TableHead>
+                  <TableHead>Status</TableHead>
                   <TableHead className="hidden md:table-cell">Type</TableHead>
                   <TableHead>HeadShots</TableHead>
                   <TableHead className="hidden md:table-cell">Created At</TableHead>
