@@ -197,7 +197,7 @@ export default function CreateStudioPage() {
                     </div>
                   </div>
                 </div>
-                <div className="grid grid-cols-5 gap-6">
+                <div className="grid grid-cols-15 gap-1">
                   {images.map((image, index) => (
                     <div key={index} className="group relative">
                       <div className="aspect-square overflow-hidden rounded-lg">
