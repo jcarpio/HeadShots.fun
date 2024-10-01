@@ -106,6 +106,9 @@ export default function DashboardPage() {
                       <TableCell>
                         {studio.name}
                       </TableCell>
+                      <TableCell>
+                        {studio.status}
+                      </TableCell>
                       <TableCell className="hidden md:table-cell">
                         <div className="flex items-center">
                           <Icons.type className="mr-2 size-4" />
