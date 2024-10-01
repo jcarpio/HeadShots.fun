@@ -21,6 +21,7 @@ export const POST = auth(async (req) => {
         modelVersion,
         hf_lora,
         defaultHairStyle,
+        defaultUserHeight,
         images,
         userId: req.auth.user.id,
       },
