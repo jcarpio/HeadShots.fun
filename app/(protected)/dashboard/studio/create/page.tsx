@@ -28,7 +28,7 @@ export default function CreateStudioPage() {
       file,
       preview: URL.createObjectURL(file)
     }));
-    setImages(prev => [...prev, ...newImages].slice(0, 5));
+    setImages(prev => [...prev, ...newImages].slice(0, 20));
   }, []);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
