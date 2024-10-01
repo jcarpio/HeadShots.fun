@@ -66,14 +66,11 @@ export default function CreateStudioPage() {
       toast.error("Please upload at least one image.");
       return;
     }
-    if (images.length > 5) {
-      toast.error("You can upload a maximum of 5 images.");
+    if (images.length > 20) {
+      toast.error("You can upload a maximum of 20 images.");
       return;
     }
-
-    let modelVersion = "613a21a57e8545532d2f4016a7c3cfa3c7c63fded03001c2e69183d557a929db";
-    let hf_lora = "enkire/replicate-joselapasion-lora-face";
-
+    
     setIsLoading(true);
     try {
       const uploadedImages = await Promise.all(images.map(async (img) => {
@@ -94,6 +91,11 @@ export default function CreateStudioPage() {
         return url;
       }));
 
+
+      
+      let modelVersion = "613a21a57e8545532d2f4016a7c3cfa3c7c63fded03001c2e69183d557a929db";
+      let hf_lora = "enkire/replicate-joselapasion-lora-face";
+      
       const response = await fetch('/api/studio/create', {
         method: 'POST',
         headers: {
