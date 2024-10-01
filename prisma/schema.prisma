@@ -86,6 +86,7 @@ model Studio {
   modelVersion String?
   hf_lora     String?
   status      String   @default("pending") // "pending", "processing", "completed", "failed"
+  defaultHairStyle String?
   images      String[]
   userId      String
   user        User         @relation(fields: [userId], references: [id])
@@ -102,6 +103,7 @@ model Prediction {
   studioId  String
   studio   Studio  @relation("StudioPredictions", fields: [studioId], references: [id], onDelete: Cascade)
   status    String   @default("pending") // "pending", "processing", "completed", "failed"
+  hairStyle String?
   style     String?
   imageUrl  String?
   createdAt DateTime @default(now())
