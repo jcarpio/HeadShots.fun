@@ -34,7 +34,7 @@ export default function CreateStudioPage() {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: { 'image/*': [] },
-    maxFiles: 5,
+    maxFiles: 20,
   });
 
   const removeImage = (index: number) => {
@@ -175,7 +175,7 @@ export default function CreateStudioPage() {
                 </div>
                 <div className="space-y-2">
                   <Label className="text-base font-semibold">Upload Sample Photos</Label>
-                  <p className="text-sm text-muted-foreground">Please upload 1-5 clear, front-facing photos that meet the sample photo requirements.</p>
+                  <p className="text-sm text-muted-foreground">Please upload 12-20 clear, front-facing photos that meet the sample photo requirements.</p>
                   <div {...getRootProps()} className={`mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pb-6 pt-5 ${isDragActive ? 'border-gray-500' : ''}`}>
                     <div className="space-y-1 text-center">
                       <span className="flex items-center justify-center p-1">
