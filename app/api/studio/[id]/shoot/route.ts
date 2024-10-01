@@ -46,6 +46,7 @@ export async function POST(request: Request, { params }: { params: { id: string 
         }
 
         const input = {
+            /*
             main_face_image: studio.images[0],
             ...(studio.images.length > 1 && { auxiliary_face_image1: studio.images[1] }),
             ...(studio.images.length > 2 && { auxiliary_face_image2: studio.images[2] }),
@@ -60,6 +61,18 @@ export async function POST(request: Request, { params }: { params: { id: string 
             generation_mode: "fidelity",
             num_samples: 1,
             output_format: "png"
+      */
+      image: "https://replicate.delivery/pbxt/LgPu8vCag8fuxiWgWjsp3Mf10aLzK8xcDsoS6shzNr6k0Rri/diego_dreyfus_sombrero2.jpg",
+      prompt: "The image depicts a muscular joselapasion standing by a pool, set against a tropical, natural background with a distant view of lush greenery and a body of water, possibly the ocean. joselapasion is a man is 168 cm tall, shirtless, showcasing his fit and toned physique. He is wearing an used wide-brimmed black australian leather hat and sunglases john lennon style, giving off a relaxed yet stylish vibe.\n\njoselapasion has several visible tattoos on his arms and chest, including a notable tattoo near his collarbone. His expression is neutral, with slightly pursed lips as if he’s in the middle of speaking or thinking. He holds a small glass of what appears to be a beverage in his right hand. His left hand is casually raised, fingers slightly curled as though gesturing in conversation.\n\njoselapasion is wearing black swimming trunks that have a small orange logo or design near the left thigh. There’s a thin red bracelet around his left wrist, adding a subtle touch of color to his overall look. The setting appears serene and peaceful, with a bright, clear sky overhead and soft sunlight illuminating the scene.\n\n",
+      hf_lora: "enkire/replicate-joselapasion-lora-face",
+      lora_scale: 0.8,
+      num_outputs: 1,
+      aspect_ratio: "16:9",
+      output_format: "jpg",
+      guidance_scale: 3.5,
+      output_quality: 80,
+      prompt_strength: 0.8,
+      num_inference_steps: 28
         };
         
         const webhookUrl = `${env.NEXT_PUBLIC_APP_URL}/api/webhooks/replicate`;
