@@ -17,6 +17,7 @@ interface Studio {
   id: string;
   name: string;
   type: string;
+  status: string;
   images: any[];
   createdAt: string;
   predictions: Prediction[];
