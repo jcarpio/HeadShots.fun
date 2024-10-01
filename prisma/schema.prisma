@@ -82,6 +82,7 @@ model Studio {
   id          String       @id @default(cuid())
   name        String
   type        String
+  modelUser   String?
   modelVersion String?
   hf_lora     String?
   images      String[]
