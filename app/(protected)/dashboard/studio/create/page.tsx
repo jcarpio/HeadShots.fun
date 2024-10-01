@@ -71,6 +71,9 @@ export default function CreateStudioPage() {
       return;
     }
 
+    let modelVersion = "613a21a57e8545532d2f4016a7c3cfa3c7c63fded03001c2e69183d557a929db";
+    let hf_lora = "enkire/replicate-joselapasion-lora-face";
+
     setIsLoading(true);
     try {
       const uploadedImages = await Promise.all(images.map(async (img) => {
@@ -99,6 +102,8 @@ export default function CreateStudioPage() {
         body: JSON.stringify({
           name,
           type,
+          modelVersion,
+          hf_lora,
           images: uploadedImages,
         }),
       });
