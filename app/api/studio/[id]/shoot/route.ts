@@ -80,7 +80,7 @@ export async function POST(request: Request, { params }: { params: { id: string 
               // prompt: "The image depicts a muscular joselapasion standing by a pool, set against a tropical, natural background with a distant view of lush greenery and a body of water, possibly the ocean. joselapasion is a man is 168 cm tall, shirtless, showcasing his fit and toned physique. He is wearing an used wide-brimmed black australian leather hat and sunglases john lennon style, giving off a relaxed yet stylish vibe.\n\njoselapasion has several visible tattoos on his arms and chest, including a notable tattoo near his collarbone. His expression is neutral, with slightly pursed lips as if he’s in the middle of speaking or thinking. He holds a small glass of what appears to be a beverage in his right hand. His left hand is casually raised, fingers slightly curled as though gesturing in conversation.\n\njoselapasion is wearing black swimming trunks that have a small orange logo or design near the left thigh. There’s a thin red bracelet around his left wrist, adding a subtle touch of color to his overall look. The setting appears serene and peaceful, with a bright, clear sky overhead and soft sunlight illuminating the scene.\n\n",    
               prompt: final_prompt,      
               // hf_lora: "enkire/replicate-joselapasion-lora-face",
-              hf_lora: studio.hf_lora,
+              hf_lora: `${studio.hf_lora}`,
               lora_scale: 0.8,
               num_outputs: 1,
               aspect_ratio: aspect_ratio,
@@ -106,7 +106,7 @@ export async function POST(request: Request, { params }: { params: { id: string 
                 // version: "43d309c37ab4e62361e5e29b8e9e867fb2dcbcec77ae91206a8d95ac5dd451a0",
                 // For test only joselapasion Repicate model
                 // version: "613a21a57e8545532d2f4016a7c3cfa3c7c63fded03001c2e69183d557a929db",
-                version: studio.modelVersion,
+                version: `${studio.modelVersion}`,
                 input: input,
                 webhook: `${webhookUrl}?predictionId=${prediction.id}`,
                 webhook_events_filter: ["completed"]
