@@ -96,6 +96,7 @@ export default function CreateStudioPage() {
       let modelVersion = "613a21a57e8545532d2f4016a7c3cfa3c7c63fded03001c2e69183d557a929db";
       let hf_lora = "enkire/replicate-joselapasion-lora-face";
       let defaultHairStyle = "short";
+      let defaultUserHeight = "168";
       
       const response = await fetch('/api/studio/create', {
         method: 'POST',
@@ -109,6 +110,7 @@ export default function CreateStudioPage() {
           modelVersion,
           hf_lora,
           defaultHairStyle,
+          defaultUserHeight,
           images: uploadedImages,
         }),
       });
