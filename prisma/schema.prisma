@@ -77,6 +77,13 @@ model VerificationToken {
   @@map(name: "verification_tokens")
 }
 
+enum StudioStatus {
+   Pending
+   Processing
+   Completed
+   Failed
+}
+
 // Add this model at the end of the file
 model Studio {
   id          String       @id @default(cuid())
@@ -85,9 +92,10 @@ model Studio {
   modelUser   String?
   modelVersion String?
   hf_lora     String?
-  status      String   @default("pending") // "pending", "processing", "completed", "failed"
+  status      StudioStatus   @default(Pending) // Pending, Processing, Completed, Failed
   defaultHairStyle String?
   defaultUserHeight String?
+  info        String?       // JCC: create for future needs
   images      String[]
   userId      String
   user        User         @relation(fields: [userId], references: [id])
