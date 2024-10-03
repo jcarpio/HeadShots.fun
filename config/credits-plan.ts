@@ -1,4 +1,11 @@
 export const pricingData = [
+
+  {
+    price: 0.99,
+    description: "Tester: Only to to see my firsts shots",
+    features: ["5 Credits"],
+    quantity: 10,
+  },
   {
     price: 9.99,
     description: "Casual Charmer: Spice up your social media game",
