@@ -22,7 +22,7 @@ export const POST = auth(async (req) => {
         hf_lora,
         defaultHairStyle,
         defaultUserHeight,
-        xtraInfo,                   // added for future needs
+        extraInfo,                   // added for future needs
         images,
         userId: req.auth.user.id,
       },
