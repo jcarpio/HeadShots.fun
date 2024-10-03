@@ -7,9 +7,9 @@ export const POST = auth(async (req) => {
   }
 
   try {
-    const { name, type, modelUser, modelVersion, hf_lora, defaultHairStyle, defaultUserHeight, images } = await req.json();
+    const { name, type, modelUser, modelVersion, hf_lora, defaultHairStyle, defaultUserHeight, info, images } = await req.json();
 
-    if (!name || !type || !modelUser || !modelVersion || !hf_lora || !defaultHairStyle || !defaultUserHeight || !images || images.length === 0) {
+    if (!name || !type || !modelUser || !modelVersion || !hf_lora || !defaultHairStyle || !defaultUserHeight || !info || !images || images.length === 0) {
       return new Response("Missing required fields", { status: 400 });
     }
 
@@ -22,6 +22,7 @@ export const POST = auth(async (req) => {
         hf_lora,
         defaultHairStyle,
         defaultUserHeight,
+        info,
         images,
         userId: req.auth.user.id,
       },
