@@ -97,7 +97,7 @@ export default function CreateStudioPage() {
       let hf_lora = "enkire/replicate-joselapasion-lora-face";
       let defaultHairStyle = "short";
       let defaultUserHeight = "168";
-      let extraInfor = "x"; // create for future needs
+      let extraInfo = "x"; // create for future needs
       
       const response = await fetch('/api/studio/create', {
         method: 'POST',
