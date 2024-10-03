@@ -16,7 +16,7 @@ export async function POST(req: Request) {
       throw new Error("Failed to create checkout session");
     }
 
-    // 记录交易到数据库
+    // Record transaction to database
     await prisma.stripeTransaction.create({
       data: {
         userId,
