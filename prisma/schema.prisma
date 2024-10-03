@@ -95,7 +95,7 @@ model Studio {
   status      StudioStatus   @default(Pending) // Pending, Processing, Completed, Failed
   defaultHairStyle String?
   defaultUserHeight String?
-  info        String?       // JCC: create for future needs
+  extraInfo   String?       // JCC: create for future needs
   images      String[]
   userId      String
   user        User         @relation(fields: [userId], references: [id])
