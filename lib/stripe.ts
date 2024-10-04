@@ -30,6 +30,7 @@ export async function createCheckoutSession(
         quantity: 1,
       },
     ],
+    billing_address_collection: 'auto',
     customer_creation: 'if_required',
     invoice_creation: {
        enabled: true,
