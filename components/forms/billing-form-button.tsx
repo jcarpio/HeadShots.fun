@@ -1,4 +1,58 @@
-"use client"; //
+"use client";
+
+import { useTransition } from "react";
+import { generateUserStripe } from "@/actions/generate-user-stripe";
+import { SubscriptionPlan, UserSubscriptionPlan } from "@/types";
+import { Button } from "@/components/ui/button";
+import { Icons } from "@/components/shared/icons";
+
+interface BillingFormButtonProps {
+  offer: SubscriptionPlan;
+  subscriptionPlan: UserSubscriptionPlan;
+  year: boolean;
+  buttonLabel?: string; // Adding the new optional prop for custom button text
+}
+
+export function BillingFormButton({
+  year,
+  offer,
+  subscriptionPlan,
+  buttonLabel, // Use the new prop
+}: BillingFormButtonProps) {
+  let [isPending, startTransition] = useTransition();
+  const generateUserStripeSession = generateUserStripe.bind(
+    null,
+    offer.stripeIds[year ? "yearly" : "monthly"],
+  );
+
+  const stripeSessionAction = () =>
+    startTransition(async () => await generateUserStripeSession());
+
+  const userOffer =
+    subscriptionPlan.stripePriceId ===
+    offer.stripeIds[year ? "yearly" : "monthly"];
+
+  return (
+    <Button
+      variant={userOffer ? "default" : "outline"}
+      rounded="full"
+      className="w-full"
+      disabled={isPending}
+      onClick={stripeSessionAction}
+    >
+      {isPending ? (
+        <>
+          <Icons.spinner className="mr-2 size-4 animate-spin" /> Loading...
+        </>
+      ) : (
+        <>{buttonLabel ? buttonLabel : userOffer ? "Manage Subscription" : "Upgrade"}</> // Use the custom label if provided
+      )}
+    </Button>
+  );
+}
+
+
+/* "use client"; 
 
 import { useTransition } from "react";
 import { generateUserStripe } from "@/actions/generate-user-stripe";
@@ -50,7 +104,7 @@ export function BillingFormButton({
   );
 }
 
-
+*/
 /*
 
 "use client";
