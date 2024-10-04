@@ -49,6 +49,3 @@ export async function createCheckoutSessionForSubscription(
   }
 }
 
-// Make sure to export the function
-export { createCheckoutSessionForSubscription };
-
