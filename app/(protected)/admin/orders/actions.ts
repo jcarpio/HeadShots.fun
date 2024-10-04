@@ -38,7 +38,7 @@ export async function handleCheck(stripeSessionId: string) {
 
 // Function to retrieve all transactions, including user details
 export async function getTransactions() {
-  return await prisma.stripeTransaction.findMany({
+  return await prisma.creditTransaction.findMany({
     include: {
       user: {
         select: {
@@ -53,39 +53,3 @@ export async function getTransactions() {
   });
 }
 
-
-
-/*
-
-'use server';
-
-import { prisma } from "@/lib/db";
-import { handleSuccessfulPayment } from "@/lib/stripe";
-
-export async function handleCheck(stripeSessionId: string) {
-  try {
-    const transaction = await handleSuccessfulPayment(stripeSessionId);
-    return transaction ? "completed" : "pending";
-  } catch (error) {
-    console.error("Error checking Stripe session:", error);
-    return "error";
-  }
-}
-
-export async function getTransactions() {
-  return await prisma.stripeTransaction.findMany({
-    include: {
-      user: {
-        select: {
-          name: true,
-          email: true,
-        },
-      },
-    },
-    orderBy: {
-      createdAt: 'desc',
-    },
-  });
-}
-
-*/
