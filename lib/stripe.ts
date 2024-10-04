@@ -36,7 +36,7 @@ export async function createCheckoutSession(
        invoice_data: {
           description: null,
        }
-    }
+    },
     allow_promotion_codes: true,
     automatic_tax: {
       enabled: true,
