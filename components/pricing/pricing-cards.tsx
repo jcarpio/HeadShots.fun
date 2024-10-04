@@ -100,22 +100,13 @@ export function PricingCards({ userId, subscriptionPlan }: PricingCardsProps) {
           </ul>
 
           {userId && subscriptionPlan ? (
-            // For Starter plan, show "Buy this plan" button and link to Stripe
-            isStarter ? (
-              <BillingFormButton
-                year={isYearly}
-                offer={offer}
-                subscriptionPlan={subscriptionPlan}
-              >
-                Buy this plan
-              </BillingFormButton>
-            ) : (
-              <BillingFormButton
-                year={isYearly}
-                offer={offer}
-                subscriptionPlan={subscriptionPlan}
-              />
-            )
+            // For Starter plan, customize the button label
+            <BillingFormButton
+              year={isYearly}
+              offer={offer}
+              subscriptionPlan={subscriptionPlan}
+              buttonLabel={isStarter ? "Buy this plan" : "Subscribe Now"}
+            />
           ) : (
             <Button
               variant={
