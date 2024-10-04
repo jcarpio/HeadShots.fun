@@ -1,153 +1,193 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { useState } from "react";
-import { useRef } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useContext, useState } from "react";
+import Link from "next/link";
+import { UserSubscriptionPlan } from "@/types";
+
+import { SubscriptionPlan } from "@/types/index";
+import { pricingData } from "@/config/subscriptions";
+import { cn } from "@/lib/utils";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { BillingFormButton } from "@/components/forms/billing-form-button";
+import { ModalContext } from "@/components/modals/providers";
+import { HeaderSection } from "@/components/shared/header-section";
+import { Icons } from "@/components/shared/icons";
+import MaxWidthWrapper from "@/components/shared/max-width-wrapper";
 
 interface PricingCardsProps {
-  pricingData: Array<{
-    price: number;
-    description: string;
-    features: string[];
-    quantity: number;
-  }>;
   userId?: string;
-  emailAddress?: string;
+  subscriptionPlan?: UserSubscriptionPlan;
 }
 
-export function PricingCards({ pricingData, userId, emailAddress }: PricingCardsProps) {
-  const router = useRouter();
-  const [loadingPlan, setLoadingPlan] = useState<number | null>(null);
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
+export function PricingCards({ userId, subscriptionPlan }: PricingCardsProps) {
+  const isYearlyDefault =
+    !subscriptionPlan?.stripeCustomerId || subscriptionPlan.interval === "year"
+      ? true
+      : false;
+  const [isYearly, setIsYearly] = useState<boolean>(!!isYearlyDefault);
+  const { setShowSignInModal } = useContext(ModalContext);
 
-  const handlePurchase = async (plan: typeof pricingData[0], index: number) => {
-    if (!userId) {
-      toast.error("Please sign in to purchase credits");
-      return;
-    }
-
-    setLoadingPlan(index);
-    try {
-      const response = await fetch("/api/stripe/create-checkout", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          amount: Math.round(plan.price * 100) / 100, // 确保金额最多只有两位小数
-          quantity: plan.quantity,
-          description: plan.description,
-          userId,
-          emailAddress, // 添加电子邮件地址
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to create checkout session");
-      }
-
-      const { checkoutUrl } = await response.json();
-
-      if (!checkoutUrl) {
-        throw new Error("Invalid checkout URL");
-      }
-
-      // 直接重定向 Stripe Checkout 页面
-      window.location.href = checkoutUrl;
-    } catch (error) {
-      console.error("Error creating checkout session:", error);
-      toast.error("Failed to initiate checkout. Please try again.");
-    } finally {
-      setLoadingPlan(null);
-    }
+  const toggleBilling = () => {
+    setIsYearly(!isYearly);
   };
 
-  const scroll = (direction: 'left' | 'right') => {
-    if (scrollContainerRef.current) {
-      const scrollAmount = 300; // Adjust this value as needed
-      scrollContainerRef.current.scrollBy({
-        left: direction === 'left' ? -scrollAmount : scrollAmount,
-        behavior: 'smooth'
-      });
-    }
-  };
-
-  return (
-    <div className="relative flex w-full items-center">
-      <button 
-        onClick={() => scroll('left')} 
-        className="mr-2 shrink-0 rounded-full bg-white/80 p-2 shadow-md transition-colors duration-200 hover:bg-white focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-800/80 dark:hover:bg-gray-800"
-        aria-label="Scroll left"
+  const PricingCard = ({ offer }: { offer: SubscriptionPlan }) => {
+    return (
+      <div
+        className={cn(
+          "relative flex flex-col overflow-hidden rounded-3xl border shadow-sm",
+          offer.title.toLocaleLowerCase() === "pro"
+            ? "-m-0.5 border-2 border-purple-400"
+            : "",
+        )}
+        key={offer.title}
       >
-        <ChevronLeft className="size-6 text-gray-600 dark:text-gray-300" />
-      </button>
-      <div className="grow overflow-hidden">
-        <div 
-          ref={scrollContainerRef}
-          className="scrollbar-hide flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4"
-        >
-          {pricingData.map((plan, index) => (
-            <PricingCard 
-              key={index} 
-              plan={plan} 
-              index={index} 
-              handlePurchase={handlePurchase}
-              isLoading={loadingPlan === index}
-            />
-          ))}
+        <div className="min-h-[150px] items-start space-y-4 bg-muted/50 p-6">
+          <p className="flex font-urban text-sm font-bold uppercase tracking-wider text-muted-foreground">
+            {offer.title}
+          </p>
+
+          <div className="flex flex-row">
+            <div className="flex items-end">
+              <div className="flex text-left text-3xl font-semibold leading-6">
+                {isYearly && offer.prices.monthly > 0 ? (
+                  <>
+                    <span className="mr-2 text-muted-foreground/80 line-through">
+                      ${offer.prices.monthly}
+                    </span>
+                    <span>${offer.prices.yearly / 12}</span>
+                  </>
+                ) : (
+                  `$${offer.prices.monthly}`
+                )}
+              </div>
+              <div className="-mb-1 ml-2 text-left text-sm font-medium text-muted-foreground">
+                <div>/month</div>
+              </div>
+            </div>
+          </div>
+          {offer.prices.monthly > 0 ? (
+            <div className="text-left text-sm text-muted-foreground">
+              {isYearly
+                ? `$${offer.prices.yearly} will be charged when annual`
+                : "when charged monthly"}
+            </div>
+          ) : null}
+        </div>
+
+        <div className="flex h-full flex-col justify-between gap-16 p-6">
+          <ul className="space-y-2 text-left text-sm font-medium leading-normal">
+            {offer.benefits.map((feature) => (
+              <li className="flex items-start gap-x-3" key={feature}>
+                <Icons.check className="size-5 shrink-0 text-purple-500" />
+                <p>{feature}</p>
+              </li>
+            ))}
+
+            {offer.limitations.length > 0 &&
+              offer.limitations.map((feature) => (
+                <li
+                  className="flex items-start text-muted-foreground"
+                  key={feature}
+                >
+                  <Icons.close className="mr-3 size-5 shrink-0" />
+                  <p>{feature}</p>
+                </li>
+              ))}
+          </ul>
+
+          {userId && subscriptionPlan ? (
+            offer.title === "Starter" ? (
+              <Link
+                href="/dashboard"
+                className={cn(
+                  buttonVariants({
+                    variant: "outline",
+                    rounded: "full",
+                  }),
+                  "w-full",
+                )}
+              >
+                Go to dashboard
+              </Link>
+            ) : (
+              <BillingFormButton
+                year={isYearly}
+                offer={offer}
+                subscriptionPlan={subscriptionPlan}
+              />
+            )
+          ) : (
+            <Button
+              variant={
+                offer.title.toLocaleLowerCase() === "pro"
+                  ? "default"
+                  : "outline"
+              }
+              rounded="full"
+              onClick={() => setShowSignInModal(true)}
+            >
+              Sign in
+            </Button>
+          )}
         </div>
       </div>
-      <button 
-        onClick={() => scroll('right')} 
-        className="ml-2 shrink-0 rounded-full bg-white/80 p-2 shadow-md transition-colors duration-200 hover:bg-white focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-800/80 dark:hover:bg-gray-800"
-        aria-label="Scroll right"
-      >
-        <ChevronRight className="size-6 text-gray-600 dark:text-gray-300" />
-      </button>
-    </div>
-  );
-}
+    );
+  };
 
-function PricingCard({ plan, index, handlePurchase, isLoading }) {
   return (
-    <Card className={`flex w-56 shrink-0 snap-center flex-col justify-between transition-all hover:shadow-lg ${index === 2 ? 'border-primary' : ''} relative ${index === 2 ? 'mt-4 overflow-visible' : 'mt-8'}`}>
-      {index === 2 && (
-        <div className="absolute -top-3 left-1/2 z-10 flex -translate-x-1/2 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground shadow-md">
-          <span className="hidden md:flex">Most&nbsp;</span>Popular
+    <MaxWidthWrapper>
+      <section className="flex flex-col items-center text-center">
+        <HeaderSection label="Pricing" title="Start at full speed !" />
+
+        <div className="mb-4 mt-10 flex items-center gap-5">
+          <ToggleGroup
+            type="single"
+            size="sm"
+            defaultValue={isYearly ? "yearly" : "monthly"}
+            onValueChange={toggleBilling}
+            aria-label="toggle-year"
+            className="h-9 overflow-hidden rounded-full border bg-background p-1 *:h-7 *:text-muted-foreground"
+          >
+            <ToggleGroupItem
+              value="yearly"
+              className="rounded-full px-5 data-[state=on]:!bg-primary data-[state=on]:!text-primary-foreground"
+              aria-label="Toggle yearly billing"
+            >
+              Yearly (-20%)
+            </ToggleGroupItem>
+            <ToggleGroupItem
+              value="monthly"
+              className="rounded-full px-5 data-[state=on]:!bg-primary data-[state=on]:!text-primary-foreground"
+              aria-label="Toggle monthly billing"
+            >
+              Monthly
+            </ToggleGroupItem>
+          </ToggleGroup>
         </div>
-      )}
-      <CardHeader className="text-center">
-        <Badge variant="outline" className="mb-2 self-center">
-          {plan.quantity} Credits
-        </Badge>
-        <CardTitle className={`${index === 2 ? 'pb-2 text-3xl' : 'text-2xl'} font-bold`}>${plan.price}</CardTitle>
-        <p className="text-sm text-muted-foreground">{plan.description}</p>
-      </CardHeader>
-      <CardContent>
-        <ul className="space-y-2">
-          {plan.features.map((feature, idx) => (
-            <li key={idx} className="flex items-center text-sm">
-              <svg className="mr-2 size-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
-              {feature}
-            </li>
+
+        <div className="grid gap-5 bg-inherit py-5 lg:grid-cols-3">
+          {pricingData.map((offer) => (
+            <PricingCard offer={offer} key={offer.title} />
           ))}
-        </ul>
-      </CardContent>
-      <CardFooter>
-        <Button
-          className="w-full"
-          onClick={() => handlePurchase(plan, index)}
-          variant={index === 2 ? "default" : "outline"}
-          disabled={isLoading}
-        >
-          {isLoading ? "Processing..." : "Purchase"}
-        </Button>
-      </CardFooter>
-    </Card>
+        </div>
+
+        <p className="mt-3 text-balance text-center text-base text-muted-foreground">
+          Email{" "}
+          <a
+            className="font-medium text-primary hover:underline"
+            href="mailto:support@saas-starter.com"
+          >
+            support@saas-starter.com
+          </a>{" "}
+          for to contact our support team.
+          <br />
+          <strong>
+            You can test the subscriptions and won&apos;t be charged.
+          </strong>
+        </p>
+      </section>
+    </MaxWidthWrapper>
   );
 }
