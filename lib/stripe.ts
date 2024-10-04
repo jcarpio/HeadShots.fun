@@ -19,7 +19,7 @@ export async function createCheckoutSessionForSubscription(
       payment_method_types: ['card'],
       line_items: [
         {
-          price: 100, // The Price ID from Stripe must be passed here
+          price: '100', // The Price ID from Stripe must be passed here
           quantity: 1,
         },
       ],
