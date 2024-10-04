@@ -17,8 +17,8 @@ export const pricingData: SubscriptionPlan[] = [
       "Limited access to business resources.",
     ],
     prices: {
-      monthly: 0,
-      yearly: 0,
+      monthly: 6,
+      yearly: 69,
     },
     stripeIds: {
       monthly: null,
