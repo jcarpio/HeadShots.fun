@@ -1,4 +1,4 @@
-"use client";
+"use client"; //
 
 import { useTransition } from "react";
 import { generateUserStripe } from "@/actions/generate-user-stripe";
