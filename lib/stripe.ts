@@ -1,45 +1,47 @@
-import Stripe from "stripe";
-import { env } from "@/env.mjs";
+// /lib/stripe.ts
+import Stripe from 'stripe';
+import { prisma } from '@/lib/db';
 
-export const stripe = new Stripe(env.STRIPE_SECRET_KEY, {
-  apiVersion: "2024-04-10",
+export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
+  apiVersion: '2024-04-10',
   typescript: true,
 });
 
-export async function createCheckoutSessionForSubscription(
-  priceId: string,
-  userId: string,
-  emailAddress: string
-) {
-  try {
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ["card"],
-      line_items: [
-        {
-          price: priceId,
-          quantity: 1,
-        },
-      ],
-      billing_address_collection: "auto",
-      customer_creation: "if_required",
-      subscription_data: {
-        metadata: {
-          userId,
-        },
-      },
-      allow_promotion_codes: true,
-      automatic_tax: {
-        enabled: true,
-      },
-      mode: "subscription",
-      success_url: `${env.NEXT_PUBLIC_APP_URL}/payment-status?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${env.NEXT_PUBLIC_APP_URL}/pricing`,
-      customer_email: emailAddress,
-    });
+// Function to handle successful subscription payments
+export async function handleSuccessfulSubscriptionPayment(invoice: Stripe.Invoice) {
+  const subscriptionId = invoice.subscription as string;
 
-    return session;
-  } catch (error) {
-    console.error("Error creating Stripe session:", error);
-    throw new Error("Failed to generate user stripe session");
+  // Fetch subscription details from the database
+  const subscription = await prisma.subscription.findUnique({
+    where: { stripeSubscriptionId: subscriptionId },
+  });
+
+  if (!subscription) {
+    throw new Error(`Subscription not found for ID: ${subscriptionId}`);
   }
+
+  // Increment user credits or other business logic
+  await prisma.user.update({
+    where: { id: subscription.userId },
+    data: {
+      credits: { increment: 100 }, // Example: adjust based on your business logic
+    },
+  });
+
+  // Update subscription status to "paid"
+  await prisma.subscription.update({
+    where: { stripeSubscriptionId: subscriptionId },
+    data: {
+      status: 'paid',
+    },
+  });
+
+  // Record the credit transaction
+  await prisma.creditTransaction.create({
+    data: {
+      userId: subscription.userId,
+      amount: 100, // Example: adjust based on your business logic
+      type: 'PURCHASE',
+    },
+  });
 }
