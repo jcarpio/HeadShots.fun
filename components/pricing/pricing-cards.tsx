@@ -1,3 +1,25 @@
+"use client";
+
+import { useContext, useState } from "react";
+import Link from "next/link";
+import { UserSubscriptionPlan } from "@/types";
+
+import { SubscriptionPlan } from "@/types/index";
+import { pricingData } from "@/config/subscriptions";
+import { cn } from "@/lib/utils";
+import { Button, buttonVariants } from "@/components/ui/button"; // Import Button
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { BillingFormButton } from "@/components/forms/billing-form-button"; // Import BillingFormButton
+import { ModalContext } from "@/components/modals/providers";
+import { HeaderSection } from "@/components/shared/header-section"; // Import HeaderSection
+import { Icons } from "@/components/shared/icons"; // Import Icons
+import MaxWidthWrapper from "@/components/shared/max-width-wrapper"; // Import MaxWidthWrapper
+
+interface PricingCardsProps {
+  userId?: string;
+  subscriptionPlan?: UserSubscriptionPlan;
+}
+
 export function PricingCards({ userId, subscriptionPlan }: PricingCardsProps) {
   const isYearlyDefault =
     !subscriptionPlan?.stripeCustomerId || subscriptionPlan.interval === "year"
@@ -154,4 +176,5 @@ export function PricingCards({ userId, subscriptionPlan }: PricingCardsProps) {
     </MaxWidthWrapper>
   );
 }
+
 
