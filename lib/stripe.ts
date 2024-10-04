@@ -8,7 +8,7 @@ export const stripe = new Stripe(env.STRIPE_SECRET_KEY, {
   typescript: true,
 });
 
-// Función para crear la sesión de Stripe
+// Function to create the Stripe session
 export async function createCheckoutSessionForSubscription(
   priceId: string,
   userId: string,
@@ -19,7 +19,7 @@ export async function createCheckoutSessionForSubscription(
       payment_method_types: ['card'],
       line_items: [
         {
-          price: priceId, // El Price ID debe ser pasado aquí
+          price: priceId, // The Price ID must be passed here
           quantity: 1,
         },
       ],
@@ -37,7 +37,7 @@ export async function createCheckoutSessionForSubscription(
       mode: 'subscription',
       success_url: `${env.NEXT_PUBLIC_APP_URL}/payment-status?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${env.NEXT_PUBLIC_APP_URL}/pricing`,
-      customer_email: emailAddress, // Prellenar el correo electrónico del cliente
+      customer_email: emailAddress, // Prepopulate the customer's email
     });
 
     return session;
