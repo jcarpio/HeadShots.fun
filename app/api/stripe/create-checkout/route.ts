@@ -1,4 +1,28 @@
 import { NextResponse } from "next/server";
+import { createCheckoutSessionForSubscription } from "@/lib/stripe"; // Import the correct function for subscriptions
+import { prisma } from "@/lib/db";
+
+export async function POST(req: Request) {
+  const { priceId, userId, emailAddress } = await req.json();
+
+  if (!priceId || !userId || !emailAddress) {
+    return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+  }
+
+  try {
+    // Create the subscription checkout session
+    const session = await createCheckoutSessionForSubscription(priceId, userId, emailAddress);
+    return NextResponse.json({ sessionId: session.id });
+  } catch (error) {
+    console.error("Error creating Stripe checkout session:", error);
+    return NextResponse.json({ error: "Error creating checkout session" }, { status: 500 });
+  }
+}
+
+
+/*
+
+import { NextResponse } from "next/server";
 import { createCheckoutSession } from "@/lib/stripe";
 import { prisma } from "@/lib/db";
 
@@ -33,3 +57,5 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
+
+/*
