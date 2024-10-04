@@ -1,15 +1,18 @@
 import Stripe from "stripe";
 import { env } from "@/env.mjs";
-import { prisma } from "@/lib/db"; // Gestión de la base de datos
+import { prisma } from "@/lib/db"; // Database management
 
 export const stripe = new Stripe(env.STRIPE_SECRET_KEY, {
   apiVersion: "2024-04-10",
   typescript: true,
 });
 
-// Función para crear una sesión de suscripción de Stripe
+// Amount of credits awarded per subscription cycle
+const CREDITS_PER_SUBSCRIPTION = 100;
+
+// Function to create a Stripe subscription checkout session
 export async function createCheckoutSessionForSubscription(
-  priceId: string, // ID del plan de suscripción mensual
+  priceId: string, // The price ID for the monthly subscription plan
   userId: string,
   emailAddress: string
 ) {
@@ -17,7 +20,7 @@ export async function createCheckoutSessionForSubscription(
     payment_method_types: ["card"],
     line_items: [
       {
-        price: priceId, // Usamos el ID del precio preconfigurado en Stripe para suscripciones
+        price: priceId, // Use the predefined price ID from Stripe for subscriptions
         quantity: 1,
       },
     ],
@@ -25,23 +28,24 @@ export async function createCheckoutSessionForSubscription(
     customer_creation: "if_required",
     subscription_data: {
       metadata: {
-        userId, // Agregamos el ID del usuario a la metadata
+        userId, // Store user ID in metadata
+        credits: CREDITS_PER_SUBSCRIPTION.toString(), // Credits associated with the subscription
       },
     },
     allow_promotion_codes: true,
     automatic_tax: {
       enabled: true,
     },
-    mode: "subscription", // Cambiamos a modo "subscription"
+    mode: "subscription", // Switch to subscription mode
     success_url: `${env.NEXT_PUBLIC_APP_URL}/payment-status?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${env.NEXT_PUBLIC_APP_URL}/pricing`,
-    customer_email: emailAddress, // Pre-poblamos el email del cliente
+    customer_email: emailAddress, // Prepopulate the customer email
   });
 
-  return session; // Devolvemos la sesión de Stripe completa
+  return session; // Return the complete Stripe session
 }
 
-// Función para manejar webhooks de Stripe
+// Function to handle Stripe webhooks
 export async function handleStripeWebhook(req: any) {
   const sig = req.headers["stripe-signature"];
   let event;
@@ -53,7 +57,7 @@ export async function handleStripeWebhook(req: any) {
     throw new Error(`Webhook Error: ${err.message}`);
   }
 
-  // Manejar el evento
+  // Handle different event types
   switch (event.type) {
     case "checkout.session.completed": {
       const session = event.data.object as Stripe.Checkout.Session;
@@ -79,26 +83,36 @@ export async function handleStripeWebhook(req: any) {
   return { received: true };
 }
 
-// Manejar la creación de una suscripción
+// Handle subscription creation event
 export async function handleSubscriptionCreation(session: Stripe.Checkout.Session) {
   const subscriptionId = session.subscription as string;
   const userId = session.metadata?.userId;
+  const credits = parseInt(session.metadata?.credits || "0", 10);
 
-  if (!userId) {
-    throw new Error("User ID not found in session metadata");
+  if (!userId || credits <= 0) {
+    throw new Error("Invalid metadata in session");
   }
 
-  // Almacenar la suscripción en la base de datos
+  // Store the subscription in the database
   await prisma.subscription.create({
     data: {
       userId: userId,
       stripeSubscriptionId: subscriptionId,
-      status: "active", // Inicialmente, está activa
+      status: "active", // Initially, the subscription is active
+      credits: credits, // Assign the credits tied to the subscription
+    },
+  });
+
+  // Increment the user's credits immediately after subscription creation
+  await prisma.user.update({
+    where: { id: userId },
+    data: {
+      credits: { increment: credits },
     },
   });
 }
 
-// Manejar el pago exitoso de una suscripción
+// Handle successful subscription payment (runs for each billing cycle)
 export async function handleSuccessfulSubscriptionPayment(invoice: Stripe.Invoice) {
   const subscriptionId = invoice.subscription as string;
 
@@ -110,28 +124,28 @@ export async function handleSuccessfulSubscriptionPayment(invoice: Stripe.Invoic
     throw new Error(`Subscription not found for ID: ${subscriptionId}`);
   }
 
-  // Actualizar el estado de la suscripción como "pagada"
-  await prisma.subscription.update({
-    where: { stripeSubscriptionId: subscriptionId },
-    data: {
-      status: "paid",
-    },
-  });
-
-  // Aquí puedes agregar lógica para aumentar créditos o habilitar características
+  // Increment the user's credits on each successful payment
   await prisma.user.update({
     where: { id: subscription.userId },
     data: {
-      credits: { increment: 100 }, // Ejemplo: agregar 100 créditos con cada pago exitoso
+      credits: { increment: subscription.credits }, // Increment credits for each payment
+    },
+  });
+
+  // Update subscription status to "paid"
+  await prisma.subscription.update({
+    where: { stripeSubscriptionId: subscriptionId },
+    data: {
+      status: "paid", // Keep the status as "paid"
     },
   });
 }
 
-// Manejar la cancelación de una suscripción
+// Handle subscription cancellation
 export async function handleSubscriptionCancellation(subscription: Stripe.Subscription) {
   const subscriptionId = subscription.id;
 
-  // Actualizar la suscripción en la base de datos
+  // Update the subscription status in the database
   await prisma.subscription.update({
     where: { stripeSubscriptionId: subscriptionId },
     data: {
@@ -139,7 +153,6 @@ export async function handleSubscriptionCancellation(subscription: Stripe.Subscr
     },
   });
 }
-
 
 /*
 import Stripe from "stripe"
