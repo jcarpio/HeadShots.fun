@@ -1,5 +1,57 @@
 "use client";
 
+import { useTransition } from "react";
+import { generateUserStripe } from "@/actions/generate-user-stripe";
+import { SubscriptionPlan, UserSubscriptionPlan } from "@/types";
+
+import { Button } from "@/components/ui/button";
+import { Icons } from "@/components/shared/icons";
+
+interface BillingFormButtonProps {
+  offer: SubscriptionPlan;
+  subscriptionPlan: UserSubscriptionPlan;
+  year: boolean;
+}
+
+export function BillingFormButton({
+  year,
+  offer,
+  subscriptionPlan,
+}: BillingFormButtonProps) {
+  let [isPending, startTransition] = useTransition();
+  const generateUserStripeSession = generateUserStripe.bind(
+    null,
+    offer.stripeIds[year ? "yearly" : "monthly"],
+  );
+
+  const stripeSessionAction = () =>
+    startTransition(async () => await generateUserStripeSession());
+
+  const userOffer =
+    subscriptionPlan.stripePriceId ===
+    offer.stripeIds[year ? "yearly" : "monthly"];
+
+  return (
+    <Button
+      variant={userOffer ? "default" : "outline"}
+      rounded="full"
+      className="w-full"
+      disabled={isPending}
+      onClick={stripeSessionAction}
+    >
+      {isPending ? (
+        <>
+          <Icons.spinner className="mr-2 size-4 animate-spin" /> Loading...
+        </>
+      ) : (
+        <>{userOffer ? "Manage Subscription" : "Upgrade"}</>
+      )}
+    </Button>
+  );
+}
+
+/* "use client";
+
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { useRouter } from 'next/navigation';
@@ -14,7 +66,6 @@ interface BillingFormButtonProps {
   subscriptionPlan: UserSubscriptionPlan;
   year: boolean;
 }
-/*
 interface BillingFormButtonProps {
   userId?: string;
   offer: {
@@ -23,7 +74,7 @@ interface BillingFormButtonProps {
     price: number;
   };
 }
-*/
+
 export function BillingFormButton({ userId, offer }: BillingFormButtonProps) {
   const router = useRouter();
 
@@ -64,3 +115,5 @@ export function BillingFormButton({ userId, offer }: BillingFormButtonProps) {
     </Button>
   );
 }
+
+*/
