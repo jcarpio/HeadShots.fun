@@ -5,6 +5,16 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 
+import { useTransition } from "react";
+import { generateUserStripe } from "@/actions/generate-user-stripe";
+import { SubscriptionPlan, UserSubscriptionPlan } from "@/types";
+
+interface BillingFormButtonProps {
+  offer: SubscriptionPlan;
+  subscriptionPlan: UserSubscriptionPlan;
+  year: boolean;
+}
+/*
 interface BillingFormButtonProps {
   userId?: string;
   offer: {
@@ -13,7 +23,7 @@ interface BillingFormButtonProps {
     price: number;
   };
 }
-
+*/
 export function BillingFormButton({ userId, offer }: BillingFormButtonProps) {
   const router = useRouter();
 
