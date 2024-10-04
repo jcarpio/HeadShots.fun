@@ -65,8 +65,8 @@ export async function createCheckoutSession(
 }
 
 export async function handleStripeWebhook(/* parameter */) {
-  // Implement processing Stripe webhook logic
-}
+  // Implement processing Stripe webhook logic */
+/* }
 
 export async function handleSuccessfulPayment(sessionId: string) {
   const transaction = await prisma.stripeTransaction.findUnique({
