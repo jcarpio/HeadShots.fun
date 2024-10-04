@@ -144,4 +144,16 @@ enum TransactionType {
   REFUND
 }
 
+model Subscription {
+  id                    String   @id @default(cuid())
+  userId                String
+  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  stripeSubscriptionId  String   @unique
+  stripePriceId         String?
+  stripeCurrentPeriodEnd DateTime?
+  status                String
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+}
+
 // Removed StripeTransaction model, as we're focusing on subscription-based payments
