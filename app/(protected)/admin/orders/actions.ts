@@ -24,8 +24,9 @@ export async function handleCheck(stripeSessionId: string) {
       }
 
       // Process the successful subscription payment and increment credits
-      const result = await handleSuccessfulSubscriptionPayment(invoice);
-      return result ? "completed" : "pending";
+      await handleSuccessfulSubscriptionPayment(invoice);
+
+      return "completed"; // Assume completed if no errors occur
     }
 
     throw new Error("Only subscription payments are allowed.");
@@ -51,6 +52,7 @@ export async function getTransactions() {
     },
   });
 }
+
 
 
 /*
