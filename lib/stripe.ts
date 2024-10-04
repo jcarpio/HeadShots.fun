@@ -1,4 +1,13 @@
 import Stripe from "stripe"
+
+import { env } from "@/env.mjs"
+
+export const stripe = new Stripe(env.STRIPE_API_KEY, {
+  apiVersion: "2024-04-10",
+  typescript: true,
+})
+
+/* import Stripe from "stripe"
 import { env } from "@/env.mjs"
 import { prisma } from "@/lib/db"  // Modify this line
 
@@ -109,5 +118,7 @@ export async function handleSuccessfulPayment(sessionId: string) {
 
   return updatedTransaction;
 }
-
+*/
 // ... Other Stripe related functions that may be needed
+
+
