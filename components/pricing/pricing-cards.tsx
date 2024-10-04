@@ -1,25 +1,3 @@
-"use client";
-
-import { useContext, useState } from "react";
-import Link from "next/link";
-import { UserSubscriptionPlan } from "@/types";
-
-import { SubscriptionPlan } from "@/types/index";
-import { pricingData } from "@/config/subscriptions";
-import { cn } from "@/lib/utils";
-import { Button, buttonVariants } from "@/components/ui/button";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { BillingFormButton } from "@/components/forms/billing-form-button";
-import { ModalContext } from "@/components/modals/providers";
-import { HeaderSection } from "@/components/shared/header-section";
-import { Icons } from "@/components/shared/icons";
-import MaxWidthWrapper from "@/components/shared/max-width-wrapper";
-
-interface PricingCardsProps {
-  userId?: string;
-  subscriptionPlan?: UserSubscriptionPlan;
-}
-
 export function PricingCards({ userId, subscriptionPlan }: PricingCardsProps) {
   const isYearlyDefault =
     !subscriptionPlan?.stripeCustomerId || subscriptionPlan.interval === "year"
@@ -98,26 +76,11 @@ export function PricingCards({ userId, subscriptionPlan }: PricingCardsProps) {
           </ul>
 
           {userId && subscriptionPlan ? (
-            offer.title === "Starter" ? (
-              <Link
-                href="/dashboard"
-                className={cn(
-                  buttonVariants({
-                    variant: "outline",
-                    rounded: "full",
-                  }),
-                  "w-full",
-                )}
-              >
-                Go to dashboard
-              </Link>
-            ) : (
-              <BillingFormButton
-                year={isYearly}
-                offer={offer}
-                subscriptionPlan={subscriptionPlan}
-              />
-            )
+            <BillingFormButton
+              year={isYearly}
+              offer={offer}
+              subscriptionPlan={subscriptionPlan}
+            />
           ) : (
             <Button
               variant={
@@ -181,7 +144,7 @@ export function PricingCards({ userId, subscriptionPlan }: PricingCardsProps) {
           >
             support@saas-starter.com
           </a>{" "}
-          for to contact our support team.
+          to contact our support team.
           <br />
           <strong>
             You can test the subscriptions and won&apos;t be charged.
@@ -191,3 +154,4 @@ export function PricingCards({ userId, subscriptionPlan }: PricingCardsProps) {
     </MaxWidthWrapper>
   );
 }
+
