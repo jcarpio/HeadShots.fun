@@ -10,7 +10,7 @@ export const stripe = new Stripe(env.STRIPE_SECRET_KEY, {
 
 // Function to create a Stripe checkout session for subscriptions
 export async function createCheckoutSessionForSubscription(
-  priceId: string,
+  priceId: string, // Ensure this priceId is passed correctly
   userId: string,
   emailAddress: string
 ) {
@@ -19,7 +19,7 @@ export async function createCheckoutSessionForSubscription(
       payment_method_types: ['card'],
       line_items: [
         {
-          price: priceId, // Price ID from Stripe
+          price: priceId, // The Price ID from Stripe must be passed here
           quantity: 1,
         },
       ],
@@ -40,7 +40,7 @@ export async function createCheckoutSessionForSubscription(
       customer_email: emailAddress, // Prepopulate customer email
     });
 
-    return session; // Return the created session
+    return session;
   } catch (error) {
     console.error('Error creating Stripe session:', error);
     throw new Error('Failed to generate user stripe session');
