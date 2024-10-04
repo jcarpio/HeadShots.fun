@@ -1,3 +1,16 @@
+import Stripe from "stripe";
+import { env } from "@/env.mjs";
+import { prisma } from "@/lib/db"; // Database management.
+
+export const stripe = new Stripe(env.STRIPE_SECRET_KEY, {
+  apiVersion: "2024-04-10",
+  typescript: true,
+});
+
+// Amount of credits awarded per subscription cycle
+const CREDITS_PER_SUBSCRIPTION = 100;
+
+
 // /lib/stripe.ts
 export async function createCheckoutSessionForSubscription(
   priceId: string, // The price ID for the monthly subscription plan
