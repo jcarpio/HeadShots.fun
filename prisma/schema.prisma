@@ -71,8 +71,12 @@ model User {
   stripePriceId          String?   @map(name: "stripe_price_id")
   stripeCurrentPeriodEnd DateTime? @map(name: "stripe_current_period_end")
 
+  // New relationship field for subscriptions
+  subscriptions          Subscription[]  // Relación con suscripciones
+
   @@map(name: "users")
 }
+
 
 model VerificationToken {
   identifier String
@@ -155,5 +159,6 @@ model Subscription {
   createdAt             DateTime @default(now())
   updatedAt             DateTime @updatedAt
 }
+
 
 // Removed StripeTransaction model, as we're focusing on subscription-based payments
