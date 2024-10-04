@@ -16,7 +16,7 @@
     "prebuild": "npm run prisma:db:push && npm run fix",
     "preview": "next build && next start",
     "postinstall": "dotenv -e .env.local -- prisma generate",
-    "prisma:db:push": "dotenv -e .env.local -- prisma db push",
+    "prisma:db:push": "dotenv -e .env.local -- prisma db push --accept-data-loss",
     "prisma:migrate:dev": "dotenv -e .env.local -- prisma migrate dev",
     "email": "email dev --dir emails --port 3333"
   },
