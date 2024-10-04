@@ -5,8 +5,6 @@ import { Icons } from "@/components/shared/icons";
 
 export interface SiteConfig {
   title: string;
-  credits: number; // HeadShots.fun compatibility heritage
-  price: number;   // HeadShots.fun compatibility heritage
   name: string;
   description: string;
   url: string;
@@ -65,6 +63,8 @@ export type SidebarNavItem = {
 // subcriptions
 export type SubscriptionPlan = {
   title: string;
+  credits: number; // HeadShots.fun compatibility heritage
+  price: number;   // HeadShots.fun compatibility heritage
   description: string;
   benefits: string[];
   limitations: string[];
