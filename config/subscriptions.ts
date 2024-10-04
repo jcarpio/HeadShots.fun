@@ -21,8 +21,8 @@ export const pricingData: SubscriptionPlan[] = [
       yearly: 69,
     },
     stripeIds: {
-      monthly: null,
-      yearly: null,
+      monthly: env.NEXT_PUBLIC_STRIPE_STARTER_MONTHLY_PLAN_ID,
+      yearly: env.NEXT_PUBLIC_STRIPE_STARTER_YEARLY_PLAN_ID,
     },
   },
   {
