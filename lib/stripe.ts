@@ -34,12 +34,12 @@ export async function createCheckoutSession(
     invoice_creation: {
        enabled: true,
        invoice_data: {
-          description: null
+          description: null,
        }
     }
     allow_promotion_codes: true,
     automatic_tax: {
-      enabled: true
+      enabled: true,
     },
     mode: 'payment',
     success_url: `${env.NEXT_PUBLIC_APP_URL}/payment-status?session_id={CHECKOUT_SESSION_ID}`,
