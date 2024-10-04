@@ -30,6 +30,13 @@ export async function createCheckoutSession(
         quantity: 1,
       },
     ],
+    customer_creation: "if_required",
+    invoice_creation": {
+       enabled: true,
+       invoice_data: {
+          description: null,
+       }
+    }
     allow_promotion_codes: true,
     automatic_tax: {
       enabled: true,
