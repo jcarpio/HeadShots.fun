@@ -5,6 +5,8 @@ import { Icons } from "@/components/shared/icons";
 
 export interface SiteConfig {
   title: string;
+  credits: number; // HeadShots.fun compatibility heritage
+  price: number;   // HeadShots.fun compatibility heritage
   name: string;
   description: string;
   url: string;
