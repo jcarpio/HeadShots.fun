@@ -49,6 +49,3 @@ export async function handleSuccessfulSubscriptionPayment(invoice: Stripe.Invoic
   });
 }
 
-// Asegúrate de exportar la función correctamente
-export { handleSuccessfulSubscriptionPayment };
-
