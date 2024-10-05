@@ -1,7 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils"; 
+import { Button } from "@/components/ui/button"; 
+import MaxWidthWrapper from "@/components/shared/max-width-wrapper";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function WaitListButton() {
   const [email, setEmail] = useState("");
