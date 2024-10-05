@@ -13,6 +13,7 @@ export default function IndexPage() {
   return (
     <>
       <HeroLanding />
+      <WaitListButton />
       <PreviewLanding />
       {/* <Powered /> */}
       <BentoGrid />
@@ -21,7 +22,6 @@ export default function IndexPage() {
       <Features />
       <Testimonials />
       <WaitListButton />
-      <CTA />
     </>
   );
 }
