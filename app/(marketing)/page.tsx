@@ -22,6 +22,7 @@ export default function IndexPage() {
       <Features />
       <Testimonials />
       <WaitListButton />
+      {/* <CTA /> */}
     </>
   );
 }
