@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
@@ -24,7 +25,6 @@ interface Prediction {
 interface ShootingResultsProps {
     predictions: Prediction[];
     studioId: string;
-    studioStatus: string; // New prop to pass the studio status
     onShootComplete: () => void;
 }
 
@@ -67,18 +67,18 @@ const getTimeAgo = (date: string): string => {
         return 'just now';
     } else if (diffInSeconds < 3600) {
         const minutes = Math.floor(diffInSeconds / 60);
-        return `${minutes}m ago`;
+        return ${minutes}m ago;
     } else if (diffInSeconds < 86400) {
         const hours = Math.floor(diffInSeconds / 3600);
-        return `${hours}h ago`;
+        return ${hours}h ago;
     } else {
         const days = Math.floor(diffInSeconds / 86400);
-        return `${days}d ago`;
+        return ${days}d ago;
     }
 };
 
 
-export function ShootingResults({ predictions: initialPredictions, studioId, studioStatus, onShootComplete }: ShootingResultsProps) {
+export function ShootingResults({ predictions: initialPredictions, studioId, onShootComplete }: ShootingResultsProps) {
     const [predictions, setPredictions] = useState(initialPredictions);
     const [processingPredictions, setProcessingPredictions] = useState<string[]>([]);
     const { isMobile } = useMediaQuery();
@@ -90,7 +90,7 @@ export function ShootingResults({ predictions: initialPredictions, studioId, stu
 
     const fetchPredictionResult = useCallback(async (prediction: Prediction) => {
         try {
-            const response = await fetch(`/api/studio/${studioId}/shoot/get-result`, {
+            const response = await fetch(/api/studio/${studioId}/shoot/get-result, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -197,8 +197,8 @@ export function ShootingResults({ predictions: initialPredictions, studioId, stu
                                                         <img
                                                             src={prediction.imageUrl}
                                                             alt="Shooting Result"
-                                                            className="absolute inset-0 size-full cursor-pointer object-cover transition-all duration-300 hover:scale-105"
-                                                        />
+                                                                    className="absolute inset-0 size-full cursor-pointer object-cover transition-all duration-300 hover:scale-105"
+                                                            />
                                                     </DialogTrigger>
                                                     <DialogTitle></DialogTitle>
                                                     <DialogContent className="flex overflow-hidden pr-6 lg:p-0">
@@ -237,7 +237,7 @@ export function ShootingResults({ predictions: initialPredictions, studioId, stu
                                                 {prediction.style}
                                             </Badge>
                                             <span className="hidden items-center gap-1 text-muted-foreground sm:flex">
-                                                <span className={`border-1 inline-block size-2 rounded-full ${getStatusColor(prediction.status)}`} title={prediction.status} />
+                                                <span className={border-1 inline-block size-2 rounded-full ${getStatusColor(prediction.status)}} title={prediction.status} />
                                                 {getTimeAgo(prediction.createdAt)}
                                             </span>
                                         </div>
@@ -252,17 +252,9 @@ export function ShootingResults({ predictions: initialPredictions, studioId, stu
                     <EmptyPlaceholder.Icon name="photo" />
                     <EmptyPlaceholder.Title>No Headshots yet</EmptyPlaceholder.Title>
                     <EmptyPlaceholder.Description>
-                        {studioStatus === "Completed" ? (
-                            <>
-                                Start a new photo shoot for headshots.
-                                <ShootModal studioId={studioId} onShootComplete={onShootComplete} />
-                            </>
-                        ) : (
-                            <>
-                                Your studio is being processed. In 24 hours, it will be ready to help you create your hyper-realistic dreams!
-                            </>
-                        )}
+                        Start a new photo shoot for headshots.
                     </EmptyPlaceholder.Description>
+                    <ShootModal studioId={studioId} onShootComplete={onShootComplete} />
                 </EmptyPlaceholder>
             )}
         </>
