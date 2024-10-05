@@ -32,17 +32,6 @@ const nextConfig = {
   experimental: {
     serverComponentsExternalPackages: ["@prisma/client"],
   },
-
-  async redirects() {
-    return [
-      {
-        source: '/', // The home page
-        destination: '/waitlist', // Redirect to /waitlist
-        permanent: false,
-      },
-    ];
-  },
-
 };
 
 module.exports = withContentlayer(nextConfig);
