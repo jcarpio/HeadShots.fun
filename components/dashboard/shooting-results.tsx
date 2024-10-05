@@ -254,7 +254,7 @@ export function ShootingResults({ predictions: initialPredictions, studioId, stu
                     <EmptyPlaceholder.Description><br></br>
                         {studioStatus === "Completed" ? (
                             <>
-                                Start a new photo shoot for headshots.
+                                Start a new photo shoot for headshots.<br></br>
                                 <ShootModal studioId={studioId} onShootComplete={onShootComplete} />
                             </>
                         ) : (
