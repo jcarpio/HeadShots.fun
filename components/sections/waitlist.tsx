@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/button"; // Cambia la importación a la ruta correcta
+import { buttonVariants } from "@/components/ui/button"; 
 import { Icons } from "@/components/shared/icons";
 
 export default function WaitListButton() {
@@ -51,12 +51,12 @@ export default function WaitListButton() {
           className="flex justify-center space-x-2 md:space-x-4"
           style={{ animationDelay: "0.4s", animationFillMode: "forwards" }}
         >
-          <form onSubmit={handleEmailSubmit} className="w-full max-w-md">
+          <form onSubmit={handleEmailSubmit} className="w-full max-w-md text-center">
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="border rounded p-2 w-full mb-2"
+              className="border rounded-full p-3 w-full mb-4 text-center"
               placeholder="Enter your email"
               required
             />
@@ -64,7 +64,7 @@ export default function WaitListButton() {
               type="submit"
               className={cn(
                 buttonVariants({ size: "lg", rounded: "full" }),
-                "gap-2 w-full bg-blue-600 text-white px-4 py-2 rounded",
+                "w-full bg-blue-600 text-white px-6 py-3 text-lg font-bold rounded-full flex justify-center items-center gap-2"
               )}
             >
               <span>Join Waitlist</span>
@@ -80,4 +80,5 @@ export default function WaitListButton() {
     </section>
   );
 }
+
 
