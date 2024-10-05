@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/WaitListButton";
+import { buttonVariants } from "@/components/ui/button"; // Cambia la importación a la ruta correcta
 import { Icons } from "@/components/shared/icons";
 
 export default function WaitListButton() {
@@ -27,7 +27,7 @@ export default function WaitListButton() {
     });
 
     if (res.ok) {
-      setSuccessMessage("Thank you! You&apos;ve been added to the waitlist.");
+      setSuccessMessage("Thank you! You've been added to the waitlist.");
       setEmail("");
     } else {
       const data = await res.json();
