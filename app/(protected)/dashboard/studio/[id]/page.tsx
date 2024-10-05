@@ -52,6 +52,7 @@ interface Studio {
     updatedAt: string;
     images: string[];
     predictions: Prediction[];
+    status: string; // Add status to the Studio interface
 }
 
 interface Prediction {
@@ -205,7 +206,14 @@ export default function StudioPage({ params }: StudioPageProps) {
                     <Badge variant="outline" className="hidden capitalize md:block">{studio.type}</Badge>
                 </div>
                 <div className="flex space-x-4">
-                    <ShootModal studioId={params.id} onShootComplete={refreshData} />
+                    {/* Disable ShootModal if studio is not "Completed" */}
+                    {studio.status === "Completed" ? (
+                        <ShootModal studioId={params.id} onShootComplete={refreshData} />
+                    ) : (
+                        <div className="text-red-500">
+                            <p>This studio is currently being processed. It will be available within 24 hours!</p>
+                        </div>
+                    )}
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                             <Button variant="outline" size="icon">
@@ -236,62 +244,6 @@ export default function StudioPage({ params }: StudioPageProps) {
                     onShootComplete={refreshData}
                 />
             </div>
-
-            <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
-                <AlertDialogContent>
-                    <AlertDialogHeader>
-                        <AlertDialogTitle>Are you sure you want to delete this studio?</AlertDialogTitle>
-                        <AlertDialogDescription>
-                            This action cannot be undone. This will permanently delete the studio and all associated data.
-                        </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                        <AlertDialogAction onClick={handleDelete} disabled={isDeleting} className="bg-destructive/90 hover:bg-destructive">
-                            {isDeleting ? "Deleting..." : "Delete"}
-                        </AlertDialogAction>
-                    </AlertDialogFooter>
-                </AlertDialogContent>
-            </AlertDialog>
-
-            <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-                <DialogContent>
-                    <DialogHeader>
-                        <DialogTitle>Edit Studio</DialogTitle>
-                    </DialogHeader>
-                    <div className="grid gap-4 py-4">
-                        <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="name" className="text-right">
-                                Name
-                            </Label>
-                            <Input
-                                id="name"
-                                value={editedName}
-                                onChange={(e) => setEditedName(e.target.value)}
-                                className="col-span-3"
-                            />
-                        </div>
-                        <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="type" className="text-right">
-                                Type
-                            </Label>
-                            <Select value={editedType} onValueChange={setEditedType}>
-                                <SelectTrigger className="col-span-2">
-                                    <SelectValue placeholder="Select studio type" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="male">Male</SelectItem>
-                                    <SelectItem value="female">Female</SelectItem>
-                                    <SelectItem value="kid">Kid</SelectItem>
-                                </SelectContent>
-                            </Select>
-                        </div>
-                    </div>
-                    <DialogFooter>
-                        <Button onClick={handleEdit}>Save changes</Button>
-                    </DialogFooter>
-                </DialogContent>
-            </Dialog>
         </div>
     );
 }
