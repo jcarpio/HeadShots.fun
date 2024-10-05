@@ -38,6 +38,7 @@ export default async function HeroLanding() {
           style={{ animationDelay: "0.35s", animationFillMode: "forwards" }}
         >
           If you can see it, you can create it.
+        </p>
       </div>
     </section>
   );
