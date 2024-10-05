@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/button"; 
+// import { buttonVariants } from "@/components/ui/button"; 
 import { Icons } from "@/components/shared/icons";
+
+import { Button } from "@/components/ui/button";
+import MaxWidthWrapper from "@/components/shared/max-width-wrapper";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
 
 export default function WaitListButton() {
   const [email, setEmail] = useState("");
@@ -36,22 +41,20 @@ export default function WaitListButton() {
   };
 
   return (
-    <section className="space-y-6 py-12 sm:py-20 lg:py-20">
-      <div className="container flex max-w-5xl flex-col items-center gap-5 text-center">
-        <h2 className="text-balance font-urban text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-[66px]">
-          Join the <span className="text-gradient_indigo-purple">Waitlist</span>
-        </h2>
-        <p
-          className="max-w-3xl text-balance leading-normal text-muted-foreground sm:text-xl sm:leading-8"
-          style={{ animationDelay: "0.35s", animationFillMode: "forwards" }}
-        >
-          Sign up for our waitlist and we&apos;ll get back to you soon!
-        </p>
-        <div
-          className="flex justify-center space-x-2 md:space-x-4"
-          style={{ animationDelay: "0.4s", animationFillMode: "forwards" }}
-        >
-          <form onSubmit={handleEmailSubmit} className="w-full max-w-md text-center">
+
+        <section className="py-16 text-muted-foreground">
+            <MaxWidthWrapper>
+                <Card className="rounded-xl border border-secondary bg-secondary">
+                    <CardHeader>
+                        <CardTitle className="text-center text-3xl font-semibold text-secondary-foreground">
+                            Wanna look like a superstar? Let&apos;s do this!
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent className="text-center">
+                        <p className="mx-auto mb-6 max-w-3xl text-muted-foreground">
+                            Sick of your same old selfies? Our AI photo booth is here to spice things up! We&apos;ve got you!<br />No fancy gear needed – just a few clicks and boom! You&apos;re ready to wow the world!
+                        </p>
+                       <form onSubmit={handleEmailSubmit} className="transition-all hover:rotate-2 hover:scale-110">
             <input
               type="email"
               value={email}
@@ -60,25 +63,17 @@ export default function WaitListButton() {
               placeholder="Enter your email"
               required
             />
-            <button
-              type="submit"
-              className={cn(
-                buttonVariants({ size: "lg", rounded: "full" }),
-                "w-full bg-blue-600 text-white px-6 py-3 text-lg font-bold rounded-full flex justify-center items-center gap-2"
-              )}
-            >
-              <span>Join Waitlist</span>
-              <Icons.arrowRight className="size-4" />
-            </button>
-            {emailError && <p className="text-red-500 mt-2">{emailError}</p>}
+                        <Button size="lg" variant="default" className="transition-all hover:rotate-2 hover:scale-110">
+                            Make Me Look Awesome!
+                        </Button>
+                         {emailError && <p className="transition-all hover:rotate-2 hover:scale-110">{emailError}</p>}
             {successMessage && (
-              <p className="text-green-500 mt-2">{successMessage}</p>
+              <p className="transition-all hover:rotate-2 hover:scale-110">{successMessage}</p>
             )}
-          </form>
-        </div>
-      </div>
-    </section>
-  );
+                         </form>
+                    </CardContent>
+                </Card>
+            </MaxWidthWrapper>
+        </section>
+    );
 }
-
-
