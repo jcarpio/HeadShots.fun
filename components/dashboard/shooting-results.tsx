@@ -24,6 +24,7 @@ interface Prediction {
 interface ShootingResultsProps {
     predictions: Prediction[];
     studioId: string;
+    studioStatus: string; // New prop to pass the studio status
     onShootComplete: () => void;
 }
 
@@ -77,7 +78,7 @@ const getTimeAgo = (date: string): string => {
 };
 
 
-export function ShootingResults({ predictions: initialPredictions, studioId, onShootComplete }: ShootingResultsProps) {
+export function ShootingResults({ predictions: initialPredictions, studioId, studioStatus, onShootComplete }: ShootingResultsProps) {
     const [predictions, setPredictions] = useState(initialPredictions);
     const [processingPredictions, setProcessingPredictions] = useState<string[]>([]);
     const { isMobile } = useMediaQuery();
@@ -196,8 +197,8 @@ export function ShootingResults({ predictions: initialPredictions, studioId, onS
                                                         <img
                                                             src={prediction.imageUrl}
                                                             alt="Shooting Result"
-                                                                    className="absolute inset-0 size-full cursor-pointer object-cover transition-all duration-300 hover:scale-105"
-                                                            />
+                                                            className="absolute inset-0 size-full cursor-pointer object-cover transition-all duration-300 hover:scale-105"
+                                                        />
                                                     </DialogTrigger>
                                                     <DialogTitle></DialogTitle>
                                                     <DialogContent className="flex overflow-hidden pr-6 lg:p-0">
@@ -251,9 +252,17 @@ export function ShootingResults({ predictions: initialPredictions, studioId, onS
                     <EmptyPlaceholder.Icon name="photo" />
                     <EmptyPlaceholder.Title>No Headshots yet</EmptyPlaceholder.Title>
                     <EmptyPlaceholder.Description>
-                        Start a new photo shoot for headshots.
+                        {studioStatus === "Completed" ? (
+                            <>
+                                Start a new photo shoot for headshots.
+                                <ShootModal studioId={studioId} onShootComplete={onShootComplete} />
+                            </>
+                        ) : (
+                            <>
+                                Your studio is being processed. In 24 hours, it will be ready to help you create your hyper-realistic dreams!
+                            </>
+                        )}
                     </EmptyPlaceholder.Description>
-                    <ShootModal studioId={studioId} onShootComplete={onShootComplete} />
                 </EmptyPlaceholder>
             )}
         </>
