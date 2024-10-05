@@ -21,7 +21,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
-import { ArrowLeft, Edit, Trash2, Image as ImageIcon, MoreVertical } from "lucide-react";
+import { ArrowLeft, Edit, Trash2, MoreVertical } from "lucide-react";
 import { toast } from "sonner";
 import {
     AlertDialog,
@@ -206,10 +206,11 @@ export default function StudioPage({ params }: StudioPageProps) {
                     <Badge variant="outline" className="hidden capitalize md:block">{studio.type}</Badge>
                 </div>
                 <div className="flex space-x-4">
-                    {/* Disable ShootModal if studio is not "Completed" */}
-                    {studio.status === "Completed" ? (
+                    {/* Only show ShootModal when studio status is "Completed" */}
+                    {studio.status === "Completed" && (
                         <ShootModal studioId={params.id} onShootComplete={refreshData} />
-                    ) : (
+                    )}
+                    {studio.status !== "Completed" && (
                         <div className="text-red-500">
                             <p>This studio is currently being processed. It will be available within 24 hours!</p>
                         </div>
@@ -247,3 +248,4 @@ export default function StudioPage({ params }: StudioPageProps) {
         </div>
     );
 }
+
