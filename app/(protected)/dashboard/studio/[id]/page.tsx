@@ -24,20 +24,21 @@ interface Prediction {
 interface ShootingResultsProps {
     predictions: Prediction[];
     studioId: string;
+    studioStatus: string;  // Adding studioStatus to control the button state
     onShootComplete: () => void;
 }
 
 const downloadImage = async (imageUrl: string) => {
     const response = await fetch(imageUrl, {
-        method: 'GET',
-        mode: 'cors',
+        method: "GET",
+        mode: "cors",
     });
     const blob = await response.blob();
     const url = window.URL.createObjectURL(blob);
 
-    const a = document.createElement('a');
+    const a = document.createElement("a");
     a.href = url;
-    a.download = imageUrl.split('/').pop() || 'prediction-image.jpg';
+    a.download = imageUrl.split("/").pop() || "prediction-image.jpg";
     document.body.appendChild(a);
     a.click();
     a.remove();
@@ -46,14 +47,14 @@ const downloadImage = async (imageUrl: string) => {
 
 const getStatusColor = (status: string): string => {
     switch (status) {
-        case 'completed':
-            return 'bg-green-300 border-green-400';
-        case 'failed':
-            return 'bg-red-300 border-red-400';
-        case 'processing':
-            return 'bg-gray-300 border-gray-400';
+        case "completed":
+            return "bg-green-300 border-green-400";
+        case "failed":
+            return "bg-red-300 border-red-400";
+        case "processing":
+            return "bg-gray-300 border-gray-400";
         default:
-            return 'bg-yellow-200 border-yellow-300';
+            return "bg-yellow-200 border-yellow-300";
     }
 };
 
@@ -63,21 +64,20 @@ const getTimeAgo = (date: string): string => {
     const diffInSeconds = Math.floor((now.getTime() - past.getTime()) / 1000);
 
     if (diffInSeconds < 60) {
-        return 'just now';
+        return "just now";
     } else if (diffInSeconds < 3600) {
         const minutes = Math.floor(diffInSeconds / 60);
-        return ${minutes}m ago;
+        return `${minutes}m ago`;
     } else if (diffInSeconds < 86400) {
         const hours = Math.floor(diffInSeconds / 3600);
-        return ${hours}h ago;
+        return `${hours}h ago`;
     } else {
         const days = Math.floor(diffInSeconds / 86400);
-        return ${days}d ago;
+        return `${days}d ago`;
     }
 };
 
-
-export function ShootingResults({ predictions: initialPredictions, studioId, onShootComplete }: ShootingResultsProps) {
+export function ShootingResults({ predictions: initialPredictions, studioId, studioStatus, onShootComplete }: ShootingResultsProps) {
     const [predictions, setPredictions] = useState(initialPredictions);
     const [processingPredictions, setProcessingPredictions] = useState<string[]>([]);
     const { isMobile } = useMediaQuery();
@@ -89,10 +89,10 @@ export function ShootingResults({ predictions: initialPredictions, studioId, onS
 
     const fetchPredictionResult = useCallback(async (prediction: Prediction) => {
         try {
-            const response = await fetch(/api/studio/${studioId}/shoot/get-result, {
-                method: 'POST',
+            const response = await fetch(`/api/studio/${studioId}/shoot/get-result`, {
+                method: "POST",
                 headers: {
-                    'Content-Type': 'application/json',
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify({ predictionDbId: prediction.id, pId: prediction.pId }),
             });
@@ -176,7 +176,7 @@ export function ShootingResults({ predictions: initialPredictions, studioId, onS
                                                                     Download
                                                                 </Button>
                                                                 <a
-                                                                    href={prediction.imageUrl || '#'}
+                                                                    href={prediction.imageUrl || "#"}
                                                                     target="_blank"
                                                                     rel="noopener noreferrer"
                                                                     className="inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-3 text-sm font-medium ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
@@ -196,8 +196,8 @@ export function ShootingResults({ predictions: initialPredictions, studioId, onS
                                                         <img
                                                             src={prediction.imageUrl}
                                                             alt="Shooting Result"
-                                                                    className="absolute inset-0 size-full cursor-pointer object-cover transition-all duration-300 hover:scale-105"
-                                                            />
+                                                            className="absolute inset-0 size-full cursor-pointer object-cover transition-all duration-300 hover:scale-105"
+                                                        />
                                                     </DialogTrigger>
                                                     <DialogTitle></DialogTitle>
                                                     <DialogContent className="flex overflow-hidden pr-6 lg:p-0">
@@ -236,7 +236,7 @@ export function ShootingResults({ predictions: initialPredictions, studioId, onS
                                                 {prediction.style}
                                             </Badge>
                                             <span className="hidden items-center gap-1 text-muted-foreground sm:flex">
-                                                <span className={border-1 inline-block size-2 rounded-full ${getStatusColor(prediction.status)}} title={prediction.status} />
+                                                <span className={`border-1 inline-block size-2 rounded-full ${getStatusColor(prediction.status)}`} title={prediction.status} />
                                                 {getTimeAgo(prediction.createdAt)}
                                             </span>
                                         </div>
@@ -251,9 +251,22 @@ export function ShootingResults({ predictions: initialPredictions, studioId, onS
                     <EmptyPlaceholder.Icon name="photo" />
                     <EmptyPlaceholder.Title>No Headshots yet</EmptyPlaceholder.Title>
                     <EmptyPlaceholder.Description>
-                        Start a new photo shoot for headshots.
+                        {studioStatus === "Completed" ? (
+                            <>
+                                Start a new photo shoot for headshots.
+                                <ShootModal studioId={studioId} onShootComplete={onShootComplete} />
+                            </>
+                        ) : (
+                            <>
+                                Your studio is still processing. In 24 hours, it will be ready for creating your dreams!
+                            </>
+                        )}
                     </EmptyPlaceholder.Description>
-                    <ShootModal studioId={studioId} onShootComplete={onShootComplete} />
+                    {studioStatus === "Completed" ? (
+                        <ShootModal studioId={studioId} onShootComplete={onShootComplete} />
+                    ) : (
+                        <Button disabled>Waiting for Studio to complete...</Button>
+                    )}
                 </EmptyPlaceholder>
             )}
         </>
