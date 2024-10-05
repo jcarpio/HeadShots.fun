@@ -12,7 +12,6 @@ import { Badge } from "@/components/ui/badge";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { Drawer } from "vaul";
 
-// Ensure Prediction type and props
 interface Prediction {
     id: string;
     createdAt: string;
@@ -28,6 +27,36 @@ interface ShootingResultsProps {
     studioStatus: string;  // Ensure we accept studioStatus prop
     onShootComplete: () => void;
 }
+
+const downloadImage = async (imageUrl: string) => {
+    const response = await fetch(imageUrl, {
+        method: 'GET',
+        mode: 'cors',
+    });
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = imageUrl.split('/').pop() || 'prediction-image.jpg';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    window.URL.revokeObjectURL(url);
+};
+
+const getStatusColor = (status: string): string => {
+    switch (status) {
+        case 'completed':
+            return 'bg-green-300 border-green-400';
+        case 'failed':
+            return 'bg-red-300 border-red-400';
+        case 'processing':
+            return 'bg-gray-300 border-gray-400';
+        default:
+            return 'bg-yellow-200 border-yellow-300';
+    }
+};
 
 const getTimeAgo = (date: string): string => {
     const now = new Date();
@@ -48,37 +77,6 @@ const getTimeAgo = (date: string): string => {
     }
 };
 
-const getStatusColor = (status: string): string => {
-    switch (status) {
-        case 'completed':
-            return 'bg-green-300 border-green-400';
-        case 'failed':
-            return 'bg-red-300 border-red-400';
-        case 'processing':
-            return 'bg-gray-300 border-gray-400';
-        default:
-            return 'bg-yellow-200 border-yellow-300';
-    }
-};
-
-const downloadImage = async (imageUrl: string) => {
-    const response = await fetch(imageUrl, {
-        method: 'GET',
-        mode: 'cors',
-    });
-    const blob = await response.blob();
-    const url = window.URL.createObjectURL(blob);
-
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = imageUrl.split('/').pop() || 'prediction-image.jpg';
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    window.URL.revokeObjectURL(url);
-};
-
-// Move useCallback inside the component
 export function ShootingResults({ predictions: initialPredictions, studioId, studioStatus, onShootComplete }: ShootingResultsProps) {
     const [predictions, setPredictions] = useState(initialPredictions);
     const [processingPredictions, setProcessingPredictions] = useState<string[]>([]);
