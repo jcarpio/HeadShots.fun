@@ -37,23 +37,12 @@ const nextConfig = {
     return [
       {
         source: '/', // The home page
-        destination: '/waitlist', // Redirect to the waitlist page
-        permanent: false, // Set it to false to make it a temporary redirect
-        has: [
-          {
-            type: 'query',
-            key: 'code', // If no 'code' query parameter, redirect to /waitlist
-            value: '(?!valid)', // This will allow "valid" codes to bypass the waitlist
-          },
-        ],
-      },
-      {
-        source: '/waitlist',
-        destination: '/waitlist', // Make sure /waitlist is visible directly
+        destination: '/waitlist', // Redirect to /waitlist
         permanent: false,
       },
     ];
   },
+
 };
 
 module.exports = withContentlayer(nextConfig);
