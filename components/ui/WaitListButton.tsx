@@ -38,10 +38,20 @@ export default function WaitListButton() {
   };
 
   return (
-    <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-md">
-      <h2 className="text-2xl font-bold mb-4">Join the Waitlist</h2>
-      <form onSubmit={handleEmailSubmit}>
-        <input
+       <section className="py-16 text-muted-foreground">
+      <MaxWidthWrapper>
+        <Card className="rounded-xl border border-secondary bg-secondary">
+          <CardHeader>
+            <CardTitle className="text-center text-3xl font-semibold text-secondary-foreground">
+              Access is currently limited, but you can join our waitlist!
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="text-center">
+            <p className="mx-auto mb-6 max-w-3xl text-muted-foreground">
+              Right now, access is restricted. However, you can be first in line by leaving your email, and we&apos;ll notify you once access is available!
+            </p>
+            <form onSubmit={handleEmailSubmit} className="transition-all hover:rotate-2 hover:scale-110">
+              <input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -49,14 +59,17 @@ export default function WaitListButton() {
           placeholder="Enter your email"
           required
         />
-        <Button type="submit" className="w-full">
-          Join Waitlist
-        </Button>
+              <Button size="lg" variant="default" className="transition-all hover:rotate-2 hover:scale-110">
+                Leave us your email
+              </Button>
         {emailError && <p className="text-red-500 mt-2">{emailError}</p>}
         {successMessage && (
           <p className="text-green-500 mt-2">{successMessage}</p>
         )}
-      </form>
-    </div>
+     </form>
+          </CardContent>
+        </Card>
+      </MaxWidthWrapper>
+    </section>
   );
 }
