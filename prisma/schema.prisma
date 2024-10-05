@@ -161,5 +161,18 @@ model Subscription {
   updatedAt             DateTime @updatedAt
 }
 
+// Tables for managing invitation codes and waiting lists
+model Waitlist {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+}
+
+model InvitationCode {
+  id        String   @id @default(cuid())
+  code      String   @unique
+  isUsed    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
 
 // Removed StripeTransaction model, as we're focusing on subscription-based payments
