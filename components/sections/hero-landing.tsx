@@ -21,7 +21,7 @@ export default async function HeroLanding() {
           <span className="mr-2">
             🚀
           </span>
-          DreamBez.com es un proyecto de código abierto inspirado en HeadShots.fun
+          DreamBez.com is an open-source project inspired by HeadShots.fun
           <Icons.github className="mx-1 size-3" />
           GitHub!
         </Link>
@@ -37,25 +37,9 @@ export default async function HeroLanding() {
           className="max-w-3xl text-balance leading-normal text-muted-foreground sm:text-xl sm:leading-8"
           style={{ animationDelay: "0.35s", animationFillMode: "forwards" }}
         >
-          Si puedes verlo, puedes crearlo.
+          If you can see it, you can create it.
         </p>
 
-        <div
-          className="flex justify-center space-x-2 md:space-x-4"
-          style={{ animationDelay: "0.4s", animationFillMode: "forwards" }}
-        >
-          <Link
-            href="/register"
-            prefetch={true}
-            className={cn(
-              buttonVariants({ size: "lg", rounded: "full" }),
-              "gap-2",
-            )}
-          >
-            <span>Consigue ahora tu Álbum de Sueños</span>
-            <Icons.arrowRight className="size-4" />
-          </Link>
-        </div>
       </div>
     </section>
   );
