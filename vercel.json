@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/waitlist",
+      "permanent": false
+    }
+  ]
+}
