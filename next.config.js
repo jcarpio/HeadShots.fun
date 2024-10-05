@@ -1,3 +1,6 @@
+// Import withContentlayer from contentlayer
+const { withContentlayer } = require('next-contentlayer');
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -49,5 +52,5 @@ const nextConfig = {
   },
 };
 
-// Use withContentlayer if it's already part of your setup
+// Export the configuration with contentlayer
 module.exports = withContentlayer(nextConfig);
