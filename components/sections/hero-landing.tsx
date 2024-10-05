@@ -27,7 +27,7 @@ export default async function HeroLanding() {
         </Link>
 
         <h1 className="text-balance font-urban text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-[66px]">
-          . {" "}
+          &nbsp; {" "}
           <span className="text-gradient_indigo-purple font-extrabold">
             DreamBez.com
           </span>
@@ -38,8 +38,6 @@ export default async function HeroLanding() {
           style={{ animationDelay: "0.35s", animationFillMode: "forwards" }}
         >
           If you can see it, you can create it.
-        </p>
-
       </div>
     </section>
   );
