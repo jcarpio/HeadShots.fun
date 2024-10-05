@@ -251,7 +251,7 @@ export function ShootingResults({ predictions: initialPredictions, studioId, stu
                 <EmptyPlaceholder className="min-h-[80vh]">
                     <EmptyPlaceholder.Icon name="photo" />
                     <EmptyPlaceholder.Title>No Headshots yet</EmptyPlaceholder.Title>
-                    <EmptyPlaceholder.Description>
+                    <EmptyPlaceholder.Description><br></br>
                         {studioStatus === "Completed" ? (
                             <>
                                 Start a new photo shoot for headshots.
