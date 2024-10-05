@@ -238,10 +238,11 @@ export default function StudioPage({ params }: StudioPageProps) {
             </div>
 
             <div className="grid gap-6">
-                <ShootingResults
-                    predictions={predictions}
-                    studioId={params.id}
-                    onShootComplete={refreshData}
+               <ShootingResults
+                  predictions={predictions}
+                  studioId={params.id}
+                  studioStatus={studio.status}  // Passing the studio status here
+                  onShootComplete={refreshData}
                 />
             </div>
         </div>
