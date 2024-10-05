@@ -81,11 +81,3 @@ export default function WaitListButton() {
   );
 }
 
-              <p className="text-green-500 mt-2">{successMessage}</p>
-            )}
-          </form>
-        </div>
-      </div>
-    </section>
-  );
-}
