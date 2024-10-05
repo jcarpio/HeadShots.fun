@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/WaitListButton";
 import { Icons } from "@/components/shared/icons";
 
 export default function WaitListButton() {
