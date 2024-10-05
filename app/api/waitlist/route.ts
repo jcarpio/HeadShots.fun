@@ -1,29 +1,25 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import { prisma } from "@/lib/db"; // Assuming you're using Prisma
+import { NextResponse } from 'next/server';
+import { prisma } from '@/lib/db'; // Asegúrate de tener la instancia de Prisma configurada
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === "POST") {
-    const { email } = req.body;
+export async function POST(req: Request) {
+  try {
+    const { email } = await req.json();
 
-    // Validate the email
-    if (!email || !email.includes("@")) {
-      return res.status(400).json({ error: "Invalid email." });
+    // Validar el email
+    if (!email || !email.includes('@')) {
+      return NextResponse.json({ error: 'Invalid email.' }, { status: 400 });
     }
 
-    // Add the email to the waitlist in your database (with processed set to false by default)
-    try {
-      await prisma.waitlist.create({
-        data: {
-          email,
-          processed: false, // New users will have this field set to false by default
-        },
-      });
+    // Añadir el email a la lista de espera
+    await prisma.waitlist.create({
+      data: {
+        email,
+        processed: false, // Campo por defecto
+      },
+    });
 
-      res.status(200).json({ message: "Email added to the waitlist." });
-    } catch (error) {
-      res.status(500).json({ error: "Failed to add email to the waitlist." });
-    }
-  } else {
-    res.status(405).json({ error: "Method not allowed." });
+    return NextResponse.json({ message: 'Email added to the waitlist.' }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json({ error: 'Failed to add email to the waitlist.' }, { status: 500 });
   }
 }
