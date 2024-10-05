@@ -163,9 +163,10 @@ model Subscription {
 
 // Tables for managing invitation codes and waiting lists
 model Waitlist {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  createdAt DateTime @default(now())
+  id        String   @id @default(cuid()) // Unique identifier
+  email     String   @unique              // The email of the user
+  createdAt DateTime @default(now())       // Timestamp when the email was added
+  processed Boolean  @default(false)       // Whether the user has been processed or not
 }
 
 model InvitationCode {
