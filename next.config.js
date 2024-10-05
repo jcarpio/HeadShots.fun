@@ -1,6 +1,3 @@
-// Import withContentlayer from contentlayer
-const { withContentlayer } = require('next-contentlayer');
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -32,25 +29,6 @@ const nextConfig = {
   experimental: {
     serverComponentsExternalPackages: ["@prisma/client"],
   },
-
-  // Add redirects to handle invitation-based access
-  async redirects() {
-    return [
-      {
-        source: '/', // The home page
-        destination: '/waitlist', // Redirect to the waitlist page
-        permanent: false, // Temporary redirect
-        has: [
-          {
-            type: 'query',
-            key: 'code', // Check for the invitation code in the query parameter
-            value: '(?!valid)', // Regex to ensure the code is not "valid"
-          },
-        ],
-      },
-    ];
-  },
 };
 
-// Export the configuration with contentlayer
 module.exports = withContentlayer(nextConfig);
