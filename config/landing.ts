@@ -74,30 +74,30 @@ export const features: FeatureLdg[] = [
 export const testimonials: TestimonialType[] = [
   {
     name: "Jesus Ortiz",
-    job: "CEO de Pinturas Ortiz",
+    job: "CEO of Pinturas Ortiz",
     image: "/_static/index/jesus_ortiz.jpg",
     review:
-      "Verme en esas situaciones me han hecho replantearme muchas cosas sobre mi vida",
+      "Seeing myself in those situations has made me reconsider many things about my life",
   },
   {
     name: "Jesus Toscano",
-    job: "Emprendedor",
+    job: "Entrepreneur",
     image: "/_static/index/jesus_toscano.jpg",
     review:
-      "Me vengo arriba cuándo veo la foto si estoy de bajón después de la quimio",
+      "I get uplifted when I see the photo, especially if I'm feeling down after chemo",
   },
   {
     name: "Alejandro Ortiz",
-    job: "CEO de New Concept Tarifa",
+    job: "CEO of New Concept Tarifa",
     image: "/_static/index/alejandro_ortiz.jpg",
     review:
-      "Me ha gustado mucho verme como millonario, con todo lo que eso puede suponer como persona",
+      "I really liked seeing myself as a millionaire, with everything that could mean as a person",
   },
-    {
+  {
     name: "Jose Carpio",
-    job: "Profesor y CEO de Enkire",
+    job: "Teacher and CEO of Enkire",
     image: "/_static/index/jose_carpio.jpg",
     review:
-      "Me puse a llorar cuándo vi mi foto. Siempre pensé: como hubiese sido sin esta enfermedad y ahí estaba era yo, fuerte, con pelo, feliz. Esa es mi verdadera esencia.",
+      "I started crying when I saw my photo. I always thought: what would it have been like without this illness? And there I was, strong, with hair, happy. That’s my true essence.",
   },
 ];
