@@ -1,5 +1,3 @@
-
-
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
@@ -29,7 +27,7 @@ export default function WaitListButton() {
     });
 
     if (res.ok) {
-      setSuccessMessage("Thank you! You've been added to the waitlist.");
+      setSuccessMessage("Thank you! You&apos;ve been added to the waitlist.");
       setEmail("");
     } else {
       const data = await res.json();
@@ -47,7 +45,7 @@ export default function WaitListButton() {
           className="max-w-3xl text-balance leading-normal text-muted-foreground sm:text-xl sm:leading-8"
           style={{ animationDelay: "0.35s", animationFillMode: "forwards" }}
         >
-          Sign up for our waitlist and we'll get back to you soon!
+          Sign up for our waitlist and we&apos;ll get back to you soon!
         </p>
         <div
           className="flex justify-center space-x-2 md:space-x-4"
@@ -74,6 +72,15 @@ export default function WaitListButton() {
             </button>
             {emailError && <p className="text-red-500 mt-2">{emailError}</p>}
             {successMessage && (
+              <p className="text-green-500 mt-2">{successMessage}</p>
+            )}
+          </form>
+        </div>
+      </div>
+    </section>
+  );
+}
+
               <p className="text-green-500 mt-2">{successMessage}</p>
             )}
           </form>
