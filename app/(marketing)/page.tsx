@@ -8,7 +8,7 @@ import PreviewLanding from "@/components/sections/preview-landing";
 import Testimonials from "@/components/sections/testimonials";
 import CTA from "@/components/sections/CTA";
 // import WaitListButton from "@/components/sections/waitlist"; // Import the waitlist button
-import WaitListButton from "@/componentscomponents/ui/WaitListButton";
+import WaitListButton from "@/components/ui/WaitListButton";
 export default function IndexPage() {
   return (
     <>
