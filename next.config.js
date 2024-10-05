@@ -1,6 +1,5 @@
-// Import withContentlayer if you need it
-const { withContentlayer } = require('next-contentlayer');
-
+const { withContentlayer } = require("next-contentlayer2");
+import("./env.mjs");
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -34,5 +33,4 @@ const nextConfig = {
   },
 };
 
-// Export with withContentlayer if it's needed, otherwise, just export nextConfig
-module.exports = withContentlayer ? withContentlayer(nextConfig) : nextConfig;
+module.exports = withContentlayer(nextConfig);
