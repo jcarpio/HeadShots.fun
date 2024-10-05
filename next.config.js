@@ -38,7 +38,7 @@ const nextConfig = {
       {
         source: '/', // The home page
         destination: '/waitlist', // Redirect to the waitlist page
-        permanent: false, // Temporary redirect
+        permanent: true,
         has: [
           {
             type: 'query',
