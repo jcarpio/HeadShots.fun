@@ -39,7 +39,7 @@ export default function WaitListButton() {
 
       if (res.ok) {
         // Show success message if the request is successful
-        setSuccessMessage("Thank you! You've been added to the waitlist.");
+        setSuccessMessage("Thank you! You&apos;ve been added to the waitlist.");
         setEmail("");  // Clear the email input
       } else {
         // Handle errors if the API returns an error response
@@ -63,7 +63,7 @@ export default function WaitListButton() {
           </CardHeader>
           <CardContent className="text-center">
             <p className="mx-auto mb-6 max-w-3xl text-muted-foreground">
-              Right now, access is restricted. However, you can be first in line by leaving your email, and we'll notify you once access is available!
+              Right now, access is restricted. However, you can be first in line by leaving your email, and we&apos;ll notify you once access is available!
             </p>
             <form onSubmit={handleEmailSubmit} className="transition-all hover:rotate-2 hover:scale-110">
               <input
