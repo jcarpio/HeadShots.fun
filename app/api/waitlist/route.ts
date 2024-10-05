@@ -1,25 +1,28 @@
 import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/db'; // Asegúrate de tener la instancia de Prisma configurada
+import { prisma } from '@/lib/db'; // Ensure Prisma instance is properly configured
 
+// Handle POST request to add email to the waitlist
 export async function POST(req: Request) {
   try {
     const { email } = await req.json();
 
-    // Validar el email
+    // Validate email format
     if (!email || !email.includes('@')) {
       return NextResponse.json({ error: 'Invalid email.' }, { status: 400 });
     }
 
-    // Añadir el email a la lista de espera
+    // Add the email to the waitlist with 'processed' set to false by default
     await prisma.waitlist.create({
       data: {
         email,
-        processed: false, // Campo por defecto
+        processed: false, // Default field to track whether the user has been processed
       },
     });
 
+    // Return success response
     return NextResponse.json({ message: 'Email added to the waitlist.' }, { status: 200 });
   } catch (error) {
+    // Return error response in case of failure
     return NextResponse.json({ error: 'Failed to add email to the waitlist.' }, { status: 500 });
   }
 }
