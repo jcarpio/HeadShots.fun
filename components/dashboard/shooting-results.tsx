@@ -12,6 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { Drawer } from "vaul";
 
+// Ensure Prediction type and props
 interface Prediction {
     id: string;
     createdAt: string;
@@ -45,101 +46,94 @@ const downloadImage = async (imageUrl: string) => {
     window.URL.revokeObjectURL(url);
 };
 
-// Función para subir la imagen a R2
-const uploadToR2 = async (imageUrl: string, studioId: string) => {
-    // Obtener la imagen desde la URL proporcionada (Replicate o similar)
-    const response = await fetch(imageUrl);
-    const imageBlob = await response.blob();
-
-    // Crear un FormData para enviar la imagen
-    const formData = new FormData();
-    const fileName = `${studioId}-${Date.now()}.jpg`;
-    formData.append('file', new File([imageBlob], fileName, { type: 'image/jpeg' }));
-
-    // Llamada a la API de subida
-    const uploadResponse = await fetch('/api/studio/upload', {
-        method: 'POST',
-        body: formData,
-    });
-
-    if (!uploadResponse.ok) {
-        throw new Error('Failed to upload image to R2');
-    }
-
-    const { url } = await uploadResponse.json();
-    return url;  // URL pública de la imagen almacenada en R2
-};
-
-// Modificar la función para obtener resultados de predicción
-const fetchPredictionResult = useCallback(async (prediction: Prediction, studioId: string) => {
-    try {
-        const response = await fetch(`/api/studio/${studioId}/shoot/get-result`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ predictionDbId: prediction.id, pId: prediction.pId }),
-        });
-
-        const data = await response.json();
-
-        if (data.success && data.imageUrl) {
-            // Subir la imagen a R2 y obtener la nueva URL
-            const r2ImageUrl = await uploadToR2(data.imageUrl, studioId);
-
-            // Actualizar la URL en la base de datos
-            await fetch(`/api/studio/${studioId}/update-image`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    predictionId: prediction.id,
-                    imageUrl: r2ImageUrl
-                })
-            });
-
-            // Actualizar la imagen en el estado local con la nueva URL de R2
-            setPredictions(prevPredictions =>
-                prevPredictions.map(p =>
-                    p.id === prediction.id
-                        ? { ...p, status: data.status, imageUrl: r2ImageUrl }
-                        : p
-                )
-            );
-
-            if (data.status !== "processing") {
-                setProcessingPredictions(prev => prev.filter(id => id !== prediction.id));
-            }
-        }
-    } catch (error) {
-        console.error("Error fetching prediction result:", error);
-    }
-}, [studioId]);
-
-// Componente ShootingResults
+// Move useCallback inside the component
 export function ShootingResults({ predictions: initialPredictions, studioId, studioStatus, onShootComplete }: ShootingResultsProps) {
     const [predictions, setPredictions] = useState(initialPredictions);
     const [processingPredictions, setProcessingPredictions] = useState<string[]>([]);
     const { isMobile } = useMediaQuery();
 
-    useEffect(() => {
-        setPredictions(initialPredictions);
-        setProcessingPredictions(initialPredictions.filter(p => p.status === "processing").map(p => p.id));
-    }, [initialPredictions]);
+    // Function to upload to R2
+    const uploadToR2 = useCallback(async (imageUrl: string) => {
+        const response = await fetch(imageUrl);
+        const imageBlob = await response.blob();
 
+        const formData = new FormData();
+        const fileName = `${studioId}-${Date.now()}.jpg`;
+        formData.append('file', new File([imageBlob], fileName, { type: 'image/jpeg' }));
+
+        const uploadResponse = await fetch('/api/studio/upload', {
+            method: 'POST',
+            body: formData,
+        });
+
+        if (!uploadResponse.ok) {
+            throw new Error('Failed to upload image to R2');
+        }
+
+        const { url } = await uploadResponse.json();
+        return url;  // URL pública de la imagen almacenada en R2
+    }, [studioId]);  // Make studioId a dependency since it's used inside the callback
+
+    // Modified function to fetch prediction result and update the image URL
+    const fetchPredictionResult = useCallback(async (prediction: Prediction) => {
+        try {
+            const response = await fetch(`/api/studio/${studioId}/shoot/get-result`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ predictionDbId: prediction.id, pId: prediction.pId }),
+            });
+
+            const data = await response.json();
+
+            if (data.success && data.imageUrl) {
+                // Upload image to R2 and get the new URL
+                const r2ImageUrl = await uploadToR2(data.imageUrl);
+
+                // Update the URL in the database
+                await fetch(`/api/studio/${studioId}/update-image`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        predictionId: prediction.id,
+                        imageUrl: r2ImageUrl
+                    })
+                });
+
+                // Update the image in the local state with the new R2 URL
+                setPredictions(prevPredictions =>
+                    prevPredictions.map(p =>
+                        p.id === prediction.id
+                            ? { ...p, status: data.status, imageUrl: r2ImageUrl }
+                            : p
+                    )
+                );
+
+                if (data.status !== "processing") {
+                    setProcessingPredictions(prev => prev.filter(id => id !== prediction.id));
+                }
+            }
+        } catch (error) {
+            console.error("Error fetching prediction result:", error);
+        }
+    }, [studioId, uploadToR2]);  // Ensure uploadToR2 is in the dependency array
+
+    // useEffect to poll for processing predictions
     useEffect(() => {
         if (processingPredictions.length === 0) return;
 
         const interval = setInterval(() => {
             processingPredictions.forEach(id => {
                 const prediction = predictions.find(p => p.id === id);
-                if (prediction) fetchPredictionResult(prediction, studioId);
+                if (prediction) fetchPredictionResult(prediction);
             });
         }, 5000);
 
         return () => clearInterval(interval);
-    }, [processingPredictions, predictions, fetchPredictionResult, studioId]);
+    }, [processingPredictions, predictions, fetchPredictionResult]);  // Keep fetchPredictionResult as a dependency
 
     return (
         <>
