@@ -7,11 +7,13 @@ import InfoLanding from "@/components/sections/info-landing";
 import PreviewLanding from "@/components/sections/preview-landing";
 import Testimonials from "@/components/sections/testimonials";
 import CTA from "@/components/sections/CTA";
+import WaitListButton from "@/components/ui/WaitListButton"; // Import the waitlist button
 
 export default function IndexPage() {
   return (
     <>
       <HeroLanding />
+      <WaitListButton />
       <PreviewLanding />
       {/* <Powered /> */}
       <BentoGrid />
