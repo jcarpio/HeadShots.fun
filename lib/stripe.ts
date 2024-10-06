@@ -49,6 +49,68 @@ export async function createCheckoutSessionForSubscription(
 
 // Function to handle successful subscription payments
 export async function handleSuccessfulSubscriptionPayment(invoice: Stripe.Invoice) {
+  const customerId = invoice.customer as string;
+
+  // Find the user in the database using the Stripe customer ID
+  const user = await prisma.user.findUnique({
+    where: {
+      stripeCustomerId: customerId,
+    },
+  });
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  // Get the plan from the payment session (use metadata if present)
+  const subscription = await stripe.subscriptions.retrieve(invoice.subscription as string);
+  const planId = subscription.items.data[0].plan.id;
+  
+  // Logic to determine the number of credits according to the plan and the time interval
+  let creditsToAdd = 0;
+
+  switch (planId) {
+    // Plan Starter
+    case process.env.NEXT_PUBLIC_STRIPE_STARTER_MONTHLY_PLAN_ID:
+      creditsToAdd = 9; // Annual credits for Starter
+      break;
+    case process.env.NEXT_PUBLIC_STRIPE_STARTER_YEARLY_PLAN_ID:
+      creditsToAdd = 141; // Annual credits for Starter
+      break;
+
+    // Plan Pro
+    case process.env.NEXT_PUBLIC_STRIPE_PRO_MONTHLY_PLAN_ID:
+      creditsToAdd = 21; // Annual credits for Pro
+      break;
+    case process.env.NEXT_PUBLIC_STRIPE_PRO_YEARLY_PLAN_ID:
+      creditsToAdd = 321; // Annual credits for Pro
+      break;
+
+    // Plan Business
+    case process.env.NEXT_PUBLIC_STRIPE_BUSINESS_MONTHLY_PLAN_ID:
+      creditsToAdd = 49; // Annual credits for Business
+      break;
+    case process.env.NEXT_PUBLIC_STRIPE_BUSINESS_YEARLY_PLAN_ID:
+      creditsToAdd = 735; // Annual credits for Business
+      break;
+
+    default:
+      throw new Error("Invalid plan ID");
+  }
+
+  // Update user credits
+  await prisma.user.update({
+    where: { id: user.id },
+    data: {
+      credits: { increment: creditsToAdd }, // Add the credits corresponding to the user
+    },
+  });
+
+  console.log(`✅ Successfully added ${creditsToAdd} credits to user ${user.id}`);
+}
+/*
+// Function to handle successful subscription payments
+export async function handleSuccessfulSubscriptionPayment(invoice: Stripe.Invoice) {
   const subscriptionId = invoice.subscription as string;
 
   // Fetch subscription details from the database
@@ -85,3 +147,5 @@ export async function handleSuccessfulSubscriptionPayment(invoice: Stripe.Invoic
     },
   });
 }
+
+*/
