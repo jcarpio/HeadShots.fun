@@ -27,7 +27,7 @@ function SignInModal({
   const [isCodeValid, setIsCodeValid] = useState(false); // Track if code is valid
 
   // Valid invitation code (you can also fetch this from the server or env variables)
-  const VALID_CODE = "DREAMBEZ123";
+  const VALID_CODE = process.env.NEXT_PUBLIC_VALID_CODE || "";
 
   // Function to handle the code validation
   const handleCodeValidation = () => {
