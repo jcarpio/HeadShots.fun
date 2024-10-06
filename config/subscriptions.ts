@@ -19,7 +19,7 @@ export const pricingData: SubscriptionPlan[] = [
       "Limited to 1 user account.",
     ],
     prices: {
-      monthly: 69,
+      monthly: 7,
       yearly: 69,
     },
     stripeIds: {
@@ -43,7 +43,7 @@ export const pricingData: SubscriptionPlan[] = [
       "Limited to 3 user accounts.",
     ],
     prices: {
-      monthly: 144,
+      monthly: 15,
       yearly: 144,
     },
     stripeIds: {
@@ -65,7 +65,7 @@ export const pricingData: SubscriptionPlan[] = [
     ],
     limitations: [],
     prices: {
-      monthly: 300,
+      monthly: 30,
       yearly: 300,
     },
     stripeIds: {
