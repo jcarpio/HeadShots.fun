@@ -96,9 +96,9 @@ export const comparePlans: PlansRow[] = [
   },
    {
     feature: "Shots (1 credit each)",
-    starter: "735/year",
-    pro: "320/year",
-    business: "153/year",
+    starter: "154/year",
+    pro: "321/year",
+    business: "735/year",
     tooltip: "Each shot requires 1 credit.",
   },
   {
