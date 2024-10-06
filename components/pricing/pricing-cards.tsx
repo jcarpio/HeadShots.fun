@@ -105,7 +105,7 @@ export function PricingCards({ userId, subscriptionPlan }: PricingCardsProps) {
               year={isYearly}
               offer={offer}
               subscriptionPlan={subscriptionPlan}
-              buttonLabel={isStarter ? "Buy this plan" : "Subscribe Now"}
+              buttonLabel={isStarter ? "Subscribe Now" : "Subscribe Now"}
             />
           ) : (
             <Button
