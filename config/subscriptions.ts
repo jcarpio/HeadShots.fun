@@ -4,16 +4,17 @@ import { env } from "@/env.mjs";
 export const pricingData: SubscriptionPlan[] = [
   {
     title: "Starter",
-    description: "For Beginners",
+    description: "Perfect for beginners",
     benefits: [
-      "Credits: 141 yearly / 9 monthly", // Added yearly and monthly credits
-      "Basic image enhancements",
-      "Access to standard photo templates",
-      "Email support during working hours",
+      "Credits: 141 yearly / 9 monthly", // Credits for shots and products
+      "Take up to 9 shots monthly (1 credit per shot)",
+      "Dream Album Digital: 1 per year (73 credits each)",
+      "Basic email support during work hours",
+      "Access to standard templates",
     ],
     limitations: [
-      "No access to custom models.",
-      "Standard photo processing times.",
+      "No custom AI model training (25 credits per model).",
+      "No access to printed Dream Albums.",
       "No priority support",
       "Limited to 1 user account.",
     ],
@@ -28,18 +29,18 @@ export const pricingData: SubscriptionPlan[] = [
   },
   {
     title: "Pro",
-    description: "Unlock Advanced Features",
+    description: "Unlock advanced features",
     benefits: [
-      "Credits: 321 yearly / 21 monthly", // Added yearly and monthly credits
-      "Priority photo processing",
-      "Advanced image styling options",
-      "Access to custom photo models",
-      "Chat support during working hours",
+      "Credits: 321 yearly / 21 monthly", // Credits for shots and products
+      "Take up to 21 shots monthly (1 credit per shot)",
+      "Dream Album Digital: 4 per year (73 credits each)",
+      "Train custom models: 12 times per year (25 credits each)",
+      "Priority chat support during work hours",
+      "Access to professional photo templates",
     ],
     limitations: [
+      "No access to printed Dream Albums.",
       "Limited to 3 user accounts.",
-      "No custom workflows",
-      "No dedicated account manager",
     ],
     prices: {
       monthly: 144,
@@ -52,13 +53,15 @@ export const pricingData: SubscriptionPlan[] = [
   },
   {
     title: "Business",
-    description: "For Power Users",
+    description: "For power users",
     benefits: [
-      "Credits: 735 yearly / 49 monthly", // Added yearly and monthly credits
-      "Priority photo processing with real-time updates",
-      "Access to all photo models, including custom workflows",
-      "Chat support during working hours",
-      "Assisted onboarding and training",
+      "Credits: 735 yearly / 49 monthly", // Credits for shots and products
+      "Take up to 49 shots monthly (1 credit per shot)",
+      "Dream Album Digital: 10 per year (73 credits each)",
+      "Dream Album Printed: 4 per year (180 credits each)",
+      "Train custom models: 29 times per year (25 credits each)",
+      "Chat support during work hours",
+      "Assisted onboarding and advanced photo templates",
     ],
     limitations: [],
     prices: {
@@ -86,48 +89,63 @@ export const comparePlans: PlansRow[] = [
     business: "49",
   },
   {
-    feature: "Photo Processing Speed",
-    starter: "Standard",
-    pro: "Priority",
-    business: "Real-time",
-    tooltip: "Faster processing times with higher plans.",
+    feature: "Shots (1 credit each)",
+    starter: "9/mo",
+    pro: "21/mo",
+    business: "49/mo",
+    tooltip: "Each shot requires 1 credit.",
   },
   {
-    feature: "AI Custom Models",
-    starter: false,
-    pro: "Access to basic models",
-    business: "Full access",
-    tooltip: "Custom AI models for personalized photo albums.",
+    feature: "Dream Album (Digital)",
+    starter: "1/year",
+    pro: "4/year",
+    business: "10/year",
+    tooltip: "Digital albums require 73 credits each.",
+  },
+  {
+    feature: "Dream Album (Printed)",
+    starter: null,
+    pro: null,
+    business: "4/year",
+    tooltip: "Printed albums require 180 credits each.",
+  },
+  {
+    feature: "Custom Model Training",
+    starter: null,
+    pro: "12/year",
+    business: "29/year",
+    tooltip: "Train custom models for personalized photo creation (25 credits per model).",
   },
   {
     feature: "Support",
-    starter: "Email (working hours)",
-    pro: "Chat (working hours)",
-    business: "Chat (working hours)",
-    tooltip: "Support is available during designated working hours.",
+    starter: "Email (work hours)",
+    pro: "Chat (work hours)",
+    business: "Chat (work hours)",
+    tooltip: "Support is available during working hours.",
   },
   {
     feature: "Users per Account",
     starter: "1",
     pro: "Up to 3",
     business: "Unlimited",
-    tooltip: "Larger teams get more user accounts.",
-  },
-  {
-    feature: "Custom Photo Workflows",
-    starter: false,
-    pro: "Standard",
-    business: "Advanced",
-    tooltip: "Create custom workflows for photo processing.",
+    tooltip: "More user accounts are available with higher plans.",
   },
   {
     feature: "Onboarding Assistance",
-    starter: false,
+    starter: "<s>Not included</s>",
     pro: "Self-service",
     business: "Assisted",
-    tooltip: "More onboarding assistance is available with higher plans.",
+    tooltip: "Higher plans include more comprehensive onboarding assistance.",
+  },
+  {
+    feature: "Access to Templates",
+    starter: "Basic",
+    pro: "Professional",
+    business: "All templates",
+    tooltip: "Access to a range of templates improves with higher plans.",
   },
 ];
+
 
 
 /*
