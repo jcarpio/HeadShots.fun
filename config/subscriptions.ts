@@ -6,6 +6,140 @@ export const pricingData: SubscriptionPlan[] = [
     title: "Starter",
     description: "For Beginners",
     benefits: [
+      "Credits: 141 yearly / 9 monthly", // Added yearly and monthly credits
+      "Basic image enhancements",
+      "Access to standard photo templates",
+      "Email support during working hours",
+    ],
+    limitations: [
+      "No access to custom models.",
+      "Standard photo processing times.",
+      "No priority support",
+      "Limited to 1 user account.",
+    ],
+    prices: {
+      monthly: 69,
+      yearly: 69,
+    },
+    stripeIds: {
+      monthly: env.NEXT_PUBLIC_STRIPE_STARTER_MONTHLY_PLAN_ID,
+      yearly: env.NEXT_PUBLIC_STRIPE_STARTER_YEARLY_PLAN_ID,
+    },
+  },
+  {
+    title: "Pro",
+    description: "Unlock Advanced Features",
+    benefits: [
+      "Credits: 321 yearly / 21 monthly", // Added yearly and monthly credits
+      "Priority photo processing",
+      "Advanced image styling options",
+      "Access to custom photo models",
+      "Chat support during working hours",
+    ],
+    limitations: [
+      "Limited to 3 user accounts.",
+      "No custom workflows",
+      "No dedicated account manager",
+    ],
+    prices: {
+      monthly: 144,
+      yearly: 144,
+    },
+    stripeIds: {
+      monthly: env.NEXT_PUBLIC_STRIPE_PRO_MONTHLY_PLAN_ID,
+      yearly: env.NEXT_PUBLIC_STRIPE_PRO_YEARLY_PLAN_ID,
+    },
+  },
+  {
+    title: "Business",
+    description: "For Power Users",
+    benefits: [
+      "Credits: 735 yearly / 49 monthly", // Added yearly and monthly credits
+      "Priority photo processing with real-time updates",
+      "Access to all photo models, including custom workflows",
+      "Chat support during working hours",
+      "Assisted onboarding and training",
+    ],
+    limitations: [],
+    prices: {
+      monthly: 300,
+      yearly: 300,
+    },
+    stripeIds: {
+      monthly: env.NEXT_PUBLIC_STRIPE_BUSINESS_MONTHLY_PLAN_ID,
+      yearly: env.NEXT_PUBLIC_STRIPE_BUSINESS_YEARLY_PLAN_ID,
+    },
+  },
+];
+
+export const plansColumns = [
+  "starter",
+  "pro",
+  "business",
+] as const;
+
+export const comparePlans: PlansRow[] = [
+  {
+    feature: "Credits per Month",
+    starter: "9",
+    pro: "21",
+    business: "49",
+  },
+  {
+    feature: "Photo Processing Speed",
+    starter: "Standard",
+    pro: "Priority",
+    business: "Real-time",
+    tooltip: "Faster processing times with higher plans.",
+  },
+  {
+    feature: "AI Custom Models",
+    starter: false,
+    pro: "Access to basic models",
+    business: "Full access",
+    tooltip: "Custom AI models for personalized photo albums.",
+  },
+  {
+    feature: "Support",
+    starter: "Email (working hours)",
+    pro: "Chat (working hours)",
+    business: "Chat (working hours)",
+    tooltip: "Support is available during designated working hours.",
+  },
+  {
+    feature: "Users per Account",
+    starter: "1",
+    pro: "Up to 3",
+    business: "Unlimited",
+    tooltip: "Larger teams get more user accounts.",
+  },
+  {
+    feature: "Custom Photo Workflows",
+    starter: false,
+    pro: "Standard",
+    business: "Advanced",
+    tooltip: "Create custom workflows for photo processing.",
+  },
+  {
+    feature: "Onboarding Assistance",
+    starter: false,
+    pro: "Self-service",
+    business: "Assisted",
+    tooltip: "More onboarding assistance is available with higher plans.",
+  },
+];
+
+
+/*
+
+import { PlansRow, SubscriptionPlan } from "types";
+import { env } from "@/env.mjs";
+
+export const pricingData: SubscriptionPlan[] = [
+  {
+    title: "Starter",
+    description: "For Beginners",
+    benefits: [
       "Up to 100 monthly posts",
       "Basic analytics and reporting",
       "Access to standard templates",
@@ -161,3 +295,4 @@ export const comparePlans: PlansRow[] = [
   },
   // Add more rows as needed
 ];
+*/
