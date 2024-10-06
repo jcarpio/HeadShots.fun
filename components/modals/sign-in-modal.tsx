@@ -105,29 +105,7 @@ function SignInModal({
                 )}{" "}
                 Sign In with Google
               </Button>
-              <Button
-                variant="default"
-                disabled={signInClicked}
-                onClick={() => {
-                  setSignInClicked(true);
-                  setSignInProvider("linkedin");
-                  signIn("linkedin", {
-                    redirect: false,
-                    callbackUrl: "/dashboard",
-                  }).then(() =>
-                    setTimeout(() => {
-                      setShowSignInModal(false);
-                    }, 400),
-                  );
-                }}
-              >
-                {signInClicked && signInProvider === "linkedin" ? (
-                  <Icons.spinner className="mr-2 size-4 animate-spin" />
-                ) : (
-                  <Icons.linkedin className="mr-2 size-4" />
-                )}{" "}
-                Sign In with LinkedIn
-              </Button>
+             
             </div>
           </div>
         )}
