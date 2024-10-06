@@ -48,7 +48,7 @@ export function ComparisonTable({ pricingData }) {
         <TableRow>
           <TableCell>Digital Dream Albums</TableCell>
           {pricingData.map((plan, index) => (
-            <TableCell key={index}>{plan.benefits.find(benefit => benefit.includes("Dream Album Digital")) || <s>Not included</s>}</TableCell>
+            <TableCell key={index}>{plan.benefits.find(benefit => benefit.includes("Dream Album Digital")) || "Not included"}</TableCell>
           ))}
         </TableRow>
 
@@ -56,7 +56,7 @@ export function ComparisonTable({ pricingData }) {
         <TableRow>
           <TableCell>Printed Dream Albums</TableCell>
           {pricingData.map((plan, index) => (
-            <TableCell key={index}>{plan.title === "Business" ? "4/year" : <s>Not included</s>}</TableCell>
+            <TableCell key={index}>{plan.title === "Business" ? "4/year" : "Not included"}</TableCell>
           ))}
         </TableRow>
 
@@ -64,7 +64,7 @@ export function ComparisonTable({ pricingData }) {
         <TableRow>
           <TableCell>Custom Model Training</TableCell>
           {pricingData.map((plan, index) => (
-            <TableCell key={index}>{plan.benefits.find(benefit => benefit.includes("Train custom models")) || <s>Not included</s>}</TableCell>
+            <TableCell key={index}>{plan.benefits.find(benefit => benefit.includes("Train custom models")) || "Not included"}</TableCell>
           ))}
         </TableRow>
 
@@ -95,6 +95,7 @@ export function ComparisonTable({ pricingData }) {
     </Table>
   );
 }
+
 
 
 /* import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
