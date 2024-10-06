@@ -19,7 +19,7 @@ export const pricingData: SubscriptionPlan[] = [
       "Limited to 1 user account.",
     ],
     prices: {
-      monthly: 7,
+      monthly: 6,
       yearly: 69,
     },
     stripeIds: {
