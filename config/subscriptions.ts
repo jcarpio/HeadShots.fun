@@ -82,22 +82,42 @@ export const plansColumns = [
 ] as const;
 
 export const comparePlans: PlansRow[] = [
+    {
+    feature: "Credits per Year",
+    starter: "154",
+    pro: "321",
+    business: "735",
+  },
   {
     feature: "Credits per Month",
-    starter: "9",
-    pro: "21",
-    business: "49",
+    starter: "11",
+    pro: "23",
+    business: "52",
+  },
+   {
+    feature: "Shots (1 credit each)",
+    starter: "735/year",
+    pro: "320/year",
+    business: "153/year",
+    tooltip: "Each shot requires 1 credit.",
   },
   {
     feature: "Shots (1 credit each)",
-    starter: "9/mo",
-    pro: "21/mo",
-    business: "49/mo",
+    starter: "11/mo",
+    pro: "23/mo",
+    business: "52/mo",
+    tooltip: "Each shot requires 1 credit.",
+  },
+    {
+    feature: "Shots (1 credit each)",
+    starter: "735/year",
+    pro: "320/year",
+    business: "153/year",
     tooltip: "Each shot requires 1 credit.",
   },
   {
     feature: "Dream Album (Digital)",
-    starter: "1/year",
+    starter: "2/year",
     pro: "4/year",
     business: "10/year",
     tooltip: "Digital albums require 73 credits each.",
@@ -105,13 +125,13 @@ export const comparePlans: PlansRow[] = [
   {
     feature: "Dream Album (Printed)",
     starter: null,
-    pro: null,
+    pro: "1/year",
     business: "4/year",
     tooltip: "Printed albums require 180 credits each.",
   },
   {
     feature: "Custom Model Training",
-    starter: null,
+    starter: "6/year",
     pro: "12/year",
     business: "29/year",
     tooltip: "Train custom models for personalized photo creation (25 credits per model).",
@@ -132,7 +152,7 @@ export const comparePlans: PlansRow[] = [
   },
   {
     feature: "Onboarding Assistance",
-    starter: "<s>Not included</s>",
+    starter: "Not included",
     pro: "Self-service",
     business: "Assisted",
     tooltip: "Higher plans include more comprehensive onboarding assistance.",
