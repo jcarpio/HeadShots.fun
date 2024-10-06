@@ -6,7 +6,7 @@ export const pricingData: SubscriptionPlan[] = [
     title: "Starter",
     description: "Perfect for beginners",
     benefits: [
-      "Credits: 141 yearly / 9 monthly", // Credits for shots and products
+      "Credits: 141 yearly / 11 monthly", // Credits for shots and products
       "Take up to 9 shots monthly (1 credit per shot)",
       "Or get 1 Dream Album Digital per year (73 credits each)",
       "Basic email support during work hours",
@@ -31,7 +31,7 @@ export const pricingData: SubscriptionPlan[] = [
     title: "Pro",
     description: "Unlock advanced features",
     benefits: [
-      "Credits: 321 yearly / 21 monthly", // Credits for shots and products
+      "Credits: 321 yearly / 23 monthly", // Credits for shots and products
       "Take up to 21 shots monthly (1 credit per shot)",
       "Or get up to 4 Dream Albums Digital per year (73 credits each)",
       "Or train custom models up to 12 times per year (25 credits each)",
@@ -55,7 +55,7 @@ export const pricingData: SubscriptionPlan[] = [
     title: "Business",
     description: "For power users",
     benefits: [
-      "Credits: 735 yearly / 49 monthly", // Credits for shots and products
+      "Credits: 735 yearly / 52 monthly", // Credits for shots and products
       "Take up to 49 shots monthly (1 credit per shot)",
       "Or get up to 10 Dream Albums Digital per year (73 credits each)",
       "Or get up to 4 Dream Albums Printed per year (180 credits each)",
