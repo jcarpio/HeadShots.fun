@@ -98,6 +98,7 @@ export function ComparisonTable({ pricingData }) {
 
 
 
+
 /* import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 export function ComparisonTable({ pricingData }) {
