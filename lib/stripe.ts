@@ -8,6 +8,45 @@ export const stripe = new Stripe(env.STRIPE_SECRET_KEY, {
   typescript: true,
 });
 
+
+
+import Stripe from "stripe";
+import { env } from "@/env.mjs";
+import { prisma } from "@/lib/db";
+
+export const stripe = new Stripe(env.STRIPE_SECRET_KEY, {
+  apiVersion: "2024-04-10",
+  typescript: true,
+});
+
+// Function to create a Stripe Checkout session for one-time payment
+export async function createCheckoutSession(
+  userId: string,
+  emailAddress: string,
+  priceId: string, // Now you pass a pre-defined Price ID
+  quantity: number
+) {
+  const session = await stripe.checkout.sessions.create({
+    payment_method_types: ['card'],
+    line_items: [
+      {
+        price: priceId, // Instead of using dynamic price_data, use a predefined Price ID
+        quantity: quantity,
+      },
+    ],
+    mode: 'payment', // Ensure this is set to 'payment' for one-time purchases
+    success_url: `${env.NEXT_PUBLIC_APP_URL}/payment-status?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${env.NEXT_PUBLIC_APP_URL}/pricing`,
+    metadata: {
+      userId,
+      credits: quantity.toString(),
+    },
+    customer_email: emailAddress, // Pre-populate the customer's email
+  });
+
+  return session; // Return the full session object
+}
+/*
 // Create some commonly used Stripe-related functions
 export async function createCheckoutSession(
   amount: number,
@@ -43,6 +82,7 @@ export async function createCheckoutSession(
 
   return session; // Return the full session object
 }
+*/
 
 export async function handleStripeWebhook(/* Parameters */) {
   // Implement logic to handle Stripe webhook
