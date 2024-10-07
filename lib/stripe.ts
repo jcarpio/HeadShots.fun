@@ -12,7 +12,8 @@ export const stripe = new Stripe(env.STRIPE_SECRET_KEY, {
 export async function createCheckoutSession(
   userId: string,
   emailAddress: string,
-  priceId: string, // Now you pass a pre-defined Price ID
+  priceId: string // Now you pass a pre-defined Price ID
+  amount: number,
   quantity: number
 ) {
   const session = await stripe.checkout.sessions.create({
@@ -20,7 +21,7 @@ export async function createCheckoutSession(
     line_items: [
       {
         price: priceId, // Instead of using dynamic price_data, use a predefined Price ID
-        quantity: quantity,
+        quantity: 1,
       },
     ],
     mode: 'payment', // Ensure this is set to 'payment' for one-time purchases
