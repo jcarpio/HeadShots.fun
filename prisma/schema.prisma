@@ -63,7 +63,8 @@ model User {
   accounts      Account[]
   sessions      Session[]
   studios       Studio[]
-  transactions  CreditTransaction[] // 关联到 CreditTransaction 模型
+  transactions  CreditTransaction[] // Relation to CreditTransaction model
+  stripeTransactions  StripeTransaction[] // Added the missing relation to StripeTransaction
 
   // Restored fields for Stripe subscriptions
   stripeCustomerId       String?   @unique @map(name: "stripe_customer_id")
@@ -72,7 +73,7 @@ model User {
   stripeCurrentPeriodEnd DateTime? @map(name: "stripe_current_period_end")
 
   // New relationship field for subscriptions
-  subscriptions          Subscription[]  // Relación con suscripciones
+  subscriptions          Subscription[]  // Relation with subscriptions
 
   @@map(name: "users")
 }
