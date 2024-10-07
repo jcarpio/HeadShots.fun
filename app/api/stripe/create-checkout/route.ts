@@ -4,13 +4,13 @@ import { prisma } from "@/lib/db";
 
 export async function POST(req: Request) {
   try {
-    const { amount, quantity, description, userId, emailAddress } = await req.json();
+    const {userId, emailAddress, priceId, quantity } = await req.json();
 
-    if (!amount || !quantity || !description || !userId || !emailAddress) {
+    if (!userId || !emailAddress || !priceId || quantity) {
       return NextResponse.json({ error: "Missing required parameters" }, { status: 400 });
     }
 
-    const session = await createCheckoutSession(amount, quantity, description, userId, emailAddress);
+    const session = await createCheckoutSession(userId, emailAddress, priceId, quantity);
 
     if (!session || !session.id || !session.url) {
       throw new Error("Failed to create checkout session");
