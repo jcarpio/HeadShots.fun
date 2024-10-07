@@ -4,9 +4,9 @@ import { prisma } from "@/lib/db";
 
 export async function POST(req: Request) {
   try {
-    const {userId, emailAddress, priceId, quantity } = await req.json();
+    const {userId, emailAddress, priceId, amount, quantity } = await req.json();
 
-    if (!userId || !emailAddress || !priceId || quantity) {
+    if (!userId || !emailAddress || !priceId || !amount || !quantity) {
       return NextResponse.json({ error: "Missing required parameters" }, { status: 400 });
     }
 
