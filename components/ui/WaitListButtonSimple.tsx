@@ -46,12 +46,12 @@ export default function WaitListButtonSimple() {
         <Card className="rounded-xl border border-secondary bg-secondary">
           <CardHeader>
             <CardTitle className="text-center text-3xl font-semibold text-secondary-foreground">
-              Access is currently limited, but you can join our waitlist!
+              Dreamer, join our waitlist!
             </CardTitle>
           </CardHeader>
           <CardContent className="text-center">
             <p className="mx-auto mb-6 max-w-3xl text-muted-foreground">
-              Right now, access is restricted. However, you can be first in line by leaving your email, and we&apos;ll notify you once access is available!
+              Be the first to know by leaving your email, and we&apos;ll notify you as soon as access becomes available!
             </p>
             <form onSubmit={handleEmailSubmit} className="transition-all hover:rotate-2 hover:scale-110">
               <input
