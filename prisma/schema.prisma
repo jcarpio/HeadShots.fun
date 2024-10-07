@@ -191,3 +191,14 @@ model InvitationCode {
 }
 
 // Removed StripeTransaction model, as we're focusing on subscription-based payments
+
+model StripeCustomer {
+  id                String   @id @default(cuid()) // ID para la tabla
+  userId            String   @unique
+  stripeCustomerId  String   @unique              // Stripe customer ID
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@map(name: "stripe_customers")
+}
