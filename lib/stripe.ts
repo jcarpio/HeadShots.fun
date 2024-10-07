@@ -35,6 +35,9 @@ export async function createCheckoutSession(
     phone_number_collection: {
       enabled: true, 
     },
+       tax_id_collection: {
+      enabled: true, // Enable VAT/Tax ID collection
+    },
     allow_promotion_codes: true,
     invoice_creation: {
       enabled: true,
