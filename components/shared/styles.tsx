@@ -59,7 +59,7 @@ export const styles = [
     },
     {
         name: "Popmart 3D",
-        img: "popmart.jpg",
+        img: "popmart-3d.jpg",
         prompt: "Solo, popmart Blind Box Adorable 3D Character, {prompt}, solo, beautiful, detailed, 3D render, adorable character, 3D art",
         negative_prompt: "ugly, deformed, noisy, blurry, low contrast, grunge, sloppy, unkempt, photograph, photo, realistic, border, picture frame, text, watermark",
         category: "man-creative",
@@ -194,14 +194,14 @@ export const styles = [
 
     {
         name: "Pro 1 (Dark Bg)",
-        img: "pro1-darkbg.jpg",
+        img: "pro-1-dark-bg.jpg",
         prompt: "business headshot of {prompt}, dark background, in a suit, portrait photo,dark background, Half-body digital photo , realistic, highly detailed, photorealistic, 8k, looking towards the camera",
         negative_prompt: "flaws in the eyes, flaws in the face, flaws, lowres, non-HDRi, low quality, worst quality,artifacts noise, text, watermark, glitch, deformed, mutated, ugly, disfigured, hands, low resolution, partially rendered objects,  deformed or partially rendered eyes, deformed, deformed eyeballs, cross-eyed,blurry,border, picture frame",
         category: "man-studio"
     },
     {
         name: "Pro 2 (Light Bg)",
-        img: "pro2-lightbg.jpg",
+        img: "pro-2-light-bg.jpg",
         prompt: "business headshot of {prompt}, White background, in a suit, portrait photo,White background , Half-body digital photo , realistic, highly detailed, photorealistic, 8k, looking towards the camera",
         negative_prompt: "",
         category: "man-studio",
@@ -216,7 +216,7 @@ export const styles = [
     },
     {
         name: "ID Photo",
-        img: "id-photo.jpg",
+        img: "id_photo.jpg",
         prompt: "ID Photo of {prompt}, professional, clean background, headshot portrait photo, white background, Half-body digital photo , realistic, highly detailed, photorealistic, 8k, looking towards the camera",
         negative_prompt: "",
         category: "man-studio"
@@ -245,7 +245,7 @@ export const styles = [
     },
     {
         name: "Bookshelf",
-        img: "bookshelf.jpg",
+        img: "bokshelf.jpg",
         prompt: "headshot of {prompt}, bookshelf background,bookshelf background, Half-body digital photo , realistic, highly detailed, photorealistic, 8k, looking towards the camera",
         negative_prompt: "",
         category: "man-studio",
