@@ -18,8 +18,8 @@ export default async function BillingPage() {
   // Get the current user
   const user = await getCurrentUser();
 
-  // If there's no user, redirect or handle the error
-  if (!user) {
+  // If there's no user or user ID, handle the error or redirect
+  if (!user || !user.id) {
     return <p>Please log in to manage your billing information.</p>;
   }
 
