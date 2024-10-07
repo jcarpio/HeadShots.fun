@@ -62,8 +62,7 @@ export default function HeadshotStylePage() {
         </div>
       </div>
       <WaitListButton />
-
-      <PreviewLanding />
+      
       <BentoGrid />
       <InfoLanding data={infos[0]} reverse={true} />
       <Features />
