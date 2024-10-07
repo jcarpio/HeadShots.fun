@@ -19,14 +19,15 @@ export async function POST(req: Request) {
         const session = event.data.object as Stripe.Checkout.Session;
 
         // Get the Stripe customer ID from the session
-        const stripeCustomerId = session.customer as string;
-        const userId = session.metadata?.userId;
+        const stripeCustomerId = session.customer as string; // This is the stripeCustomerId you need
+        const userId = session.metadata?.userId; // This is your internal user ID
 
-        // Update or store the stripeCustomerId in the User table
+        // Ensure both userId and stripeCustomerId exist
         if (userId && stripeCustomerId) {
+          // Update or store the stripeCustomerId in the User table
           await prisma.user.update({
-            where: { id: userId },
-            data: { stripeCustomerId },
+            where: { id: userId }, // Update the user based on your internal userId
+            data: { stripeCustomerId }, // Store the Stripe customer ID
           });
         }
 
