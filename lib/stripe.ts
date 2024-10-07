@@ -31,8 +31,13 @@ export async function createCheckoutSession(
       credits: quantity.toString(),
     },
     customer_email: emailAddress, // Pre-populate the customer's email
+    billing_address_collection: 'required', // O 'auto' si quieres que Stripe decida si es necesaria
+    phone_number_collection: {
+      enabled: true, 
+    },
+    allow_promotion_codes: true,
     invoice_creation: {
-      enabled: true, // Enable invoice creation
+      enabled: true,
     },
   });
 
