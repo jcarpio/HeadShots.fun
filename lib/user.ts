@@ -46,3 +46,19 @@ export async function getStripeCustomerId(userId: string): Promise<string | null
   // Return the Stripe customer ID or null if not available
   return user.stripeCustomerId || null;
 }
+
+export async function hasPurchases(userId: string): Promise<boolean> {
+  if (!userId) {
+    throw new Error("Missing userId");
+  }
+
+// Check if there are transactions of type PURCHASE for the user
+  const purchaseCount = await prisma.creditTransaction.count({
+    where: {
+      userId,
+      type: "PURCHASE", // Purchase transactions only
+    },
+  });
+
+  // If there is at least one purchase transaction, we return true
+  return purchaseCount > 0;
