@@ -6,7 +6,8 @@ import { Badge } from "@/components/ui/badge";
 import { styles, domainPath } from '@/components/shared/styles';
 import MaxWidthWrapper from "@/components/shared/max-width-wrapper";
 import { HeaderSection } from "@/components/shared/header-section";
-import WaitListButton from "@/components/ui/WaitListButtonSimple";
+import WaitListButtonSimple from "@/components/ui/WaitListButtonSimple";
+import WaitListButton from "@/components/ui/WaitListButton";
 
 import { infos } from "@/config/landing";
 import BentoGrid from "@/components/sections/bentogrid";
