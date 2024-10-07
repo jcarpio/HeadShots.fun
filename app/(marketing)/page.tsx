@@ -8,6 +8,16 @@ import MaxWidthWrapper from "@/components/shared/max-width-wrapper";
 import { HeaderSection } from "@/components/shared/header-section";
 import WaitListButton from "@/components/ui/WaitListButton";
 
+import { infos } from "@/config/landing";
+import BentoGrid from "@/components/sections/bentogrid";
+import Features from "@/components/sections/features";
+import HeroLanding from "@/components/sections/hero-landing";
+import InfoLanding from "@/components/sections/info-landing";
+import Powered from "@/components/sections/powered";
+import PreviewLanding from "@/components/sections/preview-landing";
+import Testimonials from "@/components/sections/testimonials";
+import CTA from "@/components/sections/CTA";
+
 // Function to shuffle an array randomly
 function shuffleArray(array: any[]) {
   return array.sort(() => Math.random() - 0.5);
@@ -52,6 +62,16 @@ export default function HeadshotStylePage() {
         </div>
       </div>
       <WaitListButton />
+
+      <PreviewLanding />
+      <Powered />
+      <BentoGrid />
+      <InfoLanding data={infos[0]} reverse={true} />
+      <InfoLanding data={infos[1]} />
+      <Features />
+      <Testimonials />
+      <CTA />
+      
     </MaxWidthWrapper>
   );
 }
