@@ -9,6 +9,7 @@ import { HeaderSection } from "@/components/shared/header-section";
 import CTA from "@/components/sections/CTA";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import WaitListButton from "@/components/ui/WaitListButton";
 
 export default function HeadshotStylePage() {
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -69,7 +70,7 @@ export default function HeadshotStylePage() {
           ))}
         </div>
       </div>
-      <CTA />
+      <WaitListButton />
     </MaxWidthWrapper>
   );
 }
