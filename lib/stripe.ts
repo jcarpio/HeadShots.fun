@@ -31,6 +31,9 @@ export async function createCheckoutSession(
       credits: quantity.toString(),
     },
     customer_email: emailAddress, // Pre-populate the customer's email
+    invoice_creation: {
+      enabled: true, // Enable invoice creation
+    },
   });
 
   return session; // Return the full session object
