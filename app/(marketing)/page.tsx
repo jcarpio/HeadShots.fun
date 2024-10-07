@@ -94,16 +94,16 @@ export default function IndexPage() {
       <HeroLanding />
       <WaitListButton />
       <PreviewLanding />
-      {/* <Powered /> */}
-      // <BentoGrid />
-      // <InfoLanding data={infos[0]} reverse={true} />
-      // {/* <InfoLanding data={infos[1]} /> */}
-      // <Features />
-      // <Testimonials />
-      // <WaitListButton />
-      // {/* <CTA /> */}
-    // </>
- //  );
-// }
+      <Powered />
+      <BentoGrid />
+      <InfoLanding data={infos[0]} reverse={true} />
+      <InfoLanding data={infos[1]} />
+      <Features />
+      <Testimonials />
+      <WaitListButton />
+      <CTA />
+    </>
+  );
+}
 
 */
