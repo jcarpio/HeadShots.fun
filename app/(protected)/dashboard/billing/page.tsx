@@ -1,4 +1,5 @@
 import { getCurrentUser } from "@/lib/session";
+import { getStripeCustomerId } from "@/lib/user"
 import { constructMetadata } from "@/lib/utils";
 import { DashboardHeader } from "@/components/dashboard/header";
 import { siteConfig } from "@/config/site";
