@@ -1,23 +1,35 @@
-// /app/api/stripe/create-checkout/route.ts
-import { NextResponse } from 'next/server';
-import { createCheckoutSessionForSubscription } from '@/lib/stripe';
+import { NextResponse } from "next/server";
+import { createCheckoutSession } from "@/lib/stripe";
+import { prisma } from "@/lib/db";
 
-// POST request handler to create a Stripe checkout session
 export async function POST(req: Request) {
   try {
-    const { priceId, userId, emailAddress } = await req.json();
+    const { amount, quantity, description, userId, emailAddress } = await req.json();
 
-    // Create a checkout session for the subscription
-    const session = await createCheckoutSessionForSubscription(
-      priceId,
-      userId,
-      emailAddress
-    );
+    if (!amount || !quantity || !description || !userId || !emailAddress) {
+      return NextResponse.json({ error: "Missing required parameters" }, { status: 400 });
+    }
 
-    // Return the session ID in the response
-    return NextResponse.json({ sessionId: session.id });
+    const session = await createCheckoutSession(amount, quantity, description, userId, emailAddress);
+
+    if (!session || !session.id || !session.url) {
+      throw new Error("Failed to create checkout session");
+    }
+
+    // Record transaction to database
+    await prisma.stripeTransaction.create({
+      data: {
+        userId,
+        stripeSessionId: session.id,
+        stripePaymentIntentId: session.payment_intent as string || null,
+        amount: Math.round(amount * 100),
+        status: 'pending',
+      },
+    });
+
+    return NextResponse.json({ checkoutUrl: session.url });
   } catch (error) {
-    console.error('Error creating Stripe session:', error);
-    return NextResponse.json({ error: 'Failed to create Stripe session' }, { status: 500 });
+    console.error("Error creating checkout session:", error);
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
