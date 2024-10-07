@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { styles, domainPath } from '@/components/shared/styles';
 import MaxWidthWrapper from "@/components/shared/max-width-wrapper";
 import { HeaderSection } from "@/components/shared/header-section";
-import WaitListButton from "@/components/ui/WaitListButton";
+import WaitListButton from "@/components/ui/WaitListButtonSimple";
 
 import { infos } from "@/config/landing";
 import BentoGrid from "@/components/sections/bentogrid";
@@ -67,7 +67,7 @@ export default function HeadshotStylePage() {
       <InfoLanding data={infos[0]} reverse={true} />
       <Features />
       <Testimonials />
-      <CTA />
+      <WaitListButtonSimple />
       
     </MaxWidthWrapper>
   );
