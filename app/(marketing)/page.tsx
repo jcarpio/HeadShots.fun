@@ -11,7 +11,6 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import WaitListButton from "@/components/ui/WaitListButton";
 
-
 // Function to shuffle an array
 function shuffleArray(array) {
   return array.sort(() => Math.random() - 0.5);
@@ -25,18 +24,11 @@ export default function HeadshotStylePage() {
     // Shuffle categories when the component mounts
     setShuffledCategories(shuffleArray([...categories]));
   }, []);
-/*
-  const filteredStyles = selectedCategory === 'all'
-    ? styles
-    : styles.filter(style => style.category === selectedCategory);
-
-export default function HeadshotStylePage() {
-  const [selectedCategory, setSelectedCategory] = useState('all');
 
   const filteredStyles = selectedCategory === 'all'
     ? styles
     : styles.filter(style => style.category === selectedCategory);
-*/
+
   return (
     <MaxWidthWrapper className="py-12">
       <HeaderSection
@@ -46,8 +38,8 @@ export default function HeadshotStylePage() {
       />
       {/* categories */}
       <div className="mt-12">
-        <div className="mx-auto flex w-full  flex-wrap items-center justify-center gap-2">
-          {categories.map((category, index) => (
+        <div className="mx-auto flex w-full flex-wrap items-center justify-center gap-2">
+          {shuffledCategories.map((category, index) => (
             <Button
               key={index}
               variant="outline"
@@ -93,36 +85,3 @@ export default function HeadshotStylePage() {
     </MaxWidthWrapper>
   );
 }
-
-/*
-
-import { infos } from "@/config/landing";
-import BentoGrid from "@/components/sections/bentogrid";
-import Features from "@/components/sections/features";
-import HeroLanding from "@/components/sections/hero-landing";
-import InfoLanding from "@/components/sections/info-landing";
-// import Powered from "@/components/sections/powered";
-import PreviewLanding from "@/components/sections/preview-landing";
-import Testimonials from "@/components/sections/testimonials";
-import CTA from "@/components/sections/CTA";
-// import WaitListButton from "@/components/sections/waitlist"; // Import the waitlist button
-import WaitListButton from "@/components/ui/WaitListButton";
-export default function IndexPage() {
-  return (
-    <>
-      <HeroLanding />
-      <WaitListButton />
-      <PreviewLanding />
-      <Powered />
-      <BentoGrid />
-      <InfoLanding data={infos[0]} reverse={true} />
-      <InfoLanding data={infos[1]} />
-      <Features />
-      <Testimonials />
-      <WaitListButton />
-      <CTA />
-    </>
-  );
-}
-
-*/
