@@ -42,7 +42,7 @@ export function PricingCards({ pricingData, userId, emailAddress }: PricingCards
         body: JSON.stringify({
           userId,
           emailAddress,
-          priceId,
+          priceId: plan.priceId,
           amount: Math.round(plan.price * 100) / 100, // Make sure the amount has at most two decimal places
           quantity: plan.quantity,
           userId,
