@@ -23,7 +23,7 @@ export async function createCheckoutSession(
         price_data: {
           currency: 'usd',
           product_data: {
-            name: `${quantity} Credits of HeadShots.fun`,
+            name: `${quantity} Credits of DreamBez.Com`,
             description: description,
           },
           unit_amount: Math.round(amount * 100), // Ensure the amount is an integer
@@ -200,44 +200,3 @@ export async function handleSuccessfulSubscriptionPayment(invoice: Stripe.Invoic
 
   console.log(`✅ Successfully added ${creditsToAdd} credits to user ${user.id}`);
 }
-/*
-// Function to handle successful subscription payments
-export async function handleSuccessfulSubscriptionPayment(invoice: Stripe.Invoice) {
-  const subscriptionId = invoice.subscription as string;
-
-  // Fetch subscription details from the database
-  const subscription = await prisma.subscription.findUnique({
-    where: { stripeSubscriptionId: subscriptionId },
-  });
-
-  if (!subscription) {
-    throw new Error(`Subscription not found for ID: ${subscriptionId}`);
-  }
-
-  // Increment user credits or other business logic
-  await prisma.user.update({
-    where: { id: subscription.userId },
-    data: {
-      credits: { increment: 100 }, // Example: increment user credits based on your logic
-    },
-  });
-
-  // Update subscription status to "paid"
-  await prisma.subscription.update({
-    where: { stripeSubscriptionId: subscriptionId },
-    data: {
-      status: 'paid',
-    },
-  });
-
-  // Record the credit transaction
-  await prisma.creditTransaction.create({
-    data: {
-      userId: subscription.userId,
-      amount: 100, // Example: adjust the amount based on your logic
-      type: 'PURCHASE',
-    },
-  });
-}
-
-*/
