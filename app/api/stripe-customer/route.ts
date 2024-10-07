@@ -1,35 +1,47 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 
-// Crear un nuevo StripeCustomer
-export async function POST(req: Request) {
-  const { userId, stripeCustomerId } = await req.json();
-
-  if (!userId || !stripeCustomerId) {
-    return NextResponse.json({ error: "Missing required parameters" }, { status: 400 });
-  }
+// Handler para GET y PUT requests
+export async function GET(req: Request, { params }: { params: { userId: string } }) {
+  const { userId } = params;
 
   try {
-    // Verifica si el StripeCustomer ya existe para el usuario
-    const existingCustomer = await prisma.stripeCustomer.findUnique({
+    // Busca el StripeCustomer usando el userId
+    const stripeCustomer = await prisma.stripeCustomer.findUnique({
       where: { userId },
     });
 
-    if (existingCustomer) {
-      return NextResponse.json({ error: "Stripe customer already exists" }, { status: 400 });
+    if (!stripeCustomer) {
+      return NextResponse.json({ error: "Stripe customer not found" }, { status: 404 });
     }
 
-    // Crea un nuevo StripeCustomer
-    const newStripeCustomer = await prisma.stripeCustomer.create({
+    return NextResponse.json({ stripeCustomer }, { status: 200 });
+  } catch (error) {
+    console.error("Error fetching Stripe customer:", error);
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+  }
+}
+
+export async function PUT(req: Request, { params }: { params: { userId: string } }) {
+  const { userId } = params;
+  const { stripeCustomerId } = await req.json();
+
+  if (!stripeCustomerId) {
+    return NextResponse.json({ error: "Missing stripeCustomerId" }, { status: 400 });
+  }
+
+  try {
+    // Actualiza el stripeCustomerId del usuario
+    const updatedCustomer = await prisma.stripeCustomer.update({
+      where: { userId },
       data: {
-        userId,
         stripeCustomerId,
       },
     });
 
-    return NextResponse.json({ stripeCustomer: newStripeCustomer }, { status: 201 });
+    return NextResponse.json({ stripeCustomer: updatedCustomer }, { status: 200 });
   } catch (error) {
-    console.error("Error creating Stripe customer:", error);
+    console.error("Error updating Stripe customer:", error);
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
