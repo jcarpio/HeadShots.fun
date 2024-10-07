@@ -11,7 +11,7 @@ export const marketingConfig: MarketingConfig = {
       href: "/blog",
     },
     {
-      title: "Styles",
+      title: "Dreams",
       href: "/generator-styles",
     },
   ],
