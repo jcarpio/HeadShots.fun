@@ -6,8 +6,6 @@ import { Badge } from "@/components/ui/badge";
 import { styles, domainPath } from '@/components/shared/styles';
 import MaxWidthWrapper from "@/components/shared/max-width-wrapper";
 import { HeaderSection } from "@/components/shared/header-section";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import WaitListButton from "@/components/ui/WaitListButton";
 
 // Function to shuffle an array randomly
@@ -16,8 +14,8 @@ function shuffleArray(array: any[]) {
 }
 
 export default function HeadshotStylePage() {
-  // Shuffle the styles for the "all" category on component mount
-  const shuffledStyles = shuffleArray(styles);
+  // Shuffle the styles and select only the first 12
+  const shuffledStyles = shuffleArray(styles).slice(0, 12);
 
   return (
     <MaxWidthWrapper className="py-12">
