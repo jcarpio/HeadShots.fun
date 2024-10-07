@@ -13,7 +13,6 @@ export async function createCheckoutSession(
   userId: string,
   emailAddress: string,
   priceId: string // Now you pass a pre-defined Price ID
-  amount: number,
   quantity: number
 ) {
   const session = await stripe.checkout.sessions.create({
