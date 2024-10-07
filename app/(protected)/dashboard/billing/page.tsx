@@ -55,7 +55,7 @@ export default async function BillingPage() {
       <div className="my-8 text-center text-sm text-muted-foreground">
         <p>
           If you have any questions about billing, please contact us at{" "}
-          <a href="mailto:support@dreambez.com">support@dreambez.com</a>
+          <a href="mailto:support@enkire.com">support@enkire.com</a>
         </p>
       </div>
     </>
