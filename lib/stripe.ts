@@ -8,17 +8,6 @@ export const stripe = new Stripe(env.STRIPE_SECRET_KEY, {
   typescript: true,
 });
 
-
-
-import Stripe from "stripe";
-import { env } from "@/env.mjs";
-import { prisma } from "@/lib/db";
-
-export const stripe = new Stripe(env.STRIPE_SECRET_KEY, {
-  apiVersion: "2024-04-10",
-  typescript: true,
-});
-
 // Function to create a Stripe Checkout session for one-time payment
 export async function createCheckoutSession(
   userId: string,
