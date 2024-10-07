@@ -12,7 +12,7 @@ export const stripe = new Stripe(env.STRIPE_SECRET_KEY, {
 export async function createCheckoutSession(
   userId: string,
   emailAddress: string,
-  priceId: string // Now you pass a pre-defined Price ID
+  priceId: string, // Now you pass a pre-defined Price ID
   quantity: number
 ) {
   const session = await stripe.checkout.sessions.create({
