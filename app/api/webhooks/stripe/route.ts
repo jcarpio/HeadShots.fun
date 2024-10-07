@@ -18,10 +18,17 @@ export async function POST(req: Request) {
       case "checkout.session.completed": {
         const session = event.data.object as Stripe.Checkout.Session;
 
-        // Get the Stripe customer ID from the session
         const stripeCustomerId = session.customer as string; // This is the stripeCustomerId you need
         const userId = session.metadata?.userId; // This is your internal user ID
 
+       // Get the Stripe customer ID from the session
+        if (!session.metadata || !session.metadata.userId) {
+          console.error("UserId not found in metadata");
+        } else {
+          const userId = session.metadata.userId;
+          console.log("UserId found:", userId);
+        }
+        
         // Ensure both userId and stripeCustomerId exist
         if (userId && stripeCustomerId) {
           // Update or store the stripeCustomerId in the User table
