@@ -99,7 +99,6 @@ export async function handleSuccessfulPayment(sessionId: string) {
   return updatedTransaction;
 }
 
-
 // Function to create the Stripe session
 export async function createCheckoutSessionForSubscription(
   priceId: string,
