@@ -13,14 +13,14 @@ import { cn } from "@/lib/utils";
 export default function HeadshotStylePage() {
   const [selectedCategory, setSelectedCategory] = useState('all');
 
-  const filteredStyles = selectedCategory === 'all'
+  const filteredStyles = selectedCategory === 'man-all'
     ? styles
     : styles.filter(style => style.category === selectedCategory);
 
   return (
     <MaxWidthWrapper className="py-12">
       <HeaderSection
-        label="HeadShots.fun Styles"
+        label="DreamBez Dreams"
         title="Versatile Headshot Styles for Any Occasion"
         subtitle="Discover our diverse collection of AI-generated headshot styles. Quick, easy, and personalized just for you!"
       />
