@@ -25,23 +25,24 @@ interface Style {
   isNew?: boolean;
 }
 
-// Function to shuffle an array
-function shuffleArray(array: Category[]): Category[] {
-  return array.sort(() => Math.random() - 0.5);
+// Function to pick a random category (excluding "all")
+function pickRandomCategory(array: Category[]): Category {
+  const filteredArray = array.filter(category => category.id !== 'all');
+  return filteredArray[Math.floor(Math.random() * filteredArray.length)];
 }
 
 export default function HeadshotStylePage() {
-  const [selectedCategory, setSelectedCategory] = useState('all');
-  const [shuffledCategories, setShuffledCategories] = useState<Category[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
 
   useEffect(() => {
-    // Shuffle categories when the component mounts
-    setShuffledCategories(shuffleArray([...categories]));
+    // Select a random category when the component mounts
+    const randomCategory = pickRandomCategory(categories);
+    setSelectedCategory(randomCategory);
   }, []);
 
-  const filteredStyles = selectedCategory === 'all'
-    ? styles
-    : styles.filter((style: Style) => style.category === selectedCategory);
+  const filteredStyles = selectedCategory
+    ? styles.filter((style: Style) => style.category === selectedCategory.id)
+    : [];
 
   return (
     <MaxWidthWrapper className="py-12">
@@ -52,16 +53,16 @@ export default function HeadshotStylePage() {
       />
       {/* categories */}
       <div className="mt-12">
-        <div className="mx-auto flex w-full flex-wrap items-center justify-center gap-2">
-          {shuffledCategories.map((category, index) => (
+        <div className="mx-auto flex w-full  flex-wrap items-center justify-center gap-2">
+          {categories.map((category, index) => (
             <Button
               key={index}
               variant="outline"
               className={cn(
                 "rounded-full px-4 py-2 text-sm font-medium",
-                selectedCategory === category.id ? "bg-primary text-primary-foreground" : "bg-transparent text-muted-foreground"
+                selectedCategory?.id === category.id ? "bg-primary text-primary-foreground" : "bg-transparent text-muted-foreground"
               )}
-              onClick={() => setSelectedCategory(category.id)}
+              onClick={() => setSelectedCategory(category)}
             >
               {category.name}
             </Button>
@@ -71,28 +72,32 @@ export default function HeadshotStylePage() {
       {/* styles */}
       <div className="mt-12">
         <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
-          {filteredStyles.map((style, index) => (
-            <Card key={index} className="overflow-hidden">
-              <CardHeader className="p-0">
-                <div className="relative aspect-square">
-                  <img
-                    src={`${domainPath}/${style.img}`}
-                    alt={`AI Headshot: ${style.prompt}`}
-                    className="size-full object-cover"
-                  />
-                  {style.hot && (
-                    <Badge variant="secondary" className="absolute right-2 top-2">HOT</Badge>
-                  )}
-                  {style.isNew && (
-                    <Badge variant="destructive" className="absolute left-2 top-2">NEW</Badge>
-                  )}
-                </div>
-              </CardHeader>
-              <CardContent className="p-4">
-                <CardTitle className="text-center text-sm font-medium">{style.name}</CardTitle>
-              </CardContent>
-            </Card>
-          ))}
+          {filteredStyles.length > 0 ? (
+            filteredStyles.map((style, index) => (
+              <Card key={index} className="overflow-hidden">
+                <CardHeader className="p-0">
+                  <div className="relative aspect-square">
+                    <img
+                      src={`${domainPath}/${style.img}`}
+                      alt={`AI Headshot: ${style.prompt}`}
+                      className="size-full object-cover"
+                    />
+                    {style.hot && (
+                      <Badge variant="secondary" className="absolute right-2 top-2">HOT</Badge>
+                    )}
+                    {style.isNew && (
+                      <Badge variant="destructive" className="absolute left-2 top-2">NEW</Badge>
+                    )}
+                  </div>
+                </CardHeader>
+                <CardContent className="p-4">
+                  <CardTitle className="text-center text-sm font-medium">{style.name}</CardTitle>
+                </CardContent>
+              </Card>
+            ))
+          ) : (
+            <p className="text-center col-span-full">No styles available for this category.</p>
+          )}
         </div>
       </div>
       <WaitListButton />
