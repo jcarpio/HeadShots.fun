@@ -20,7 +20,7 @@ export default function HeadshotStylePage() {
   return (
     <MaxWidthWrapper className="py-12">
       <HeaderSection
-        label="DreamBez Dreams"
+        label="DreamBez"
         title="Hyper Realistic Photos to Dream"
         subtitle="Discover our diverse collection of AI-generated photos. Quick, easy, and personalized to visualize your dreams."
       />
