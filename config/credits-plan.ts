@@ -4,7 +4,7 @@ export const pricingData = [
 
   {
     title: "Starter",
-    priceId: process.env.NEXT_PUBLIC_STRIPE_TESTER_CREDITS_PRICE_ID,  // Tomado de la variable de entorno
+    priceId: process.env.NEXT_PUBLIC_STRIPE_TESTER_CREDITS_PRICE_ID ?? "",  // Tomado de la variable de entorno
     description: "Casual Charmer: Spice up your social media game",
     price: 9.99,
     quantity: 40, // credits amount
