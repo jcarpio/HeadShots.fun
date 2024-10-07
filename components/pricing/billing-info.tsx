@@ -1,6 +1,7 @@
 import Link from "next/link";
 import * as React from "react";
 
+import { getStripeCustomerId } from "@/lib/user";
 import { CustomerPortalButton } from "@/components/forms/customer-portal-button";
 import { buttonVariants } from "@/components/ui/button";
 import {
