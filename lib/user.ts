@@ -28,8 +28,6 @@ export const getUserById = async (id: string) => {
   }
 };
 
-import { prisma } from "@/lib/db";
-
 export async function getStripeCustomerId(userId: string): Promise<string | null> {
   if (!userId) {
     throw new Error("Missing userId");
