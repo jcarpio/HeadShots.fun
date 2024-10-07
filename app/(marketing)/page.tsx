@@ -33,7 +33,7 @@ export default function HeadshotStylePage() {
       <HeaderSection
         label="DreamBez"
         title="Hyper Realistic Photos to Dream"
-        subtitle="Discover our diverse collection of AI-generated photos. Quick, easy, and personalized to Bezsualize your dreams."
+        subtitle="Discover our Hyper Realistic AI-generated photos of You!. Quick, easy, and personalized to Bezsualize your dreams."
       />
       {/* styles */}
       <div className="mt-12">
