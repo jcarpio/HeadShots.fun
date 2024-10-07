@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
 import WaitListButton from "@/components/ui/WaitListButton";
 
 export default function HeadshotStylePage() {
-  const [selectedCategory, setSelectedCategory] = useState('woman-creative');
+  const [selectedCategory, setSelectedCategory] = useState('all');
 
   const filteredStyles = selectedCategory === 'woman-creative'
     ? styles
