@@ -1,12 +1,104 @@
-import Stripe from 'stripe';
-import { prisma } from '@/lib/db';
-import { env } from '@/env.mjs';
+import Stripe from "stripe"
+import { env } from "@/env.mjs"
+import { prisma } from "@/lib/db"  // Import database connection
 
 // Create a Stripe instance
 export const stripe = new Stripe(env.STRIPE_SECRET_KEY, {
   apiVersion: '2024-04-10',
   typescript: true,
 });
+
+// Create some commonly used Stripe-related functions
+export async function createCheckoutSession(
+  amount: number,
+  quantity: number,
+  description: string,
+  userId: string,
+  emailAddress: string
+) {
+  const session = await stripe.checkout.sessions.create({
+    payment_method_types: ['card'],
+    line_items: [
+      {
+        price_data: {
+          currency: 'usd',
+          product_data: {
+            name: `${quantity} Credits of HeadShots.fun`,
+            description: description,
+          },
+          unit_amount: Math.round(amount * 100), // Ensure the amount is an integer
+        },
+        quantity: 1,
+      },
+    ],
+    mode: 'payment',
+    success_url: `${env.NEXT_PUBLIC_APP_URL}/payment-status?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${env.NEXT_PUBLIC_APP_URL}/pricing`,
+    metadata: {
+      userId,
+      credits: quantity.toString(),
+    },
+    customer_email: emailAddress, // Pre-fill the customer's email address
+  });
+
+  return session; // Return the full session object
+}
+
+export async function handleStripeWebhook(/* Parameters */) {
+  // Implement logic to handle Stripe webhook
+}
+
+export async function handleSuccessfulPayment(sessionId: string) {
+  const transaction = await prisma.stripeTransaction.findUnique({
+    where: { stripeSessionId: sessionId },
+  });
+
+  if (transaction && transaction.status === 'completed') {
+    return transaction; // Payment already processed
+  }
+
+  const session = await stripe.checkout.sessions.retrieve(sessionId);
+  
+  if (session.payment_status !== 'paid') {
+    return null; // Payment not successful
+  }
+
+  const userId = session.metadata?.userId;
+  const credits = parseInt(session.metadata?.credits || "0", 10);
+
+  if (!userId || !credits) {
+    throw new Error("Invalid metadata in session");
+  }
+
+  // Update transaction status
+  const updatedTransaction = await prisma.stripeTransaction.update({
+    where: { stripeSessionId: sessionId },
+    data: { 
+      status: "completed",
+      stripePaymentIntentId: session.payment_intent as string || null
+    },
+  });
+
+  // Update user credits
+  await prisma.user.update({
+    where: { id: userId },
+    data: {
+      credits: { increment: credits },
+    },
+  });
+
+  // Record credit transaction
+  await prisma.creditTransaction.create({
+    data: {
+      userId,
+      amount: credits,
+      type: "PURCHASE",
+    },
+  });
+
+  return updatedTransaction;
+}
+
 
 // Function to create the Stripe session
 export async function createCheckoutSessionForSubscription(
