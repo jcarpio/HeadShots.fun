@@ -6,9 +6,9 @@ interface HeaderSectionProps {
 
 export function HeaderSection({ label, title, subtitle }: HeaderSectionProps) {
   return (
-    <div className="flex flex-col items-center text-center">
+    <div className="flex flex-col items-center text-center lg:text-[66px]">
       {label ? (
-        <div className="text-gradient_indigo-purple mb-4 font-semibold">
+        <div className="text-gradient_indigo-purple mb-4 font-semibold lg:text-[66px]">
           {label}
         </div>
       ) : null}
@@ -16,7 +16,7 @@ export function HeaderSection({ label, title, subtitle }: HeaderSectionProps) {
         {title}
       </h2>
       {subtitle ? (
-        <p className="mt-6 text-balance text-lg text-muted-foreground">
+        <p className="mt-6 text-balance text-lg text-muted-foreground lg:text-[40px]">
           {subtitle}
         </p>
       ) : null}
