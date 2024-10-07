@@ -62,3 +62,4 @@ export async function hasPurchases(userId: string): Promise<boolean> {
 
   // If there is at least one purchase transaction, we return true
   return purchaseCount > 0;
+}
