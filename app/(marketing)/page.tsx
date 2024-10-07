@@ -25,6 +25,11 @@ interface Style {
   isNew?: boolean;
 }
 
+// Function to shuffle an array randomly
+function shuffleArray(array: Style[]) {
+  return array.sort(() => Math.random() - 0.5);
+}
+
 // Function to pick a random category (excluding "all")
 function pickRandomCategory(array: Category[]): Category {
   const filteredArray = array.filter(category => category.id !== 'all');
@@ -40,9 +45,9 @@ export default function HeadshotStylePage() {
     setSelectedCategory(randomCategory);
   }, []);
 
-  const filteredStyles = selectedCategory
-    ? styles.filter((style: Style) => style.category === selectedCategory.id)
-    : [];
+  const filteredStyles = selectedCategory?.id === 'all'
+    ? shuffleArray(styles) // Shuffle styles for the "all" category
+    : styles.filter((style: Style) => style.category === selectedCategory?.id);
 
   return (
     <MaxWidthWrapper className="py-12">
