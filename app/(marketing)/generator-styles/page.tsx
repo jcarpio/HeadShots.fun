@@ -106,6 +106,16 @@ export default function HeadshotStylePage() {
         </div>
       </div>
       <WaitListButton />
+
+      <PreviewLanding />
+      <Powered />
+      <BentoGrid />
+      <InfoLanding data={infos[0]} reverse={true} />
+      <InfoLanding data={infos[1]} />
+      <Features />
+      <Testimonials />
+      <CTA />
+      
     </MaxWidthWrapper>
   );
 }
