@@ -11,13 +11,32 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import WaitListButton from "@/components/ui/WaitListButton";
 
+
+// Function to shuffle an array
+function shuffleArray(array) {
+  return array.sort(() => Math.random() - 0.5);
+}
+
+export default function HeadshotStylePage() {
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [shuffledCategories, setShuffledCategories] = useState([]);
+
+  useEffect(() => {
+    // Shuffle categories when the component mounts
+    setShuffledCategories(shuffleArray([...categories]));
+  }, []);
+/*
+  const filteredStyles = selectedCategory === 'all'
+    ? styles
+    : styles.filter(style => style.category === selectedCategory);
+
 export default function HeadshotStylePage() {
   const [selectedCategory, setSelectedCategory] = useState('all');
 
   const filteredStyles = selectedCategory === 'all'
     ? styles
     : styles.filter(style => style.category === selectedCategory);
-
+*/
   return (
     <MaxWidthWrapper className="py-12">
       <HeaderSection
