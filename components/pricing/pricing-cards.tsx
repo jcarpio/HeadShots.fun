@@ -15,6 +15,7 @@ interface PricingCardsProps {
     description: string;
     features: string[];
     quantity: number;
+    priceId: string;
   }>;
   userId?: string;
   emailAddress?: string;
