@@ -77,7 +77,6 @@ model User {
   @@map(name: "users")
 }
 
-
 model VerificationToken {
   identifier String
   token      String   @unique
@@ -132,7 +131,27 @@ model Prediction {
   @@map(name: "predictions")
 }
 
-// 新增 CreditTransaction 模型
+enum TransactionType {
+  PURCHASE
+  USAGE
+  REFUND
+}
+
+model StripeTransaction {
+  id                    String   @id @default(cuid())
+  userId                String
+  user                  User     @relation(fields: [userId], references: [id])
+  stripeSessionId       String   @unique
+  stripePaymentIntentId String?
+  amount                Int
+  status                String
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  @@map(name: "stripe_transactions")
+}
+
+// Added CreditTransaction model
 model CreditTransaction {
   id        String   @id @default(cuid())
   userId    String
@@ -140,12 +159,6 @@ model CreditTransaction {
   amount    Int
   type      TransactionType
   createdAt DateTime @default(now())
-}
-
-enum TransactionType {
-  PURCHASE
-  USAGE
-  REFUND
 }
 
 model Subscription {
