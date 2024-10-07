@@ -167,9 +167,9 @@ export function PricingCards({ userId, subscriptionPlan }: PricingCardsProps) {
           Email{" "}
           <a
             className="font-medium text-primary hover:underline"
-            href="mailto:support@dreambez.com"
+            href="mailto:support@enkire.com"
           >
-            support@saas-starter.com
+            support@enkire.com
           </a>{" "}
           to contact our support team.
           <br />
