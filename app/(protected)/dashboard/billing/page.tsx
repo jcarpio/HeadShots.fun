@@ -14,7 +14,7 @@ export const metadata = constructMetadata({
 
 export default async function BillingPage() {
   const user = await getCurrentUser();
-  const stripeCustomerId = await getStripeCustomerId();
+  const stripeCustomerId = await getStripeCustomerId(user.id);
   const hasPaid = await hasPurchases(user.id);
   
   return (
