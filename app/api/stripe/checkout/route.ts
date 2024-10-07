@@ -10,6 +10,6 @@ export async function GET(req: Request) {
     return NextResponse.redirect(new URL("/pricing?error=missing_session_id", env.NEXT_PUBLIC_APP_URL));
   }
 
-  // 直接重定向到支付状态页面
+  // Redirect directly to payment status page
   return NextResponse.redirect(new URL(`/payment-status?session_id=${sessionId}`, env.NEXT_PUBLIC_APP_URL));
 }
