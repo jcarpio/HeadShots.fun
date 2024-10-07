@@ -63,8 +63,8 @@ export type SidebarNavItem = {
 // subcriptions
 export type SubscriptionPlan = {
   title: string;
-  // credits: number; // HeadShots.fun compatibility heritage
-  // price: number;   // HeadShots.fun compatibility heritage
+  credits: number; // HeadShots.fun compatibility heritage
+  price: number;   // HeadShots.fun compatibility heritage
   description: string;
   benefits: string[];
   limitations: string[];
