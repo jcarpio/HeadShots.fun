@@ -21,8 +21,8 @@ export default function HeadshotStylePage() {
     <MaxWidthWrapper className="py-12">
       <HeaderSection
         label="DreamBez Dreams"
-        title="Versatile Headshot Styles for Any Occasion"
-        subtitle="Discover our diverse collection of AI-generated headshot styles. Quick, easy, and personalized just for you!"
+        title="Hyper Realistic Photos to Dream"
+        subtitle="Discover our diverse collection of AI-generated photos. Quick, easy, and personalized to visualize your dreams."
       />
       {/* categories */}
       <div className="mt-12">
