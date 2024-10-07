@@ -6,7 +6,7 @@ export async function GET(req: Request, { params }: { params: { userId: string }
   const { userId } = params;
 
   try {
-    // Busca el StripeCustomer usando el userId
+    // Search for the StripeCustomer using the userId
     const stripeCustomer = await prisma.stripeCustomer.findUnique({
       where: { userId },
     });
@@ -31,7 +31,7 @@ export async function PUT(req: Request, { params }: { params: { userId: string }
   }
 
   try {
-    // Actualiza el stripeCustomerId del usuario
+    // Update the user's stripeCustomerId
     const updatedCustomer = await prisma.stripeCustomer.update({
       where: { userId },
       data: {
