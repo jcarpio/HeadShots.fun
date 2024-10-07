@@ -1,9 +1,10 @@
 export const categories = [
     { name: 'All', id: 'all' },
-    { name: 'Man Creative', id: 'man-creative' },
-    { name: 'Man Studio', id: 'man-studio' },
     { name: 'Woman Creative', id: 'woman-creative' },
+    { name: 'Man Creative', id: 'man-creative' },
     { name: 'Woman Studio', id: 'woman-studio' },
+    { name: 'Man Studio', id: 'man-studio' },
+
 ];
 
 export const styles = [
