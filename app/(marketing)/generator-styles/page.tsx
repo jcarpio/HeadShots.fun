@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils";
 export default function HeadshotStylePage() {
   const [selectedCategory, setSelectedCategory] = useState('all');
 
-  const filteredStyles = selectedCategory === 'all'
+  const filteredStyles = selectedCategory === 'woman-all'
     ? styles
     : styles.filter(style => style.category === selectedCategory);
 
