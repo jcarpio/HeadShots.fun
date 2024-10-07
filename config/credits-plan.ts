@@ -8,7 +8,7 @@ export const pricingData = [
     description: "Casual Charmer: Spice up your social media game",
     price: 9.99,
     quantity: 40, // credits amount
-    // features: ["Access to standard templates", "Basic email support"],
+    features: ["40 Credits"],
   },
 /*
   {
