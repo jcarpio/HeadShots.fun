@@ -1,5 +1,5 @@
 import { getCurrentUser } from "@/lib/session";
-import { getStripeCustomerId } from "@/lib/user"
+import { getStripeCustomerId, hasPurchases } from "@/lib/user";
 import { constructMetadata } from "@/lib/utils";
 import { DashboardHeader } from "@/components/dashboard/header";
 import { siteConfig } from "@/config/site";
@@ -14,15 +14,7 @@ export const metadata = constructMetadata({
 export default async function BillingPage() {
   const user = await getCurrentUser();
   const stripeCustomerId = await getStripeCustomerId();
-
-   {isPaid && stripeCustomerId ? (
-          <CustomerPortalButton userStripeId={stripeCustomerId} />
-        ) : (
-          <Link href="/pricing" className={cn(buttonVariants())}>
-            Choose a plan
-          </Link>
-        )}
-
+  const hasPaid = await hasPurchases(user.id);
   
   return (
     <>
@@ -33,6 +25,13 @@ export default async function BillingPage() {
       <div className="grid gap-8">
         <CreditTransactionHistory />
       </div>
+        {hasPaid && stripeCustomerId ? (
+          <CustomerPortalButton userStripeId={stripeCustomerId} />
+        ) : (
+          <Link href="/pricing" className={cn(buttonVariants())}>
+            Choose a plan
+          </Link>
+        )}
       <div className="my-8 text-center text-sm text-muted-foreground">
         <p>If you have any questions about billing, please contact us at <a href="mailto:support@dreambez.com">support@headshots.fun</a></p>
       </div>
