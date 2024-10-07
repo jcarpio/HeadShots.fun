@@ -6,19 +6,33 @@ import { Badge } from "@/components/ui/badge";
 import { categories, styles, domainPath } from '@/components/shared/styles';
 import MaxWidthWrapper from "@/components/shared/max-width-wrapper";
 import { HeaderSection } from "@/components/shared/header-section";
-import CTA from "@/components/sections/CTA";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import WaitListButton from "@/components/ui/WaitListButton";
 
+// Define the type for categories and styles
+interface Category {
+  id: string;
+  name: string;
+}
+
+interface Style {
+  category: string;
+  img: string;
+  prompt: string;
+  name: string;
+  hot?: boolean;
+  isNew?: boolean;
+}
+
 // Function to shuffle an array
-function shuffleArray(array) {
+function shuffleArray(array: Category[]): Category[] {
   return array.sort(() => Math.random() - 0.5);
 }
 
 export default function HeadshotStylePage() {
   const [selectedCategory, setSelectedCategory] = useState('all');
-  const [shuffledCategories, setShuffledCategories] = useState([]);
+  const [shuffledCategories, setShuffledCategories] = useState<Category[]>([]);
 
   useEffect(() => {
     // Shuffle categories when the component mounts
@@ -27,7 +41,7 @@ export default function HeadshotStylePage() {
 
   const filteredStyles = selectedCategory === 'all'
     ? styles
-    : styles.filter(style => style.category === selectedCategory);
+    : styles.filter((style: Style) => style.category === selectedCategory);
 
   return (
     <MaxWidthWrapper className="py-12">
