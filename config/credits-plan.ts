@@ -1,5 +1,16 @@
+import { env } from "@/env.mjs";
+
 export const pricingData = [
 
+  {
+    title: "Starter",
+    priceId: env.NEXT_PUBLIC_STRIPE_TESTER_CREDITS_PRICE_ID,  // Tomado de la variable de entorno
+    description: "Casual Charmer: Spice up your social media game",
+    price: 9.99,
+    quantity: 40, // credits amount
+    // features: ["Access to standard templates", "Basic email support"],
+  },
+/*
   {
     price: 0.99,
     description: "Tester: Only to to see my firsts shots",
@@ -30,4 +41,5 @@ export const pricingData = [
     features: ["400 Credits"],
     quantity: 400,
   },
+  */
 ];
