@@ -57,7 +57,7 @@ export function PricingCards({ pricingData, userId, emailAddress }: PricingCards
         throw new Error("Invalid checkout URL");
       }
 
-      // 直接重定向 Stripe Checkout 页面
+      // Directly redirect the Stripe Checkout page
       window.location.href = checkoutUrl;
     } catch (error) {
       console.error("Error creating checkout session:", error);
