@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { getCurrentUser } from "@/lib/session";
 import { getStripeCustomerId, hasPurchases } from "@/lib/user";
 import { constructMetadata } from "@/lib/utils";
