@@ -39,9 +39,11 @@ export function PricingCards({ pricingData, userId, emailAddress }: PricingCards
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          userId,
+          emailAddress,
+          priceId,
           amount: Math.round(plan.price * 100) / 100, // Make sure the amount has at most two decimal places
           quantity: plan.quantity,
-          description: plan.description,
           userId,
           emailAddress, // Add email address
         }),
