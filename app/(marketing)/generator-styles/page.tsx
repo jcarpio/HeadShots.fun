@@ -8,7 +8,7 @@ import MaxWidthWrapper from "@/components/shared/max-width-wrapper";
 import { HeaderSection } from "@/components/shared/header-section";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import WaitListButton from "@/components/ui/WaitListButton";
+import WaitListButtonSimple from "@/components/ui/WaitListButtonSimple";
 
 // Define the type for categories and styles
 interface Category {
