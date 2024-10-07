@@ -17,5 +17,3 @@ export async function GET(req: Request) {
     return NextResponse.json({ error: "Error processing payment" }, { status: 500 });
   }
 }
-
-*/
