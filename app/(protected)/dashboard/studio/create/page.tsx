@@ -61,7 +61,7 @@ export default function CreateStudioPage() {
     setImages(prev => prev.filter((_, i) => i !== index));
   };
 
-  const moveImage = (index: number, direction: 'up' | 'down') => {
+  const moveImage = (index: number, direction: 'up' or 'down') => {
     setImages(prev => {
       const newImages = [...prev];
       const [removed] = newImages.splice(index, 1);
@@ -73,7 +73,7 @@ export default function CreateStudioPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (isLoading) return; // Prevent submission if already loading
-    
+
     if (!name.trim()) {
       toast.error("Please enter a studio name.");
       return;
@@ -217,13 +217,13 @@ export default function CreateStudioPage() {
                   <Label className="text-base font-semibold">Upload Sample Photos</Label>
                   <p className="text-sm text-muted-foreground">Please upload 15-20 clear, front-facing photos that meet the sample photo requirements.</p>
                   <div {...getRootProps()} className={`mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pb-6 pt-5 ${isDragActive ? 'border-gray-500' : ''}`}>
-                                       <div className="space-y-1 text-center">
+                    <div className="space-y-1 text-center">
                       <span className="flex items-center justify-center p-1">
                         <Icons.imageuplus className='size-10 text-gray-400' />
                       </span>
                       <div className="flex text-sm text-gray-600">
                         <label htmlFor="file-upload" className="relative cursor-pointer rounded-md bg-white font-medium focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2">
-                          <span>Upload a file</span>
+                                                    <span>Upload a file</span>
                           <input {...getInputProps()} id="file-upload" name="file-upload" type="file" className="sr-only" />
                         </label>
                         <p className="pl-1">or drag and drop</p>
