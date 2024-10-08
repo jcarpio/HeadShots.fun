@@ -47,7 +47,7 @@ export default async function BillingPage() {
           <CustomerPortalButton userStripeId={stripeCustomerId} />
         ) : (
           <Link href="/pricing" className={cn(buttonVariants())}>
-            Choose a plan
+            Buy Credits
           </Link>
         )}
       </div>
