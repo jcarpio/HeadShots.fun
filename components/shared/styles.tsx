@@ -560,4 +560,4 @@ export const styles = [
     },
 ];
 
-export const domainPath = "https://pub-34dba380b45c4b9c91ac71697524ffea.r2.dev/img";
+export const domainPath = "https://web.dreambez.com/img";
