@@ -109,14 +109,14 @@ function PricingCard({ plan, index, handlePurchase, isLoading }) {
         </ul>
       </CardContent>
       <CardFooter>
-            <Button
-              className={`w-full rounded-full ${index === 1 ? "bg-purple-400 text-white" : "text-purple-500"}`} // Añadimos "rounded-full" para hacer el botón redondo
-              onClick={() => handlePurchase(plan, index)}
-              variant={index === 1 ? "default" : "outline"}
-              disabled={isLoading}
-            >
-              {isLoading ? "Processing..." : "Purchase"}
-          </Button>
+          <Button
+            className={`w-full rounded-full ${index === 1 ? "bg-purple-400 text-white hover:bg-purple-500" : "text-purple-500 hover:text-purple-600 hover:border-purple-500"}`} // Modificamos hover para evitar el negro
+            onClick={() => handlePurchase(plan, index)}
+            variant={index === 1 ? "default" : "outline"}
+            disabled={isLoading}
+          >
+            {isLoading ? "Processing..." : "Purchase"}
+        </Button>
       </CardFooter>
     </Card>
   );
