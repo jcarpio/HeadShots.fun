@@ -28,8 +28,13 @@ export default function BentoGrid() {
                 </span>
               </div>
               <h2 className="mt-6 text-center font-heading text-2xl md:text-3xl lg:text-4xl">
-Infinite Creativity, Perfectly Tailored </h2>
-At DreamBez, every prompt is a gateway to your unique vision. Customization without limits, where your ideas come to life exactly how you imagined. 
+                 <h2 className="text-lg font-medium text-foreground">
+                    Infinite Creativity, Perfectly Tailored
+                 </h2>
+                
+                <p className="text-muted-foreground">
+                  At DreamBez, every prompt is a gateway to your unique vision. Customization without limits, where your ideas come to life exactly how you imagined. 
+               </p>   
             </div>
           </div>
 
