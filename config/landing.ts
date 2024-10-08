@@ -39,7 +39,7 @@ export const features: FeatureLdg[] = [
     description:
       "Create hyper-realistic images effortlessly, using our state-of-the-art tools that simplify the entire creative process.",
     link: "/",
-    icon: "magic", 
+    icon: "zap", 
   },
   {
     title: "Personalized Journeys",
