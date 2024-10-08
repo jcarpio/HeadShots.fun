@@ -71,7 +71,6 @@ export const features: FeatureLdg[] = [
   },
 ];
 
-
 export const testimonials: TestimonialType[] = [
   {
     name: "Jesus Ortiz",
