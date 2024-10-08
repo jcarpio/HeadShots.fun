@@ -21,7 +21,7 @@ interface PricingCardsProps {
   emailAddress?: string;
 }
 
-export function PricingCards({ pricingData, userId, emailAddress }: PricingCardsProps) {
+export function PricingCards2({ pricingData, userId, emailAddress }: PricingCardsProps) {
   const router = useRouter();
   const [loadingPlan, setLoadingPlan] = useState<number | null>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
