@@ -1,11 +1,11 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 interface PricingCardsProps {
   pricingData: Array<{
@@ -40,7 +40,7 @@ export function PricingCards({ pricingData, userId, emailAddress }: PricingCards
           userId,
           emailAddress,
           priceId: plan.priceId,
-          amount: Math.round(plan.price * 100) / 100, // Ensure at most two decimal places
+          amount: Math.round(plan.price * 100) / 100,
           quantity: plan.quantity,
         }),
       });
@@ -50,7 +50,6 @@ export function PricingCards({ pricingData, userId, emailAddress }: PricingCards
       }
 
       const { checkoutUrl } = await response.json();
-
       if (!checkoutUrl) {
         throw new Error("Invalid checkout URL");
       }
@@ -67,7 +66,7 @@ export function PricingCards({ pricingData, userId, emailAddress }: PricingCards
 
   return (
     <div className="flex justify-center w-full items-center">
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+      <div className="grid grid-cols-1 gap-5 lg:grid-cols-3 py-5">
         {pricingData.map((plan, index) => (
           <PricingCard 
             key={index} 
@@ -84,40 +83,14 @@ export function PricingCards({ pricingData, userId, emailAddress }: PricingCards
 
 function PricingCard({ plan, index, handlePurchase, isLoading }) {
   return (
-    <Card className={`flex w-64 flex-col justify-between transition-all hover:shadow-lg ${index === 1 ? 'border-primary' : ''} relative ${index === 1 ? 'mt-4 overflow-visible' : 'mt-8'}`}>
+    <Card className={`relative flex w-full flex-col justify-between overflow-hidden rounded-3xl border transition-all hover:shadow-lg ${index === 1 ? 'border-purple-400' : ''} ${index === 1 ? 'mt-4 overflow-visible' : 'mt-8'}`}>
       {index === 1 && (
-        <div className="absolute -top-3 left-1/2 z-10 flex -translate-x-1/2 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground shadow-md">
-          <span className="hidden md:flex">Most&nbsp;</span>Popular
+        <div className="absolute -top-3 left-1/2 z-10 flex -translate-x-1/2 rounded-full bg-purple-400 px-3 py-1 text-xs font-semibold text-white shadow-md">
+          <span>Most&nbsp;Popular</span>
         </div>
       )}
-      <CardHeader className="text-center">
+      <CardHeader className="text-center bg-muted/50 p-6">
         <Badge variant="outline" className="mb-2 self-center">
           {plan.quantity} Credits
         </Badge>
-        <CardTitle className={`${index === 1 ? 'pb-2 text-3xl' : 'text-2xl'} font-bold`}>${plan.price}</CardTitle>
-        <p className="text-sm text-muted-foreground">{plan.description}</p>
-      </CardHeader>
-      <CardContent>
-        <ul className="space-y-2">
-          {plan.features.map((feature, idx) => (
-            <li key={idx} className="flex items-center text-sm">
-              <svg className="mr-2 size-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
-              {feature}
-            </li>
-          ))}
-        </ul>
-      </CardContent>
-      <CardFooter>
-        <Button
-          className="w-full"
-          onClick={() => handlePurchase(plan, index)}
-          variant={index === 1 ? "default" : "outline"}
-          disabled={isLoading}
-        >
-          {isLoading ? "Processing..." : "Purchase"}
-        </Button>
-      </CardFooter>
-    </Card>
-  );
-}
-
+        <CardTitle className="text-3xl font
