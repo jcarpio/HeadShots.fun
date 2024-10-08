@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from 'react'; // Import useEffect
+import { useState, useCallback, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -16,7 +16,7 @@ import Link from 'next/link';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { resizeImage } from '@/lib/imageUtils';
 
-const CREDITS_PER_STUDIO = parseInt(process.env.NEXT_PUBLIC_CREDITS_PER_STUDIO || '25', 10); // Global variable for studio cost
+const CREDITS_PER_STUDIO = 25; // Define global constant for credits per studio
 
 export default function CreateStudioPage() {
   const router = useRouter();
@@ -24,14 +24,26 @@ export default function CreateStudioPage() {
   const [type, setType] = useState('');
   const [images, setImages] = useState<Array<{ file: File; preview: string }>>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [userCredits, setUserCredits] = useState(0); // To store user credits
+  const [userCredits, setUserCredits] = useState(0); // Track user credits
 
+  // Function to fetch the current user's credits
+  const fetchUserCredits = async () => {
+    try {
+      const response = await fetch('/api/user/credits'); // Assume an API to get the user's credits
+      const { credits } = await response.json();
+      setUserCredits(credits);
+    } catch (error) {
+      console.error("Error fetching user credits:", error);
+    }
+  };
+
+  // Handle file drop for images
   const onDrop = useCallback((acceptedFiles: File[]) => {
     const newImages = acceptedFiles.map(file => ({
       file,
       preview: URL.createObjectURL(file)
     }));
-    setImages(prev => [...prev, ...newImages].slice(0, 20));
+    setImages(prev => [...prev, ...newImages].slice(0, 20)); // Limit to 20 images
   }, []);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -40,10 +52,12 @@ export default function CreateStudioPage() {
     maxFiles: 20,
   });
 
+  // Function to remove an image
   const removeImage = (index: number) => {
     setImages(prev => prev.filter((_, i) => i !== index));
   };
 
+  // Function to move an image up or down in the order
   const moveImage = (index: number, direction: 'up' | 'down') => {
     setImages(prev => {
       const newImages = [...prev];
@@ -53,50 +67,38 @@ export default function CreateStudioPage() {
     });
   };
 
-  // Fetch user credits before creating the studio
-  const fetchUserCredits = async () => {
-    try {
-      const res = await fetch('/api/user/credits'); // Assuming you have an API to fetch user credits
-      const data = await res.json();
-      setUserCredits(data.credits);
-    } catch (error) {
-      console.error('Error fetching user credits:', error);
-    }
-  };
-
-  // Use useEffect to fetch credits on component mount
+  // Automatically fetch user credits when the component loads
   useEffect(() => {
     fetchUserCredits();
   }, []);
 
+  // Handle the form submission for creating the studio
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (isLoading) return; // Prevent submission if already loading
-
-    // Check if the user has enough credits
-    if (userCredits < CREDITS_PER_STUDIO) {
-      toast.error(`You need at least ${CREDITS_PER_STUDIO} credits to create a new studio. Please purchase more credits.`);
-      return;
-    }
+    if (isLoading) return;
 
     if (!name.trim()) {
       toast.error("Please enter a studio name.");
       return;
     }
+
     if (!type) {
       toast.error("Please select a studio type.");
       return;
     }
+
     if (images.length === 0) {
       toast.error("Please upload at least one image.");
       return;
     }
-    if (images.length > 20) {
-      toast.error("You can upload a maximum of 20 images.");
+
+    if (userCredits < CREDITS_PER_STUDIO) {
+      toast.error(`You need at least ${CREDITS_PER_STUDIO} credits to create a new studio.`);
       return;
     }
 
     setIsLoading(true);
+
     try {
       const uploadedImages = await Promise.all(images.map(async (img) => {
         const resizedImage = await resizeImage(img.file, 1024, 1024);
@@ -116,14 +118,13 @@ export default function CreateStudioPage() {
         return url;
       }));
 
-      let modelUser = "joselapasion";
-      let modelVersion = "613a21a57e8545532d2f4016a7c3cfa3c7c63fded03001c2e69183d557a929db";
-      let hf_lora = "enkire/replicate-joselapasion-lora-face";
-      let defaultHairStyle = "short";
-      let defaultUserHeight = "168";
-      let extraInfo = "x"; // create for future needs
+      const modelUser = "joselapasion";
+      const modelVersion = "613a21a57e8545532d2f4016a7c3cfa3c7c63fded03001c2e69183d557a929db";
+      const hf_lora = "enkire/replicate-joselapasion-lora-face";
+      const defaultHairStyle = "short";
+      const defaultUserHeight = "168";
+      const extraInfo = "x"; // Reserved for future needs
 
-            // Create the studio after image upload
       const response = await fetch('/api/studio/create', {
         method: 'POST',
         headers: {
@@ -146,8 +147,7 @@ export default function CreateStudioPage() {
         throw new Error('Failed to create studio');
       }
 
-      // Instead of using router.query, directly pass the user ID or fetch it from the user session
-      const userId = (await fetch('/api/user')).json().id; // You might have a better way to get the user ID
+      const studio = await response.json();
 
       // Deduct credits after successful studio creation
       await fetch('/api/user/deduct-credits', {
@@ -155,10 +155,9 @@ export default function CreateStudioPage() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ userId, credits: CREDITS_PER_STUDIO }), // Deduct 25 credits
+        body: JSON.stringify({ userId: user.id, credits: CREDITS_PER_STUDIO }), // Deduct 25 credits
       });
 
-      const studio = await response.json();
       toast.success("Studio created successfully!");
       router.push(`/dashboard/studio/${studio.id}`);
     } catch (error) {
@@ -168,7 +167,7 @@ export default function CreateStudioPage() {
     }
   };
 
-  return (
+    return (
     <TooltipProvider>
       <div className="flex-1 space-y-4">
         <div className="mb-4 flex justify-start space-x-4">
@@ -207,7 +206,7 @@ export default function CreateStudioPage() {
                     <SelectTrigger className="w-full p-2">
                       <SelectValue placeholder="Select studio type" />
                     </SelectTrigger>
-                <SelectContent>
+                    <SelectContent>
                       <SelectItem value="male">Male</SelectItem>
                       <SelectItem value="female">Female</SelectItem>
                       <SelectItem value="kid">Kid</SelectItem>
@@ -220,7 +219,6 @@ export default function CreateStudioPage() {
                   <p className="text-sm text-muted-foreground">Please upload 15-20 clear, front-facing photos that meet the sample photo requirements.</p>
                   <div {...getRootProps()} className={`mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pb-6 pt-5 ${isDragActive ? 'border-gray-500' : ''}`}>
                     <div className="space-y-1 text-center">
-
                       <span className="flex items-center justify-center p-1">
                         <Icons.imageuplus className='size-10 text-gray-400' />
                       </span>
@@ -308,4 +306,5 @@ export default function CreateStudioPage() {
       </div>
     </TooltipProvider>
   );
-}                      
+}
+  
