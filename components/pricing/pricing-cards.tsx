@@ -85,7 +85,7 @@ export function PricingCards({ pricingData, userId, emailAddress }: PricingCards
 function PricingCard({ plan, index, handlePurchase, isLoading }) {
   return (
     <Card className={`flex w-64 flex-col justify-between transition-all hover:shadow-lg ${index === 2 ? 'border-primary' : ''} relative ${index === 2 ? 'mt-4 overflow-visible' : 'mt-8'}`}>
-      {index === 2 && (
+      {index === 1 && (
         <div className="absolute -top-3 left-1/2 z-10 flex -translate-x-1/2 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground shadow-md">
           <span className="hidden md:flex">Most&nbsp;</span>Popular
         </div>
