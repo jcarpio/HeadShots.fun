@@ -72,7 +72,7 @@ export const env = createEnv({
     
     NEXT_PUBLIC_STRIPE_PUBLIC_KEY: process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY,
 
-    // Credits needet to create a new Studio
+    // Credits needed to create a new Studio
     NEXT_PUBLIC_CREDITS_PER_STUDIO: process.env.NEXT_PUBLIC_CREDITS_PER_STUDIO,
     
     // Cloudflare
