@@ -123,7 +123,7 @@ export default function CreateStudioPage() {
       let defaultUserHeight = "168";
       let extraInfo = "x"; // create for future needs
 
-      // Create the studio after image upload
+            // Create the studio after image upload
       const response = await fetch('/api/studio/create', {
         method: 'POST',
         headers: {
@@ -146,13 +146,16 @@ export default function CreateStudioPage() {
         throw new Error('Failed to create studio');
       }
 
+      // Instead of using router.query, directly pass the user ID or fetch it from the user session
+      const userId = (await fetch('/api/user')).json().id; // You might have a better way to get the user ID
+
       // Deduct credits after successful studio creation
       await fetch('/api/user/deduct-credits', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ userId: router.query.userId, credits: CREDITS_PER_STUDIO }), // Deduct 25 credits
+        body: JSON.stringify({ userId, credits: CREDITS_PER_STUDIO }), // Deduct 25 credits
       });
 
       const studio = await response.json();
@@ -204,13 +207,12 @@ export default function CreateStudioPage() {
                     <SelectTrigger className="w-full p-2">
                       <SelectValue placeholder="Select studio type" />
                     </SelectTrigger>
-                    <SelectContent>
+                <SelectContent>
                       <SelectItem value="male">Male</SelectItem>
                       <SelectItem value="female">Female</SelectItem>
                       <SelectItem value="kid">Kid</SelectItem>
                     </SelectContent>
                   </Select>
-
                   <p className="text-sm text-muted-foreground">Select the type of studio you want to create.</p>
                 </div>
                 <div className="space-y-2">
@@ -218,6 +220,7 @@ export default function CreateStudioPage() {
                   <p className="text-sm text-muted-foreground">Please upload 15-20 clear, front-facing photos that meet the sample photo requirements.</p>
                   <div {...getRootProps()} className={`mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pb-6 pt-5 ${isDragActive ? 'border-gray-500' : ''}`}>
                     <div className="space-y-1 text-center">
+
                       <span className="flex items-center justify-center p-1">
                         <Icons.imageuplus className='size-10 text-gray-400' />
                       </span>
@@ -305,4 +308,4 @@ export default function CreateStudioPage() {
       </div>
     </TooltipProvider>
   );
-}
+}                      
