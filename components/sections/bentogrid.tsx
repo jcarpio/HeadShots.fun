@@ -29,7 +29,7 @@ export default function BentoGrid() {
               </div>
               <h2 className="mt-6 text-center font-heading text-2xl md:text-3xl lg:text-4xl">
                  <h2 className="text-lg font-medium text-foreground">
-                    Infinite Creativity, Perfectly Tailored
+                    Customizable Prompts
                  </h2>
                 
                 <p className="text-muted-foreground">
@@ -165,10 +165,9 @@ With DreamBez, your creations are safeguarded by the most advanced security, let
               </div>
               <div className="relative z-10 mt-8 space-y-1.5 text-center">
                 <h2 className="text-lg font-medium text-foreground">
-                  Lightning-Fast Results
+                  Lightning-Fast Magic, Unleashed Instantly
                 </h2>
                 <p className="text-muted-foreground">
-                  Lightning-Fast Magic, Unleashed Instantly<br></br>
 In the blink of an eye, DreamBez brings your AI-generated headshots to life—speed meets precision, without compromise.
                 </p>
               </div>
