@@ -1,7 +1,7 @@
 import { siteConfig } from "@/config/site";
 import { getCurrentUser } from "@/lib/session";
 import { constructMetadata } from "@/lib/utils";
-import { PricingCards } from "@/components/pricing/pricing-cards-2";
+import { PricingCards2 } from "@/components/pricing/pricing-cards-2";
 import { PricingFaq } from "@/components/pricing/pricing-faq";
 import { pricingData } from "@/config/credits-plan";
 import { ComparisonTable } from "@/components/pricing/comparison-table";
