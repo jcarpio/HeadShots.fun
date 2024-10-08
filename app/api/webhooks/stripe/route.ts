@@ -31,14 +31,7 @@ export async function POST(req: Request) {
 
         const userId = session.metadata?.userId; // Internal user ID, if available
 
-        // Ensure that we have both the userId and stripeCustomerId
-        if (userId && stripeCustomerId) {
-          // Update or store the stripeCustomerId in the User table
-          await prisma.user.update({
-            where: { id: userId }, // Use internal user ID to update the user
-            data: { stripeCustomerId }, // Store the Stripe customer ID
-          });
-        } else if (customerEmail && stripeCustomerId) {
+        if (customerEmail && stripeCustomerId) {
           // If userId is missing, use the customer email to update the stripeCustomerId
           await prisma.user.update({
             where: { email: customerEmail }, // Use email to find the user
