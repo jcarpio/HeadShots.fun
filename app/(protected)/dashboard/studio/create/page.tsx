@@ -69,7 +69,8 @@ export default function CreateStudioPage() {
       return newImages;
     });
   };
-    const handleSubmit = async (e: React.FormEvent) => {
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (isLoading) return; // Prevent submission if already loading
     
@@ -181,7 +182,79 @@ export default function CreateStudioPage() {
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-8">
-                {/* Rest of the form fields for studio creation */}
+                {/* Form field for studio name */}
+                <div className="space-y-2">
+                  <Label htmlFor="name" className="text-base font-semibold">Studio Name</Label>
+                  <Input 
+                    id="name" 
+                    value={name} 
+                    onChange={(e) => setName(e.target.value)} 
+                    required 
+                    placeholder="Your studio name" 
+                    className="p-2 text-sm"
+                  />
+                  <p className="text-sm text-muted-foreground">This is the name that will be displayed for your studio.</p>
+                </div>
+
+                {/* Form field for studio type */}
+                <div className="space-y-2">
+                  <Label htmlFor="type" className="text-base font-semibold">Studio Type</Label>
+                  <Select value={type} onValueChange={setType} required>
+                    <SelectTrigger className="w-full p-2">
+                      <SelectValue placeholder="Select studio type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="male">Male</SelectItem>
+                      <SelectItem value="female">Female</SelectItem>
+                      <SelectItem value="kid">Kid</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <p className="text-sm text-muted-foreground">Select the type of studio you want to create.</p>
+                </div>
+
+                {/* Image upload section */}
+                <div className="space-y-2">
+                  <Label className="text-base font-semibold">Upload Sample Photos</Label>
+                  <p className="text-sm text-muted-foreground">Please upload 15-20 clear, front-facing photos that meet the sample photo requirements.</p>
+                  <div {...getRootProps()} className={`mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pb-6 pt-5 ${isDragActive ? 'border-gray-500' : ''}`}>
+                                       <div className="space-y-1 text-center">
+                      <span className="flex items-center justify-center p-1">
+                        <Icons.imageuplus className='size-10 text-gray-400' />
+                      </span>
+                      <div className="flex text-sm text-gray-600">
+                        <label htmlFor="file-upload" className="relative cursor-pointer rounded-md bg-white font-medium focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2">
+                          <span>Upload a file</span>
+                          <input {...getInputProps()} id="file-upload" name="file-upload" type="file" className="sr-only" />
+                        </label>
+                        <p className="pl-1">or drag and drop</p>
+                      </div>
+                      <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Display uploaded images with remove option */}
+                <div className="grid grid-cols-5 gap-6">
+                  {images.map((image, index) => (
+                    <div key={index} className="group relative">
+                      <div className="aspect-square overflow-hidden rounded-lg">
+                        <img 
+                          src={image.preview} 
+                          alt={`preview ${index}`} 
+                          className="size-full object-cover"
+                        />
+                      </div>
+                      <button 
+                        type="button" 
+                        onClick={() => removeImage(index)} 
+                        className="absolute right-1 top-1 rounded-full bg-destructive p-1 text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+                      >
+                        <X size={16} />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+
                 <Button type="submit" disabled={isLoading}>
                   {isLoading ? (
                     <>
@@ -193,6 +266,42 @@ export default function CreateStudioPage() {
                   )}
                 </Button>
               </form>
+            </CardContent>
+          </Card>
+          <Card className="lg:col-span-2">
+            <CardHeader>
+              <CardTitle>Sample Photo Requirements</CardTitle>
+              <CardDescription>Make sure your sample photos meet these standards:</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {[
+                  { requirement: 'Front & Clear', image: 'https://s.headshots.fun/create-studio/front-clear-photo.jpg', type: 'positive' },
+                  { requirement: 'Multiple People', image: 'https://s.headshots.fun/create-studio/no-multiple-people.jpg', type: 'negative' },
+                  { requirement: 'Side Shots', image: 'https://s.headshots.fun/create-studio/avoid-side-shots.jpg', type: 'negative' },
+                  { requirement: 'Blurry Photos', image: 'https://s.headshots.fun/create-studio/no-blurry-photos.jpg', type: 'negative' },
+                  { requirement: 'Obstructing', image: 'https://s.headshots.fun/create-studio/no-objects-obstructing.jpg', type: 'negative' }
+                ].map(({ requirement, image, type }, index) => (
+                  <Tooltip key={index}>
+                    <TooltipTrigger asChild>
+                      <div className="flex items-center space-x-2">
+                        <div className="size-16 overflow-hidden rounded-sm bg-muted">
+                          <img src={image} alt={requirement} className="size-full object-cover" />
+                        </div>
+                        <span className={`text-md pl-1 ${type === 'positive' ? 'text-green-600' : 'text-destructive'}`}>
+                          {type === 'positive' ? '✓' : '✗'}
+                        </span>
+                        <span className="font-mono text-sm">
+                          {' '}{requirement}
+                        </span>
+                      </div>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Detailed explanation for {requirement}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                ))}
+              </div>
             </CardContent>
           </Card>
         </div>
