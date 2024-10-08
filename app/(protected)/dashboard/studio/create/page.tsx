@@ -16,7 +16,7 @@ import Link from 'next/link';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { resizeImage } from '@/lib/imageUtils';
 
-const CREDITS_PER_STUDIO = 25; // Global constant for studio credit cost
+const CREDITS_PER_STUDIO = parseInt(process.env.NEXT_PUBLIC_CREDITS_PER_STUDIO || "25"); // Take credits from environment variable
 
 export default function CreateStudioPage() {
   const router = useRouter();
@@ -61,7 +61,7 @@ export default function CreateStudioPage() {
     setImages(prev => prev.filter((_, i) => i !== index));
   };
 
-  const moveImage = (index: number, direction: 'up' or 'down') => {
+  const moveImage = (index: number, direction: 'up' | 'down') => {
     setImages(prev => {
       const newImages = [...prev];
       const [removed] = newImages.splice(index, 1);
@@ -93,7 +93,7 @@ export default function CreateStudioPage() {
 
     // Check if the user has enough credits
     if (userCredits < CREDITS_PER_STUDIO) {
-      toast.error("You don't have enough credits. Please buy more credits to create a new studio.");
+      toast.error(`You don't have enough credits. You need at least ${CREDITS_PER_STUDIO} credits to create a new studio. Please buy more credits.`);
       return;
     }
 
@@ -126,7 +126,7 @@ export default function CreateStudioPage() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ userId: user.id, credits: CREDITS_PER_STUDIO }), // Deduct 25 credits
+        body: JSON.stringify({ userId: user.id, credits: CREDITS_PER_STUDIO, type: 'USAGE' }), // Deduct 25 credits
       });
 
       const response = await fetch('/api/studio/create', {
@@ -152,7 +152,7 @@ export default function CreateStudioPage() {
       }
 
       const studio = await response.json();
-      toast.success("Studio created successfully!");
+      toast.success(`Studio created successfully! ${CREDITS_PER_STUDIO} credits have been deducted.`);
       router.push(`/dashboard/studio/${studio.id}`);
     } catch (error) {
       toast.error(`Failed to create studio. Please try again. ${error}`);
@@ -223,7 +223,7 @@ export default function CreateStudioPage() {
                       </span>
                       <div className="flex text-sm text-gray-600">
                         <label htmlFor="file-upload" className="relative cursor-pointer rounded-md bg-white font-medium focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2">
-                                                    <span>Upload a file</span>
+                          <span>Upload a file</span>
                           <input {...getInputProps()} id="file-upload" name="file-upload" type="file" className="sr-only" />
                         </label>
                         <p className="pl-1">or drag and drop</p>
