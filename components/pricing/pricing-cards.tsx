@@ -94,7 +94,7 @@ function PricingCard({ plan, index, handlePurchase, isLoading }) {
         <Badge variant="outline" className="mb-2 self-center">
           {plan.quantity} Credits
         </Badge>
-        <div className="flex text-left text-3xl font-semibold leading-6">
+        <div className={`flex text-3xl font-semibold leading-6 ${!plan.regularPrice ? 'justify-center' : ''}`}>
           {plan.regularPrice && plan.regularPrice > plan.price ? (
             <>
               <span className="mr-2 text-muted-foreground/80 line-through">
@@ -121,13 +121,13 @@ function PricingCard({ plan, index, handlePurchase, isLoading }) {
         </ul>
       </CardContent>
       <CardFooter>
-          <Button
-            className={`w-full rounded-full ${index === 1 ? "bg-purple-400 text-white hover:bg-purple-500" : "text-purple-500 hover:text-purple-600 hover:border-purple-500"}`} // Modificamos hover para evitar el negro
-            onClick={() => handlePurchase(plan, index)}
-            variant={index === 1 ? "default" : "outline"}
-            disabled={isLoading}
-          >
-            {isLoading ? "Processing..." : "Purchase"}
+        <Button
+          className={`w-full rounded-full ${index === 1 ? "bg-purple-400 text-white hover:bg-purple-500" : "text-purple-500 hover:text-purple-600 hover:border-purple-500"}`} // Modificamos hover para evitar el negro
+          onClick={() => handlePurchase(plan, index)}
+          variant={index === 1 ? "default" : "outline"}
+          disabled={isLoading}
+        >
+          {isLoading ? "Processing..." : "Purchase"}
         </Button>
       </CardFooter>
     </Card>
