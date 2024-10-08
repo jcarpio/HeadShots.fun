@@ -18,16 +18,44 @@ export async function POST(req: Request) {
       case "checkout.session.completed": {
         const session = event.data.object as Stripe.Checkout.Session;
 
-        const stripeCustomerId = session.customer as string; // This is the stripeCustomerId you need
-        const userId = session.metadata?.userId; // This is your internal user ID
-
-       // Get the Stripe customer ID from the session
-        if (!session.metadata || !session.metadata.userId) {
-          console.error("UserId not found in metadata");
-        } else {
-          const userId = session.metadata.userId;
-          console.log("UserId found:", userId);
-        }
+                   // Get the Stripe customer ID from the session
+            let stripeCustomerId: string | undefined;
+            
+            // Check if session.customer is a string (which would be the customer ID directly)
+            if (typeof session.customer === 'string') {
+              stripeCustomerId = session.customer; // If it's a string, use it directly
+            } else if (session.customer && 'id' in session.customer) {
+              // Otherwise, if it's an object, get the ID from the object
+              stripeCustomerId = session.customer.id;
+            }
+            
+            // Retrieve email from the session or customer object
+            let customerEmail = session.customer_email || (session.customer && 'email' in session.customer ? session.customer.email : undefined);
+            
+            // If the session doesn't provide the customer email or stripeCustomerId, fetch the full customer details from Stripe
+            if (!customerEmail || !stripeCustomerId) {
+              try {
+                const customer = await stripe.customers.retrieve(stripeCustomerId!); // Retrieve full customer object from Stripe
+            
+                // Check if the customer object has the email and ID, and it's not deleted
+                if ('email' in customer && customer.email) {
+                  customerEmail = customer.email;
+                }
+                
+                // If stripeCustomerId was not provided in the session, get it from the full customer object
+                if ('id' in customer && customer.id) {
+                  stripeCustomerId = customer.id;
+                } else {
+                  console.error('Customer does not have a valid ID or is deleted');
+                  throw new Error('Customer does not have a valid ID');
+                }
+              } catch (error) {
+                console.error(`Error retrieving customer details for ID ${stripeCustomerId}:`, error);
+                throw new Error('Failed to retrieve customer details');
+              }
+            }
+            
+            // At this point, you should have both stripeCustomerId and customerEmail to proceed
         
         // Ensure both userId and stripeCustomerId exist
         if (userId && stripeCustomerId) {
