@@ -16,7 +16,7 @@ import Link from 'next/link';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { resizeImage } from '@/lib/imageUtils';
 
-const CREDITS_PER_STUDIO = parseInt(process.env.NEXT_PUBLIC_CREDITS_PER_STUDIO || "25"); // Take credits from environment variable
+const CREDITS_PER_STUDIO = parseInt(process.env.NEXT_PUBLIC_CREDITS_PER_STUDIO || "25"); // Global constant for studio credit cost
 
 export default function CreateStudioPage() {
   const router = useRouter();
@@ -93,7 +93,7 @@ export default function CreateStudioPage() {
 
     // Check if the user has enough credits
     if (userCredits < CREDITS_PER_STUDIO) {
-      toast.error(`You don't have enough credits. You need at least ${CREDITS_PER_STUDIO} credits to create a new studio. Please buy more credits.`);
+      toast.error(`You don't have enough credits. You need ${CREDITS_PER_STUDIO} credits to create a new studio.`);
       return;
     }
 
@@ -120,15 +120,7 @@ export default function CreateStudioPage() {
       // Fetch user data (assumed to be from session or API)
       const user = await (await fetch('/api/user')).json(); 
 
-      // Deduct credits after successful studio creation
-      await fetch('/api/user/deduct-credits', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ userId: user.id, credits: CREDITS_PER_STUDIO, type: 'USAGE' }), // Deduct 25 credits
-      });
-
+      // Create the studio
       const response = await fetch('/api/studio/create', {
         method: 'POST',
         headers: {
@@ -152,6 +144,20 @@ export default function CreateStudioPage() {
       }
 
       const studio = await response.json();
+      
+      // Deduct credits and create a transaction record
+      await fetch('/api/user/deduct-credits', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId: user.id, 
+          amount: CREDITS_PER_STUDIO, 
+          type: 'USAGE'  // Type of transaction
+        }),
+      });
+
       toast.success(`Studio created successfully! ${CREDITS_PER_STUDIO} credits have been deducted.`);
       router.push(`/dashboard/studio/${studio.id}`);
     } catch (error) {
@@ -216,6 +222,7 @@ export default function CreateStudioPage() {
                 <div className="space-y-2">
                   <Label className="text-base font-semibold">Upload Sample Photos</Label>
                   <p className="text-sm text-muted-foreground">Please upload 15-20 clear, front-facing photos that meet the sample photo requirements.</p>
+                  
                   <div {...getRootProps()} className={`mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pb-6 pt-5 ${isDragActive ? 'border-gray-500' : ''}`}>
                     <div className="space-y-1 text-center">
                       <span className="flex items-center justify-center p-1">
