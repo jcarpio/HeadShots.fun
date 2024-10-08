@@ -18,12 +18,12 @@ export async function POST(req: Request) {
       case "checkout.session.completed": {
         const session = event.data.object as Stripe.Checkout.Session;
 
-        // Get the Stripe customer ID and customer email from the session
+        // Get the Stripe customer ID and customer email from billing_details
         const stripeCustomerId = session.customer as string; // Stripe customer ID
-        const customerEmail = session.customer_email || session.customer_details?.email; // Customer email
+        const customerEmail = session.customer_details?.email; // Extract email from billing_details
 
         if (!customerEmail) {
-          throw new Error("Customer email not found in Stripe session.");
+          throw new Error("Customer email not found in billing_details.");
         }
 
         // Find the user in your database by email if userId is missing
