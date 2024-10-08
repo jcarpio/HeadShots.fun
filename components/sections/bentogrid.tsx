@@ -93,9 +93,7 @@ export default function BentoGrid() {
                   Secure by default
                 </h2>
                 <p className="text-muted-foreground">
-                  Provident fugit and vero voluptate. magnam magni doloribus
-                  dolores voluptates a sapiente nisi.
-                </p>
+                  Your data is protected with top-notch security, giving you peace of mind. </p>
               </div>
             </div>
           </div>
@@ -190,9 +188,7 @@ export default function BentoGrid() {
                   Faster than light
                 </h2>
                 <p className="text-muted-foreground">
-                  Provident fugit vero voluptate. magnam magni doloribus dolores
-                  voluptates inventore nisi.
-                </p>
+                Get AI-generated headshots in 10 seconds.</p>
               </div>
             </div>
           </div>
