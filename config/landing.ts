@@ -32,21 +32,21 @@ export const features: FeatureLdg[] = [
     description:
       "At DreamBez, we harness advanced AI technology to help you visualize and realize your dreams, turning aspirations into stunning visuals.",
     link: "/",
-    icon: "settings", // Cambiado a un icono válido
+    icon: "settings", 
   },
   {
     title: "Seamless Illusions",
     description:
       "Create hyper-realistic images effortlessly, using our state-of-the-art tools that simplify the entire creative process.",
     link: "/",
-    icon: "magic", // Cambiado a un icono válido
+    icon: "magic", 
   },
   {
     title: "Personalized Journeys",
     description:
       "Every creation is a reflection of you. Customize each image to embody your unique vision and emotional journey.",
     link: "/",
-    icon: "pencil", // Cambiado a un icono válido
+    icon: "pencil", 
   },
   {
     title: "Share Your Vision",
