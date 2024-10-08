@@ -28,8 +28,8 @@ export default function BentoGrid() {
                 </span>
               </div>
               <h2 className="mt-6 text-center font-heading text-2xl md:text-3xl lg:text-4xl">
-                Customizable Prompts
-              </h2>
+Infinite Creativity, Perfectly Tailored </h2>
+At DreamBez, every prompt is a gateway to your unique vision. Customization without limits, where your ideas come to life exactly how you imagined. 
             </div>
           </div>
 
@@ -94,7 +94,8 @@ export default function BentoGrid() {
                   Secure by Design
                 </h2>
                 <p className="text-muted-foreground">
-                  Your data is protected with top-notch security, giving you peace of mind.
+                  Impenetrable Security, Total Freedom
+With DreamBez, your creations are safeguarded by the most advanced security, letting you explore, play, and create with absolute peace of mind.
                 </p>
               </div>
             </div>
@@ -162,7 +163,8 @@ export default function BentoGrid() {
                   Lightning-Fast Results
                 </h2>
                 <p className="text-muted-foreground">
-                  Get AI-generated headshots in 10 seconds.
+                  Lightning-Fast Magic, Unleashed Instantly<br></br>
+In the blink of an eye, DreamBez brings your AI-generated headshots to life—speed meets precision, without compromise.
                 </p>
               </div>
             </div>
@@ -193,7 +195,8 @@ export default function BentoGrid() {
                     Professional Quality
                   </h2>
                   <p className="text-muted-foreground">
-                    AI-generated headshots.fun that rival professional photography, perfect for any occasion and purpose.
+                    Studio-Grade Results, Effortlessly Yours<br></br>
+DreamBez delivers headshots that rival professional photography, blending cutting-edge AI with your personal style for perfection in every shot.
                   </p>
                 </div>
               </div>
@@ -277,8 +280,10 @@ export default function BentoGrid() {
                     Effortlessly Fun
                   </h2>
                   <p className="text-muted-foreground">
-                    Enjoy a seamless and enjoyable process, from capturing to receiving your headshots. It’s as fun as it is professional.
-                  </p>
+                   Seamless, Joyful, Professional<br></br>
+DreamBez transforms creation into an enjoyable journey. From start to finish, the process is intuitive, fun, and as professional as it gets.
+
+  </p>
                 </div>
               </div>
               <div className="relative mt-6 before:absolute before:inset-0 before:mx-auto before:w-px before:bg-purple-500/50 sm:-my-8 sm:-mr-8">
