@@ -10,7 +10,6 @@ import { toast } from "sonner";
 interface PricingCardsProps {
   pricingData: Array<{
     price: number;
-    regularPrice?: number;
     description: string;
     features: string[];
     quantity: number;
@@ -94,18 +93,7 @@ function PricingCard({ plan, index, handlePurchase, isLoading }) {
         <Badge variant="outline" className="mb-2 self-center">
           {plan.quantity} Credits
         </Badge>
-        <div className={`flex text-3xl font-semibold leading-6 ${!plan.regularPrice ? 'justify-center' : ''}`}>
-          {plan.regularPrice && plan.regularPrice > plan.price ? (
-            <>
-              <span className="mr-2 text-muted-foreground/80 line-through">
-                ${plan.regularPrice}
-              </span>
-              <span className="gradient-text">${plan.price}</span>
-            </>
-          ) : (
-            <span className="gradient-text">${plan.price}</span>
-          )}
-        </div>
+        <CardTitle className="text-3xl font-bold text-purple-500">${plan.price}</CardTitle>
         <p className="text-sm text-muted-foreground">{plan.description}</p>
       </CardHeader>
       <CardContent>
@@ -121,13 +109,13 @@ function PricingCard({ plan, index, handlePurchase, isLoading }) {
         </ul>
       </CardContent>
       <CardFooter>
-        <Button
-          className={`w-full rounded-full ${index === 1 ? "bg-black text-white hover:bg-gray-700" : "text-black border-black hover:bg-gray-200 hover:text-black"}`} // Estilo cambiado a negro y gris en el hover
-          onClick={() => handlePurchase(plan, index)}
-          variant={index === 1 ? "default" : "outline"}
-          disabled={isLoading}
-        >
-          {isLoading ? "Processing..." : "Purchase"}
+          <Button
+            className={`w-full rounded-full bg-black text-white hover:bg-gray-800 ${index === 1 ? "text-white" : "text-gray-400 hover:text-white"}`} // Cambios para modo black
+            onClick={() => handlePurchase(plan, index)}
+            variant={index === 1 ? "default" : "outline"}
+            disabled={isLoading}
+          >
+            {isLoading ? "Processing..." : "Purchase"}
         </Button>
       </CardFooter>
     </Card>
