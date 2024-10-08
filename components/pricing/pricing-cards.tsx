@@ -122,7 +122,7 @@ function PricingCard({ plan, index, handlePurchase, isLoading }) {
       </CardContent>
       <CardFooter>
         <Button
-          className={`w-full rounded-full ${index === 1 ? "bg-purple-400 text-white hover:bg-purple-500" : "text-purple-500 hover:text-purple-600 hover:border-purple-500"}`} // Modificamos hover para evitar el negro
+          className={`w-full rounded-full ${index === 1 ? "bg-black text-white hover:bg-gray-700" : "text-black border-black hover:bg-gray-200 hover:text-black"}`} // Estilo cambiado a negro y gris en el hover
           onClick={() => handlePurchase(plan, index)}
           variant={index === 1 ? "default" : "outline"}
           disabled={isLoading}
