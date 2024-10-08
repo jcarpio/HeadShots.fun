@@ -1,6 +1,6 @@
 export const BLOG_CATEGORIES: {
   title: string;
-  slug: "news" | "education" | "motivation" | "stories";
+  slug: "news" | "education";
   description: string;
 }[] = [
   {
