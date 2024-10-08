@@ -16,12 +16,15 @@ import Link from 'next/link';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { resizeImage } from '@/lib/imageUtils';
 
+const CREDITS_PER_STUDIO = parseInt(process.env.NEXT_PUBLIC_CREDITS_PER_STUDIO || '25', 10); // Global variable for studio cost
+
 export default function CreateStudioPage() {
   const router = useRouter();
   const [name, setName] = useState('');
   const [type, setType] = useState('');
   const [images, setImages] = useState<Array<{ file: File; preview: string }>>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [userCredits, setUserCredits] = useState(0); // To store user credits
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     const newImages = acceptedFiles.map(file => ({
@@ -50,10 +53,32 @@ export default function CreateStudioPage() {
     });
   };
 
+  // Fetch user credits before creating the studio
+  const fetchUserCredits = async () => {
+    try {
+      const res = await fetch('/api/user/credits'); // Assuming you have an API to fetch user credits
+      const data = await res.json();
+      setUserCredits(data.credits);
+    } catch (error) {
+      console.error('Error fetching user credits:', error);
+    }
+  };
+
+  // Call fetchUserCredits when the component mounts
+  useState(() => {
+    fetchUserCredits();
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (isLoading) return; // Prevent submission if already loading
-    
+
+    // Check if the user has enough credits
+    if (userCredits < CREDITS_PER_STUDIO) {
+      toast.error(`You need at least ${CREDITS_PER_STUDIO} credits to create a new studio. Please purchase more credits.`);
+      return;
+    }
+
     if (!name.trim()) {
       toast.error("Please enter a studio name.");
       return;
@@ -70,7 +95,7 @@ export default function CreateStudioPage() {
       toast.error("You can upload a maximum of 20 images.");
       return;
     }
-    
+
     setIsLoading(true);
     try {
       const uploadedImages = await Promise.all(images.map(async (img) => {
@@ -91,14 +116,14 @@ export default function CreateStudioPage() {
         return url;
       }));
 
-
       let modelUser = "joselapasion";
       let modelVersion = "613a21a57e8545532d2f4016a7c3cfa3c7c63fded03001c2e69183d557a929db";
       let hf_lora = "enkire/replicate-joselapasion-lora-face";
       let defaultHairStyle = "short";
       let defaultUserHeight = "168";
       let extraInfo = "x"; // create for future needs
-      
+
+      // Create the studio after image upload
       const response = await fetch('/api/studio/create', {
         method: 'POST',
         headers: {
@@ -121,9 +146,17 @@ export default function CreateStudioPage() {
         throw new Error('Failed to create studio');
       }
 
+      // Deduct credits after successful studio creation
+      await fetch('/api/user/deduct-credits', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userId: router.query.userId, credits: CREDITS_PER_STUDIO }), // Deduct 25 credits
+      });
+
       const studio = await response.json();
       toast.success("Studio created successfully!");
-      // Add redirection logic here if needed
       router.push(`/dashboard/studio/${studio.id}`);
     } catch (error) {
       toast.error(`Failed to create studio. Please try again. ${error}`);
@@ -149,7 +182,6 @@ export default function CreateStudioPage() {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
           <Card className="lg:col-span-5">
             <CardHeader>
-              {/* <CardTitle>Studio Details</CardTitle> */}
               <CardDescription>Enter the basic information for your studio</CardDescription>
             </CardHeader>
             <CardContent>
@@ -178,6 +210,7 @@ export default function CreateStudioPage() {
                       <SelectItem value="kid">Kid</SelectItem>
                     </SelectContent>
                   </Select>
+                
                   <p className="text-sm text-muted-foreground">Select the type of studio you want to create.</p>
                 </div>
                 <div className="space-y-2">
