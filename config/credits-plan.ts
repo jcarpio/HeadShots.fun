@@ -4,7 +4,7 @@ export const pricingData = [
 
   {
     title: "Photos PLUS",
-    price: 9.99,
+    price: 9.98,
     regularPrice: 10.50,
     priceId: process.env.NEXT_PUBLIC_STRIPE_PLUS_CREDITS_PRICE_ID ?? "", 
     description: "",
@@ -13,7 +13,7 @@ export const pricingData = [
   },
   {
     title: "Starter Pack",
-    price: 29.99,
+    price: 29.7,
     regularPrice: 33.00, 
     priceId: process.env.NEXT_PUBLIC_STRIPE_STARTER_CREDITS_PRICE_ID ?? "", 
     description: "",
@@ -22,7 +22,7 @@ export const pricingData = [
   },
   {
     title: "Pro Pack",
-    price: 69.99,
+    price: 69.6,
     regularPrice: 87,
     priceId: process.env.NEXT_PUBLIC_STRIPE_PRO_CREDITS_PRICE_ID ?? "", 
     description: "",
