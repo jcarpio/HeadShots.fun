@@ -10,7 +10,7 @@ import { toast } from "sonner";
 interface PricingCardsProps {
   pricingData: Array<{
     price: number;
-    regularPrice: number; // Para el precio tachado
+    regularPrice?: number;
     description: string;
     features: string[];
     quantity: number;
@@ -94,10 +94,18 @@ function PricingCard({ plan, index, handlePurchase, isLoading }) {
         <Badge variant="outline" className="mb-2 self-center">
           {plan.quantity} Credits
         </Badge>
-        <CardTitle className="text-3xl font-bold text-purple-500">
-          <span className="line-through text-muted-foreground mr-2">${plan.regularPrice}</span> {/* Precio tachado */}
-          <span>${plan.price}</span> {/* Precio con descuento */}
-        </CardTitle>
+        <div className="flex text-left text-3xl font-semibold leading-6">
+          {plan.regularPrice && plan.regularPrice > plan.price ? (
+            <>
+              <span className="mr-2 text-muted-foreground/80 line-through">
+                ${plan.regularPrice}
+              </span>
+              <span className="gradient-text">${plan.price}</span>
+            </>
+          ) : (
+            <span className="gradient-text">${plan.price}</span>
+          )}
+        </div>
         <p className="text-sm text-muted-foreground">{plan.description}</p>
       </CardHeader>
       <CardContent>
