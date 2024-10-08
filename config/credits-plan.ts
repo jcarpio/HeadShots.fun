@@ -15,7 +15,7 @@ export const pricingData = [
     price: 29.99,
     priceId: process.env.NEXT_PUBLIC_STRIPE_STARTER_CREDITS_PRICE_ID ?? "", 
     description: "",
-    features: ["10% Discount, 1 Hyper Realistic Model + 40 photos"],
+    features: ["10% Discount, 1 Hyper Realistic Model + 40 Hyper Realistic photos"],
     quantity: 65,
   },
   {
@@ -23,7 +23,7 @@ export const pricingData = [
     price: 69.99,
     priceId: process.env.NEXT_PUBLIC_STRIPE_PRO_CREDITS_PRICE_ID ?? "", 
     description: "",
-    features: ["20% Discount, 3 Hyper Realistic Models + 94 photos"],
+    features: ["20% Discount, 3 Hyper Realistic Models + 94 Hyper Realistic photos"],
     quantity: 169,
   },
 ];
