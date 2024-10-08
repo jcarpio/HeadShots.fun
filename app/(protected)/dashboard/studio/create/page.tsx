@@ -146,7 +146,7 @@ export default function CreateStudioPage() {
       const studio = await response.json();
       
       // Deduct credits and create a transaction record
-      await fetch('/api/user/deduct-credits', {
+      await fetch('/api/user/credits', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
