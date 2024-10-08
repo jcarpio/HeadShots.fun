@@ -18,7 +18,7 @@ export async function POST(req: Request) {
       case "checkout.session.completed": {
         const session = event.data.object as Stripe.Checkout.Session;
 
-                   // Get the Stripe customer ID from the session
+                    // Get the Stripe customer ID from the session
             let stripeCustomerId: string | undefined;
             
             // Check if session.customer is a string (which would be the customer ID directly)
@@ -30,7 +30,8 @@ export async function POST(req: Request) {
             }
             
             // Retrieve email from the session or customer object
-            let customerEmail = session.customer_email || (session.customer && 'email' in session.customer ? session.customer.email : undefined);
+            let customerEmail = session.customer_email || 
+              (typeof session.customer === 'object' && 'email' in session.customer ? session.customer.email : undefined);
             
             // If the session doesn't provide the customer email or stripeCustomerId, fetch the full customer details from Stripe
             if (!customerEmail || !stripeCustomerId) {
