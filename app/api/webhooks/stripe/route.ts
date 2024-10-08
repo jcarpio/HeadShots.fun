@@ -18,24 +18,34 @@ export async function POST(req: Request) {
       case "checkout.session.completed": {
         const session = event.data.object as Stripe.Checkout.Session;
 
-        const stripeCustomerId = session.customer as string; // This is the stripeCustomerId you need
-        const userId = session.metadata?.userId; // This is your internal user ID
+        // Extract the customer object from the session
+        const customer = session.customer as Stripe.Customer;
 
-       // Get the Stripe customer ID from the session
-        if (!session.metadata || !session.metadata.userId) {
-          console.error("UserId not found in metadata");
-        } else {
-          const userId = session.metadata.userId;
-          console.log("UserId found:", userId);
-        }
-        
-        // Ensure both userId and stripeCustomerId exist
+        // Get the Stripe customer ID and email from the customer object
+        const stripeCustomerId = customer.id; // Extract the customer ID
+        const customerEmail = customer.email; // Extract the customer email
+
+        // Log for debugging purposes
+        console.log("Stripe Customer ID:", stripeCustomerId);
+        console.log("Customer Email:", customerEmail);
+
+        const userId = session.metadata?.userId; // Internal user ID, if available
+
+        // Ensure that we have both the userId and stripeCustomerId
         if (userId && stripeCustomerId) {
           // Update or store the stripeCustomerId in the User table
           await prisma.user.update({
-            where: { id: userId }, // Update the user based on your internal userId
+            where: { id: userId }, // Use internal user ID to update the user
             data: { stripeCustomerId }, // Store the Stripe customer ID
           });
+        } else if (customerEmail && stripeCustomerId) {
+          // If userId is missing, use the customer email to update the stripeCustomerId
+          await prisma.user.update({
+            where: { email: customerEmail }, // Use email to find the user
+            data: { stripeCustomerId }, // Store the Stripe customer ID
+          });
+        } else {
+          console.error("User ID or Customer Email/Stripe Customer ID not found.");
         }
 
         // Check if the session mode is for a subscription or a one-time payment
