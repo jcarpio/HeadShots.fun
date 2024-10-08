@@ -13,16 +13,6 @@ export const BLOG_CATEGORIES: {
     slug: "education",
     description: "Educational content about DreamBez.com",
   },
-    {
-    title: "Motivation",
-    slug: "motivation",
-    description: "Motivational content",
-  },
-    {
-    title: "Stories",
-    slug: "stories",
-    description: "Stories about dreams",
-  },
 ];
 
 export const BLOG_AUTHORS = {
