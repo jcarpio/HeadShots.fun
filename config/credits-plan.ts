@@ -8,7 +8,7 @@ export const pricingData = [
     regularPrice: 9.99,
     priceId: process.env.NEXT_PUBLIC_STRIPE_PLUS_CREDITS_PRICE_ID ?? "", 
     description: "",
-    features: ["PLUS 20 Hyper Realistic photos"],
+    features: ["20 Hyper Realistic photos"],
     quantity: 20, // credits amount
   },
   {
