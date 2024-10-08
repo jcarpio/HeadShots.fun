@@ -6,8 +6,6 @@ import { toast } from "sonner";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
-import { useRef } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface PricingCardsProps {
   pricingData: Array<{
@@ -24,7 +22,6 @@ interface PricingCardsProps {
 export function PricingCards({ pricingData, userId, emailAddress }: PricingCardsProps) {
   const router = useRouter();
   const [loadingPlan, setLoadingPlan] = useState<number | null>(null);
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const handlePurchase = async (plan: typeof pricingData[0], index: number) => {
     if (!userId) {
@@ -43,7 +40,7 @@ export function PricingCards({ pricingData, userId, emailAddress }: PricingCards
           userId,
           emailAddress,
           priceId: plan.priceId,
-          amount: Math.round(plan.price * 100) / 100, // Make sure the amount has at most two decimal places
+          amount: Math.round(plan.price * 100) / 100, // Ensure at most two decimal places
           quantity: plan.quantity,
         }),
       });
@@ -58,7 +55,7 @@ export function PricingCards({ pricingData, userId, emailAddress }: PricingCards
         throw new Error("Invalid checkout URL");
       }
 
-      // Directly redirect the Stripe Checkout page
+      // Redirect to Stripe Checkout page
       window.location.href = checkoutUrl;
     } catch (error) {
       console.error("Error creating checkout session:", error);
@@ -68,55 +65,26 @@ export function PricingCards({ pricingData, userId, emailAddress }: PricingCards
     }
   };
 
-  const scroll = (direction: 'left' | 'right') => {
-    if (scrollContainerRef.current) {
-      const scrollAmount = 300; // Adjust this value as needed
-      scrollContainerRef.current.scrollBy({
-        left: direction === 'left' ? -scrollAmount : scrollAmount,
-        behavior: 'smooth'
-      });
-    }
-  };
-
   return (
-    <div className="relative flex w-full items-center">
-      <button 
-        onClick={() => scroll('left')} 
-        className="mr-2 shrink-0 rounded-full bg-white/80 p-2 shadow-md transition-colors duration-200 hover:bg-white focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-800/80 dark:hover:bg-gray-800"
-        aria-label="Scroll left"
-      >
-        <ChevronLeft className="size-6 text-gray-600 dark:text-gray-300" />
-      </button>
-      <div className="grow overflow-hidden">
-        <div 
-          ref={scrollContainerRef}
-          className="scrollbar-hide flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4"
-        >
-          {pricingData.map((plan, index) => (
-            <PricingCard 
-              key={index} 
-              plan={plan} 
-              index={index} 
-              handlePurchase={handlePurchase}
-              isLoading={loadingPlan === index}
-            />
-          ))}
-        </div>
+    <div className="flex justify-center w-full items-center">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+        {pricingData.map((plan, index) => (
+          <PricingCard 
+            key={index} 
+            plan={plan} 
+            index={index} 
+            handlePurchase={handlePurchase}
+            isLoading={loadingPlan === index}
+          />
+        ))}
       </div>
-      <button 
-        onClick={() => scroll('right')} 
-        className="ml-2 shrink-0 rounded-full bg-white/80 p-2 shadow-md transition-colors duration-200 hover:bg-white focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-800/80 dark:hover:bg-gray-800"
-        aria-label="Scroll right"
-      >
-        <ChevronRight className="size-6 text-gray-600 dark:text-gray-300" />
-      </button>
     </div>
   );
 }
 
 function PricingCard({ plan, index, handlePurchase, isLoading }) {
   return (
-    <Card className={`flex w-56 shrink-0 snap-center flex-col justify-between transition-all hover:shadow-lg ${index === 2 ? 'border-primary' : ''} relative ${index === 2 ? 'mt-4 overflow-visible' : 'mt-8'}`}>
+    <Card className={`flex w-64 flex-col justify-between transition-all hover:shadow-lg ${index === 2 ? 'border-primary' : ''} relative ${index === 2 ? 'mt-4 overflow-visible' : 'mt-8'}`}>
       {index === 2 && (
         <div className="absolute -top-3 left-1/2 z-10 flex -translate-x-1/2 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground shadow-md">
           <span className="hidden md:flex">Most&nbsp;</span>Popular
