@@ -93,4 +93,31 @@ function PricingCard({ plan, index, handlePurchase, isLoading }) {
         <Badge variant="outline" className="mb-2 self-center">
           {plan.quantity} Credits
         </Badge>
-        <CardTitle className="text-3xl font
+        <CardTitle className="text-3xl font-bold text-purple-500">${plan.price}</CardTitle>
+        <p className="text-sm text-muted-foreground">{plan.description}</p>
+      </CardHeader>
+      <CardContent>
+        <ul className="space-y-2">
+          {plan.features.map((feature, idx) => (
+            <li key={idx} className="flex items-center text-sm">
+              <svg className="mr-2 size-4 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
+              {feature}
+            </li>
+          ))}
+        </ul>
+      </CardContent>
+      <CardFooter>
+        <Button
+          className="w-full"
+          onClick={() => handlePurchase(plan, index)}
+          variant={index === 1 ? "default" : "outline"}
+          disabled={isLoading}
+        >
+          {isLoading ? "Processing..." : "Purchase"}
+        </Button>
+      </CardFooter>
+    </Card>
+  );
+}
