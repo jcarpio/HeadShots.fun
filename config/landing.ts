@@ -28,48 +28,49 @@ export const infos: InfoLdg[] = [
 
 export const features: FeatureLdg[] = [
   {
-    title: "Effortless Customization",
+    title: "Empowering Dreams",
     description:
-      "Tailor your AI-generated images to express your unique vision. Our intuitive tools allow for easy adjustments to every detail.",
+      "At DreamBez, we harness advanced AI technology to help you visualize and realize your dreams, turning aspirations into stunning visuals.",
     link: "/",
-    icon: "sliders",
+    icon: "star",
   },
   {
-    title: "Instant Results",
+    title: "Seamless Illusions",
     description:
-      "Create stunning images in seconds. With AI technology, you can achieve professional-quality visuals without the wait.",
+      "Create hyper-realistic images effortlessly, using our state-of-the-art tools that simplify the entire creative process.",
     link: "/",
-    icon: "zap",
+    icon: "magic",
   },
   {
-    title: "Seamless Integration",
+    title: "Personalized Journeys",
     description:
-      "Easily incorporate your images into personal or professional profiles, with formats optimized for any platform.",
+      "Every creation is a reflection of you. Customize each image to embody your unique vision and emotional journey.",
+    link: "/",
+    icon: "user",
+  },
+  {
+    title: "Share Your Vision",
+    description:
+      "Easily share your personalized images with loved ones, making it simple to gift these visualizations of dreams and aspirations.",
     link: "/",
     icon: "share2",
   },
   {
-    title: "Secure and Private",
+    title: "Privacy and Security",
     description:
-      "Your data is safe with us. We prioritize your privacy and ensure that your images are securely stored and shared.",
+      "Your creative journey is safe with us. We prioritize the security of your data and images, ensuring your privacy is always respected.",
     link: "/",
     icon: "shield",
   },
   {
-    title: "AI-Enhanced Creativity",
+    title: "Joyful Creation Experience",
     description:
-      "Leverage the power of AI to explore creative possibilities. Experiment with different styles and looks effortlessly.",
-    link: "/",
-    icon: "cpu",
-  },
-  {
-    title: "Fun and Engaging",
-    description:
-      "Enjoy a playful and interactive experience as you create images that are both enjoyable and professional.",
+      "Engage in a playful and fulfilling process as you create images that inspire and uplift, reflecting your true self and ambitions.",
     link: "/",
     icon: "smile",
   },
 ];
+
 
 export const testimonials: TestimonialType[] = [
   {
