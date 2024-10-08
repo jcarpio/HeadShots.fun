@@ -1,4 +1,4 @@
-mport { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
 import { handleSuccessfulSubscriptionPayment, handleSuccessfulPayment } from "@/lib/stripe";
 import { prisma } from "@/lib/db";
