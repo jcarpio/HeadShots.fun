@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react'; // Import useEffect
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -64,8 +64,8 @@ export default function CreateStudioPage() {
     }
   };
 
-  // Call fetchUserCredits when the component mounts
-  useState(() => {
+  // Use useEffect to fetch credits on component mount
+  useEffect(() => {
     fetchUserCredits();
   }, []);
 
@@ -210,7 +210,7 @@ export default function CreateStudioPage() {
                       <SelectItem value="kid">Kid</SelectItem>
                     </SelectContent>
                   </Select>
-                
+
                   <p className="text-sm text-muted-foreground">Select the type of studio you want to create.</p>
                 </div>
                 <div className="space-y-2">
