@@ -28,7 +28,6 @@ export default function BentoGrid() {
                 </span>
               </div>
               <h2 className="mt-6 text-center font-heading text-2xl md:text-3xl lg:text-4xl">
-                 <h2 className="text-lg font-medium text-foreground">
                     Customizable Prompts
                  </h2>
                 
