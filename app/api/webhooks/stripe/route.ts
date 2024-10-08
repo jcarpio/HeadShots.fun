@@ -18,11 +18,22 @@ export async function POST(req: Request) {
       case "checkout.session.completed": {
         const session = event.data.object as Stripe.Checkout.Session;
 
-        // Get the Stripe customer ID from the session
-        const stripeCustomerId = session.customer?.id as string; // This is the stripeCustomerId
-
-        // Retrieve email from the most reliable source (either from customer object or customer_email)
-        const customerEmail = session.customer?.email || session.customer_email;
+       // Get the Stripe customer ID from the session
+      const stripeCustomerId = session.customer as string; // session.customer is likely a string (customer ID)
+      
+      // Retrieve email from the session or customer object
+      let customerEmail = session.customer_email; // Use session.customer_email first
+      
+      // If the session doesn't provide the customer email, fetch the full customer details from Stripe
+      if (!customerEmail && stripeCustomerId) {
+        try {
+          const customer = await stripe.customers.retrieve(stripeCustomerId); // Retrieve full customer object from Stripe
+          customerEmail = customer.email; // Use the email from the full customer object
+        } catch (error) {
+          console.error(`Error retrieving customer details for ID ${stripeCustomerId}:`, error);
+          throw new Error('Failed to retrieve customer details');
+        }
+      }
 
         if (!customerEmail) {
           throw new Error("Customer email not found in session.");
