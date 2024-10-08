@@ -18,15 +18,17 @@ export async function POST(req: Request) {
       case "checkout.session.completed": {
         const session = event.data.object as Stripe.Checkout.Session;
 
-        // Get the Stripe customer ID and customer email from billing_details
-        const stripeCustomerId = session.customer as string; // Stripe customer ID
-        const customerEmail = session.customer_details?.email; // Extract email from billing_details
+        // Get the Stripe customer ID from the session
+        const stripeCustomerId = session.customer?.id as string; // This is the stripeCustomerId
+
+        // Retrieve email from the most reliable source (either from customer object or customer_email)
+        const customerEmail = session.customer?.email || session.customer_email;
 
         if (!customerEmail) {
-          throw new Error("Customer email not found in billing_details.");
+          throw new Error("Customer email not found in session.");
         }
 
-        // Find the user in your database by email if userId is missing
+        // Find the user in your database by email if the userId is missing
         const user = await prisma.user.findUnique({
           where: { email: customerEmail }, // Search by email
         });
@@ -37,6 +39,7 @@ export async function POST(req: Request) {
             where: { email: customerEmail },
             data: { stripeCustomerId },
           });
+          console.log(`Stripe customer ID updated for user: ${customerEmail}`);
         } else {
           console.warn(`User with email ${customerEmail} not found.`);
         }
@@ -44,9 +47,9 @@ export async function POST(req: Request) {
         // Handle subscription or one-time payment logic
         if (session.mode === "subscription") {
           const invoice = await stripe.invoices.retrieve(session.invoice as string);
-          await handleSuccessfulSubscriptionPayment(invoice);
+          await handleSuccessfulSubscriptionPayment(invoice); // Handle subscription payment
         } else if (session.mode === "payment") {
-          await handleSuccessfulPayment(session.id);
+          await handleSuccessfulPayment(session.id); // Handle one-time payment
         }
 
         break;
@@ -54,7 +57,7 @@ export async function POST(req: Request) {
 
       case "invoice.payment_succeeded": {
         const invoice = event.data.object as Stripe.Invoice;
-        await handleSuccessfulSubscriptionPayment(invoice);
+        await handleSuccessfulSubscriptionPayment(invoice); // Handle recurring payments for subscriptions
         break;
       }
 
