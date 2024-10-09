@@ -28,12 +28,10 @@ export default async function PricingPage() {
             />
           </div>
           <PricingCards userId={user?.id} emailAddress={user?.email ?? undefined} pricingData={pricingData} />
-          <div className="my-12 text-center">
-            <p className="text-sm text-muted-foreground">
-              Enjoy a 7-day risk-free trial on all plans. Full refund if no credits used.
-            </p>
-          </div>
-          <ComparisonTable pricingData={pricingData} />
+          <HeaderSection
+              title="If it doesn't excite you, we'll refund your money"
+              label="100% Guaranteed"
+         />
           <hr className="container" />
           <div className="mt-16 flex w-full flex-col items-center gap-2">
             <PricingFaq />
