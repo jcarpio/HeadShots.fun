@@ -47,7 +47,7 @@ export async function createCheckoutSession(
           key: 'id_number', // Clave personalizada para el campo
           label: {
             type: 'custom',
-            custom: 'ID Number (Business Only)',
+            custom: 'ID Number (Mandatory for companies)',
           },
           type: 'text',
         },
