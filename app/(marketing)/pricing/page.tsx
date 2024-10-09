@@ -21,11 +21,13 @@ export default async function PricingPage() {
       <MaxWidthWrapper>
         <section className="flex flex-col items-center">
           <div className="mx-auto mb-12 flex w-full flex-col items-center gap-5">
+            
             <HeaderSection
               label="Pricing"
               title="Simple, Transparent Pricing"
               subtitle="Choose the perfect plan for your needs. No hidden fees, no surprises."
             />
+            
           </div>
           <PricingCards userId={user?.id} emailAddress={user?.email ?? undefined} pricingData={pricingData} />
           <div className="my-12 text-center">
@@ -33,7 +35,10 @@ export default async function PricingPage() {
               Enjoy a 7-day risk-free trial on all plans. Full refund if no credits used.
             </p>
           </div>
-          <ComparisonTable pricingData={pricingData} />
+
+      <HeaderSection
+        title="If it doesn't excite you, we'll refund your money"  label=" 100% guaranteed"
+     />
           <hr className="container" />
           <div className="mt-16 flex w-full flex-col items-center gap-2">
             <PricingFaq />
