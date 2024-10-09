@@ -29,11 +29,10 @@ export default async function PricingPage() {
           </div>
           <PricingCards userId={user?.id} emailAddress={user?.email ?? undefined} pricingData={pricingData} />
           <HeaderSection
-              title="If it doesn't excite you"
+             label="100% Guaranteed"
+              title="Get excited or your money back"
          />
-              <HeaderSection
-              title="we'll refund your money"
-         />
+             
           <hr className="container" />
           <div className="mt-16 flex w-full flex-col items-center gap-2">
             <PricingFaq />
