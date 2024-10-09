@@ -44,7 +44,6 @@ export async function createCheckoutSession(
       invoice_data: {
           custom_fields: [
               {
-                key: 'id_number',
                 label: {
                   type: 'custom',
                   custom: 'ID Number (Business only)',
