@@ -10,7 +10,7 @@ import { toast } from "sonner";
 interface PricingCardsProps {
   pricingData: Array<{
     price: number;
-    regularPrice?: number;// Add optional 'regularPrice' to handle the strikethrough price
+    regularPrice?: number; // Add optional 'regularPrice' to handle the strikethrough price
     description: string;
     features: string[];
     quantity: number;
@@ -95,7 +95,7 @@ function PricingCard({ plan, index, handlePurchase, isLoading }) {
           {plan.quantity} Credits
         </Badge>
         <CardTitle className="text-3xl font-bold text-purple-500">
-          {/* We check if there is a regular price to show the crossed out price */}}
+          {/* We check if there is a regular price to show the crossed out price */}
           {plan.regularPrice ? (
             <>
               <span className="text-muted-foreground/80 line-through mr-2">
