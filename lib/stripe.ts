@@ -41,10 +41,17 @@ export async function createCheckoutSession(
     allow_promotion_codes: true,
     invoice_creation: {
       enabled: true,
-      invoice_data: {
-          custom_fields: {name: 'id_number', value: 'ID Number (Business Only)'},
-      }
     },
+    custom_fields: [
+        {
+          key: 'id_number', // Clave personalizada para el campo
+          label: {
+            type: 'custom',
+            custom: 'ID Number (Business Only)',
+          },
+          type: 'text',
+        },
+      ],
   });
 
   return session; // Return the full session object
